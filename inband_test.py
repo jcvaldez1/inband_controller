@@ -4,6 +4,8 @@ from mininet.net import Mininet
 from mininet.node import RemoteController, OVSSwitch
 from mininet.cli import CLI
 from mininet.log import setLogLevel, info
+from mininet.node import Controller, RemoteController, OVSKernelSwitch, UserSwitch
+from mininet.link import Link, TCLink
 
 def emptyNet():
 
@@ -14,20 +16,21 @@ def emptyNet():
 
     net.addController( 'c0',
                        controller=RemoteController,
-                       ip='10.0.0.1'  )
+                       ip='127.0.0.1'  )
 
     h1 = net.addHost( 'h1', ip='10.0.0.1' )
     h2 = net.addHost( 'h2', ip='10.0.0.2' )
-    h3 = net.addHost( 'h3', ip='10.0.0.3' )
 
     s1 = net.addSwitch( 's1', cls=OVSSwitch )
 
-    net.addLink( h1, s1 )
+    #net.addLink( h1, s1 )
     net.addLink( h2, s1 )
-    net.addLink( h3, s1 )
+    Link(h1, s1, intfName1='h1-eth0')
+    Link(h1, s1, intfName1='h1-eth1')
+    h1.cmd('ifconfig h1-eth1 10.0.10.1 netmask 255.255.255.0')
+
 
     net.start()
-    s1.cmd('ifconfig s1 inet 10.0.0.10')
 
     CLI( net )
     net.stop()
