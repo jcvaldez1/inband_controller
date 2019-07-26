@@ -67,7 +67,7 @@ class SimpleSwitch13(app_manager.RyuApp):
         inst = [parser.OFPInstructionActions(ofproto.OFPIT_APPLY_ACTIONS,
                                              actions)]
         hrd_tm = 10
-        if from_controller:
+        if (from_controller) or (priority == 20):
             mod = parser.OFPFlowMod(datapath=datapath, priority=priority,
                                     match=match, instructions=inst)
         else:
@@ -123,8 +123,8 @@ class SimpleSwitch13(app_manager.RyuApp):
             # SET MAC TO IP MAPPING BASED ON SWITCH
             self.ip_to_mac[dpid][ip.src] = src
             self.ip_to_mac[dpid][ip.dst] = dst
-            print("\n\n\n"+str(self.mac_to_port)+"\n\n\n")
-            print("\n\n\n"+str(self.ip_to_mac)+"\n\n\n")
+            #print("\n\n\n"+str(self.mac_to_port)+"\n\n\n")
+            #print("\n\n\n"+str(self.ip_to_mac)+"\n\n\n")
 
         if dst in self.mac_to_port[dpid]:
             out_port = self.mac_to_port[dpid][dst]
@@ -134,9 +134,9 @@ class SimpleSwitch13(app_manager.RyuApp):
         actions = [parser.OFPActionOutput(out_port)]
                   
         #if str(eth.src) == "98:0c:a5:79:9b:0d" or str(in_port) == '65':
-        if str(eth.src) == "98:0c:a5:79:9b:0d":
-            self.add_flow(datapath, 1, parser.OFPMatch(eth_src=src), [], msg.buffer_id)
-            #return
+        #if str(eth.src) == "98:0c:a5:79:9b:0d":
+        #    self.add_flow(datapath, 1, parser.OFPMatch(eth_src=src), [], msg.buffer_id)
+        #    #return
             
         # install a flow to avoid packet_in next time
         prio=1

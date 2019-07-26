@@ -94,7 +94,7 @@ class SimpleMonitor13(learning_switch.SimpleSwitch13):
                                    act_set(eth_dst=receiver_mac_add),
                                    #act_set(eth_dst=mac_add),
                                    #act_out(self.mac_to_port[dp.id][receiver_mac_add]) ]
-                                   act_out(1) ]
+                                   act_out(3) ]
                         match = parser.OFPMatch(eth_type=0x0800, ipv4_dst=real_ip)
                         super(SimpleMonitor13, self).add_flow(dp, 15, match, actions)
 
@@ -105,10 +105,8 @@ class SimpleMonitor13(learning_switch.SimpleSwitch13):
                             act_set(eth_src=switch_mac_add),
                             #act_out(self.mac_to_port[dp.id][sender_mac_add]) ]
                             act_out(4) ]
-                        match = parser.OFPMatch(eth_type=0x0800,
-                                                ipv4_src=fake_ip,
-                                                ipv4_dst="192.168.85.251")
-                        super(SimpleMonitor13, self).add_flow(dp, 25, match, actions)
+                        match = parser.OFPMatch(eth_type=0x0800, ipv4_src=fake_ip)
+                        super(SimpleMonitor13, self).add_flow(dp, 15, match, actions)
                 else:
                     # REMOVE SHITTY FLOWS
                     pass
