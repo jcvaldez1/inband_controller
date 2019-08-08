@@ -41,7 +41,7 @@ import subprocess
 import time
 import testboi
 import learning_switch
-sys.path.insert(0, '/home/thesis/net_elements/devstack_api')
+import re, uuid
 
 
 class SimpleMonitor13(learning_switch.SimpleSwitch13):
@@ -55,26 +55,30 @@ class SimpleMonitor13(learning_switch.SimpleSwitch13):
         self.datapaths = {}
 
         # TEMPORARY CONSTANTS
-        self.SELF_IP = "192.168.85.251"
-        self.INTERNET_PORT = 5
-        self.CLIENT_SWITCH_PORT = 4
-        self.HOSTNAME_IPS = {}
-        self.IP_STATUS = {}
         self.aliaser_thread = hub.spawn(self._aliaser_boi)
         #hub.spawn(self._monitor)
 
     def _aliaser_boi(self):
         hub.sleep(20)
         # datapath_id : (real, alias)
-        alias_test = { 1:("64.90.52.128","192.168.85.253") }
+        #self_ip = self.get_self_ip()
+        alias_ip = "192.168.85.253"
+        alias_test = { 1:("64.90.52.218",alias_ip) }
+        alias_test = { 1:((80,9000),("52.74.73.81",alias_ip)), 2:((80,8000),("13.55.147.2",alias_ip)) }
+        alias_test = { 1:((80,8080),("64.90.52.128",alias_ip))}
+        recv_ip = "192.168.85.250"
         while True:
-            print("\n\n\n"+str(self.mac_to_port)+"\n\n\n\n")
+            print("\n\n\n"+str(self.mac_to_port)+"\n"+str(self.ip_to_mac)+"\n\n\n\n")
             for key, val in alias_test.iteritems():
                 #print("\n\n\n" + str(key) + str(val))
                 #real_ip=self._validate_ip(val[0])
                 #fake_ip=self._validate_ip(val[1])
-                real_ip = val[0]
-                fake_ip = val[1]
+                port_val = val[0]
+                ip_val = val[1]
+                real_ip = ip_val[0]
+                fake_ip = ip_val[1]
+                real_port = port_val[0]
+                fake_port = port_val[1]
                 connection_health = self.live_connection(real_ip)
                 if (not connection_health):
                     for dp in self.datapaths.values():
@@ -82,47 +86,52 @@ class SimpleMonitor13(learning_switch.SimpleSwitch13):
                         parser = dp.ofproto_parser
                         act_set = parser.OFPActionSetField
                         act_out = parser.OFPActionOutput
+                        # DHserver mac
                         switch_mac_add = "9c:dc:71:f0:c7:c0"
+                        switch_mac_add = "6c:3b:6b:9d:c7:c7"
+                        # Wifi gateway mac
                         sender_mac_add = "a8:40:41:1b:21:52"
-                        sender_mac_add = "98:ee:cb:45:b8:9e"
-                        receiver_mac_add = "98:ee:cb:45:b9:08"
-                        receiver_mac_add = "a8:60:b6:10:c6:4d"
+                        # self mac
+                        receiver_mac_add = (':'.join(re.findall('..', '%012x' % uuid.getnode())))
+                        #receiver_mac_add = "50:3e:aa:59:60:e7"
+                        #receiver_mac_add = "a8:60:b6:10:be:a1"
                         # OUTGOING 
-                        #mac_add = self.ip_to_mac[dp.id][val[1]]
-                        keylol="75668639618566"
                         actions = [ act_set(ipv4_dst=fake_ip),
-                                   act_set(eth_dst=receiver_mac_add),
-                                   #act_set(eth_dst=mac_add),
+                                    act_set(ipv4_src=real_ip),
+                                    act_set(tcp_dst=fake_port),
+                                    act_set(eth_dst=receiver_mac_add),
                                    #act_out(self.mac_to_port[dp.id][receiver_mac_add]) ]
                                    act_out(1) ]
-                        match = parser.OFPMatch(eth_type=0x0800, ipv4_dst=real_ip)
+                        match = parser.OFPMatch(eth_type=0x0800,
+                                                ipv4_dst=real_ip,
+                                                ip_proto=6, #TCP,
+                                                ipv4_src=recv_ip)
                         super(SimpleMonitor13, self).add_flow(dp, 15, match, actions)
 
-                        # INGOING
-                        #mac_add = self.ip_to_mac[dp.id]["192.168.1.242"]
+                        # INCOMING  
                         actions = [
                             act_set(ipv4_src=real_ip),
+                            act_set(ipv4_dst=recv_ip),
+                            act_set(tcp_src=real_port),
                             act_set(eth_src=switch_mac_add),
+                            act_set(eth_dst=sender_mac_add),
                             #act_out(self.mac_to_port[dp.id][sender_mac_add]) ]
                             act_out(4) ]
                         match = parser.OFPMatch(eth_type=0x0800,
                                                 ipv4_src=fake_ip,
-                                                ipv4_dst="192.168.85.251")
+                                                ip_proto=6, #TCP,
+                                                ipv4_dst=real_ip)
                         super(SimpleMonitor13, self).add_flow(dp, 25, match, actions)
-                else:
-                    # REMOVE SHITTY FLOWS
-                    pass
-
-                    #print("\n\n\nEXEMPT CONTROLLER\n\n\n")
-                    #actions = [ parser.OFPActionOutput(constants.INTERNET_SWITCH_PORT) ]
-                    #match = parser.OFPMatch(eth_type=0x0800,ipv4_dst=real_ip,eth_src=constants.CONTROLLER_ETH)
-                    #super(SimpleMonitor13, self).add_flow(dp, 15, match, actions, None,True)
-
-                    #actions = [ parser.OFPActionOutput(constants.CONTROLLER_SWITCH_PORT) ]
-                    #match = parser.OFPMatch(eth_type=0x0800,ipv4_src=real_ip,eth_dst=constants.CONTROLLER_ETH)
-                    #super(SimpleMonitor13, self).add_flow(dp, 15, match, actions, None,True)
-
             hub.sleep(5)
+
+    def get_self_ip(self):
+        command = "./connection_tester.py"
+        proc = subprocess.Popen(command, stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,shell=True)
+        stringer = proc.communicate()[0][:-1]
+        exit_code = proc.wait()
+        return(stringer.split("\n")[0])
+
 
     def live_connection(self,hostname):
 
@@ -132,6 +141,8 @@ class SimpleMonitor13(learning_switch.SimpleSwitch13):
             elif string == "False":
                 return False
         url = hostname
+        url = "64.90.52.128"
+        url = "127.0.0.1:8000"
         command = "python ./connection_tester.py "+url
         print(command+"\n\n\n")
         proc = subprocess.Popen(command, stdout=subprocess.PIPE,

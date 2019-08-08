@@ -30,5 +30,14 @@ def live_connection(hostname):
     print("\n\n\nENDING POLLER"+ str(stringer)+ "\n\n\n")
     return bool_parse(stringer)
 
+def get_self_ip():
+    command = "./ip_getter.sh"
+    proc = subprocess.Popen(command, stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,shell=True)
+    stringer = proc.communicate()[0][:-1]
+    exit_code = proc.wait()
+    return(stringer)
+
 if __name__ == "__main__":
-    live_connection(sys.argv[1])
+    #live_connection(sys.argv[1])
+    print(get_self_ip().split("\n")[0])
