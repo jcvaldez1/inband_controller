@@ -40,11 +40,11 @@ import sys
 import subprocess
 import time
 import testboi
-import learning_switch
+import packet_in_test
 import re, uuid
 
 
-class SimpleMonitor13(learning_switch.SimpleSwitch13):
+class SimpleMonitor13(packet_in_test.SimpleSwitch13):
 
     def __init__(self, *args, **kwargs):
         #with open("./test.json" , "w") as outfile:
@@ -54,19 +54,19 @@ class SimpleMonitor13(learning_switch.SimpleSwitch13):
         super(SimpleMonitor13, self).__init__(*args, **kwargs)
         self.datapaths = {}
 
-        # TEMPORARY CONSTANTS
+        self.alias_ip = "192.168.85.253"
+        self.recv_ip = "192.168.85.252"
+        self.alias_test = { 1:((80,4000),("64.90.52.128",self.alias_ip)), 2:((80,5000),("52.230.1.186",self.alias_ip))}
+
         self.aliaser_thread = hub.spawn(self._aliaser_boi)
         #hub.spawn(self._monitor)
 
     def _aliaser_boi(self):
         hub.sleep(20)
         # datapath_id : (real, alias)
-        #self_ip = self.get_self_ip()
-        alias_ip = "192.168.85.253"
-        alias_test = { 1:((80,8080),("52.74.73.81",alias_ip)), 2:((80,80),("13.55.147.2",alias_ip)) }
-        alias_test = { 1:((80,42069),("52.74.73.81",alias_ip)),
-                      2:((80,5000),("13.55.147.2",alias_ip)),3:((42915,42917),("52.74.73.81",alias_ip)),
-                      4:((42915,42915),("52.230.1.186",alias_ip))}
+        while True:
+            print("\n\n\n"+str(self.mac_to_port)+"\n"+str(self.ip_to_mac)+"\n\n\n\n")
+            for key, val in self.alias_test.iteritems():
                 #print("\n\n\n" + str(key) + str(val))
                 #real_ip=self._validate_ip(val[0])
                 #fake_ip=self._validate_ip(val[1])
@@ -102,13 +102,13 @@ class SimpleMonitor13(learning_switch.SimpleSwitch13):
                         match = parser.OFPMatch(eth_type=0x0800,
                                                 ipv4_dst=real_ip,
                                                 ip_proto=6, #TCP,
-                                                ipv4_src=recv_ip)
+                                                ipv4_src=self.recv_ip)
                         super(SimpleMonitor13, self).add_flow(dp, 15, match, actions)
 
                         # INCOMING  
                         actions = [
                             act_set(ipv4_src=real_ip),
-                            act_set(ipv4_dst=recv_ip),
+                            act_set(ipv4_dst=self.recv_ip),
                             act_set(tcp_src=real_port),
                             act_set(eth_src=switch_mac_add),
                             act_set(eth_dst=sender_mac_add),
@@ -130,7 +130,7 @@ class SimpleMonitor13(learning_switch.SimpleSwitch13):
                 return False
         url = hostname
         url = "64.90.52.128"
-        #url = "127.0.0.1:8000"
+        url = "127.0.0.1:8000"
         command = "python ./connection_tester.py "+url
         print(command+"\n\n\n")
         proc = subprocess.Popen(command, stdout=subprocess.PIPE,
@@ -153,3 +153,77 @@ class SimpleMonitor13(learning_switch.SimpleSwitch13):
                 self.logger.debug('unregister datapath: %016x', datapath.id)
                 del self.datapaths[datapath.id]
 
+    @set_ev_cls(ofp_event.EventOFPPacketIn, MAIN_DISPATCHER)
+    def _packet_in_handler(self, ev):
+        # If you hit this you might want to increase
+        # the "miss_send_length" of your switch
+        if ev.msg.msg_len < ev.msg.total_len:
+            self.logger.debug("packet truncated: only %s of %s bytes",
+                              ev.msg.msg_len, ev.msg.total_len)
+        msg = ev.msg
+        datapath = msg.datapath
+        ofproto = datapath.ofproto
+        parser = datapath.ofproto_parser
+        in_port = msg.match['in_port']
+
+        pkt = packet.Packet(msg.data)
+        eth = pkt.get_protocols(ethernet.ethernet)[0]
+        ip = pkt.get_protocol(ipv4.ipv4)
+ 
+        if eth.ethertype == ether_types.ETH_TYPE_LLDP:
+            # ignore lldp packet
+            return
+        dst = eth.dst
+        src = eth.src
+
+        dpid = datapath.id
+        self.mac_to_port.setdefault(dpid, {})
+
+        self.logger.info("packet in %s %s %s %s", dpid, src, dst, in_port)
+
+        # learn a mac address to avoid FLOOD next time.
+        self.mac_to_port[dpid][src] = in_port
+
+        # LEARN MAC OF DPID,SRC COMBO
+        if ip:
+            self.ip_to_mac.setdefault(dpid, {})
+            #print("\n\n\n"+str(ip)+"\n\n\n")
+            # SET MAC TO IP MAPPING BASED ON SWITCH
+            self.ip_to_mac[dpid][ip.src] = src
+            self.ip_to_mac[dpid][ip.dst] = dst
+
+        if dst in self.mac_to_port[dpid]:
+            out_port = self.mac_to_port[dpid][dst]
+        else:
+            out_port = ofproto.OFPP_FLOOD
+
+        actions = [parser.OFPActionOutput(out_port)]
+
+        # install a flow to avoid packet_in next time
+        prio=1
+        #if (dst == constants.CONTROLLER_ETH) or (src == constants.CONTROLLER_ETH):
+        # CATCH THE CONTROLLER MAC MY DUDE
+        controller_eth = (':'.join(re.findall('..', '%012x' % uuid.getnode())))
+        if (dst == controller_eth) or (src == controller_eth):
+            prio = 20
+
+        # CATCH IF THE ETHERNET SOURCE IS THE SAMSUNG HUB
+        hub_eth = constants.HUB_ETH
+        if src == hub_eth:
+            
+        if out_port != ofproto.OFPP_FLOOD:
+            match = parser.OFPMatch(in_port=in_port, eth_dst=dst, eth_src=src)
+            # verify if we have a valid buffer_id, if yes avoid to send both
+            # flow_mod & packet_out
+            if msg.buffer_id != ofproto.OFP_NO_BUFFER:
+                self.add_flow(datapath, prio, match, actions, msg.buffer_id)
+                return
+            else:
+                self.add_flow(datapath, prio, match, actions)
+        data = None
+        if msg.buffer_id == ofproto.OFP_NO_BUFFER:
+            data = msg.data
+
+        out = parser.OFPPacketOut(datapath=datapath, buffer_id=msg.buffer_id,
+                                  in_port=in_port, actions=actions, data=data)
+        datapath.send_msg(out)
