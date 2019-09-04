@@ -13,35 +13,36 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# BASE RYU PACKAGE REQS
 from operator import attrgetter 
 #from ryu.app import meter_poller
 #import meter_poller
-import learning_switch
 import os
+import sys
+import subprocess
 from ryu.controller import ofp_event
 from ryu.controller.handler import MAIN_DISPATCHER, DEAD_DISPATCHER
 from ryu.controller.handler import set_ev_cls
 from ryu.lib import hub
 
-
-# IMPORT NEVESSARY LIBRARIES FOR THE NFVs
-import socket
-import requests
-import constants
-import json
-from datetime import datetime
-import aliaser
-import os
-from subprocess import call
-import ast
-import urllib2
-from ryu.cfg import CONF
-import sys
-import subprocess
-import time
-import testboi
+# IMPORT PARENT CLASS
 import learning_switch
-import re, uuid
+
+# RESTFUL PACKAGES
+import requests, json
+
+# PARSERS
+import ast, re
+
+# NETWORKING UTILS
+import socket, urllib2, uuid
+
+# TIMESTAMP UTILS
+from datetime import datetime
+import time
+
+# CUSTOM CONFIG
+from ryu.cfg import CONF
 
 
 class SimpleMonitor13(learning_switch.SimpleSwitch13):
@@ -59,66 +60,78 @@ class SimpleMonitor13(learning_switch.SimpleSwitch13):
         #hub.spawn(self._monitor)
 
     def _aliaser_boi(self):
-        hub.sleep(20)
+        #hub.sleep(20)
         # datapath_id : (real, alias)
         #self_ip = self.get_self_ip()
         alias_ip = "192.168.85.253"
+        #alias_ip = "10.130.1.237"
         alias_test = { 1:((80,8080),("52.74.73.81",alias_ip)), 2:((80,80),("13.55.147.2",alias_ip)) }
         alias_test = { 1:((80,42069),("52.74.73.81",alias_ip)),
-                      2:((80,5000),("13.55.147.2",alias_ip)),3:((42915,42917),("52.74.73.81",alias_ip)),
-                      4:((42915,42915),("52.230.1.186",alias_ip))}
-                #print("\n\n\n" + str(key) + str(val))
-                #real_ip=self._validate_ip(val[0])
-                #fake_ip=self._validate_ip(val[1])
-                port_val = val[0]
-                ip_val = val[1]
-                real_ip = ip_val[0]
-                fake_ip = ip_val[1]
-                real_port = port_val[0]
-                fake_port = port_val[1]
-                connection_health = self.live_connection(real_ip)
-                if (not connection_health):
+                      2:((80,5000),("13.55.147.2",alias_ip)),
+                      3:((42915,42917),("52.74.73.81",alias_ip)),
+                      4:((42915,42915),("13.55.147.2",alias_ip))}
+        recv_ip = "192.168.85.252"
+        #recv_ip = "10.130.1.202"
+        while True:
+            print("\n\n\n"+str(self.mac_to_port)+"\n"+str(self.ip_to_mac)+"\n\n\n\n")
+            connection_health = self.live_connection("asdf")
+            if (not connection_health):
+                for val in alias_test.values():
+                    #print("\n\n\n" + str(key) + str(val))
+                    #real_ip=self._validate_ip(val[0])
+                    #fake_ip=self._validate_ip(val[1])
+                    port_val = val[0]
+                    ip_val = val[1]
+                    real_ip = ip_val[0]
+                    fake_ip = ip_val[1]
+                    real_port = port_val[0]
+                    fake_port = port_val[1]
                     for dp in self.datapaths.values():
-                        ofproto = dp.ofproto
-                        parser = dp.ofproto_parser
-                        act_set = parser.OFPActionSetField
-                        act_out = parser.OFPActionOutput
-                        # DHserver mac
-                        switch_mac_add = "9c:dc:71:f0:c7:c0"
-                        switch_mac_add = "6c:3b:6b:9d:c7:c7"
-                        # Wifi gateway mac
-                        sender_mac_add = "a8:40:41:1b:21:52"
-                        # self mac
-                        receiver_mac_add = (':'.join(re.findall('..', '%012x' % uuid.getnode())))
-                        #receiver_mac_add = "50:3e:aa:59:60:e7"
-                        #receiver_mac_add = "a8:60:b6:10:be:a1"
-                        # OUTGOING 
-                        actions = [ act_set(ipv4_dst=fake_ip),
-                                    act_set(ipv4_src=real_ip),
-                                    act_set(tcp_dst=fake_port),
-                                    act_set(eth_dst=receiver_mac_add),
-                                   #act_out(self.mac_to_port[dp.id][receiver_mac_add]) ]
-                                   act_out(1) ]
-                        match = parser.OFPMatch(eth_type=0x0800,
-                                                ipv4_dst=real_ip,
-                                                ip_proto=6, #TCP,
-                                                ipv4_src=recv_ip)
-                        super(SimpleMonitor13, self).add_flow(dp, 15, match, actions)
+						ofproto = dp.ofproto
+						parser = dp.ofproto_parser
+						act_set = parser.OFPActionSetField
+						act_out = parser.OFPActionOutput
+						# DHserver mac
+						switch_mac_add = "9c:dc:71:f0:c7:c0"
+						switch_mac_add = "6c:3b:6b:9d:c7:c7"
+						#switch_mac_add = "a8:60:b6:10:c6:4d"
+                        #switch_mac_add = "a8:60:b6:10:c6:4d"
+						# Wifi gateway mac
+						sender_mac_add = "a8:40:41:1b:21:52"
+						#sender_mac_add = "50:3e:aa:04:e6:39"
+						# self mac
+						receiver_mac_add = (':'.join(re.findall('..', '%012x' % uuid.getnode())))
+						#receiver_mac_add = "50:3e:aa:59:60:e7"
+						#receiver_mac_add = "a8:60:b6:10:be:a1"
+						# OUTGOING 
+						actions = [ act_set(ipv4_dst=fake_ip),
+									act_set(ipv4_src=real_ip),
+									act_set(tcp_dst=fake_port),
+									act_set(eth_dst=receiver_mac_add),
+								   #act_out(self.mac_to_port[dp.id][receiver_mac_add]) ]
+								   act_out(1) ]
+						match = parser.OFPMatch(eth_type=0x0800,
+												ipv4_dst=real_ip,
+												ip_proto=6, #TCP,
+												ipv4_src=recv_ip,
+                              tcp_dst=real_port)
+						super(SimpleMonitor13, self).add_flow(dp, 15, match, actions)
 
-                        # INCOMING  
-                        actions = [
-                            act_set(ipv4_src=real_ip),
-                            act_set(ipv4_dst=recv_ip),
-                            act_set(tcp_src=real_port),
-                            act_set(eth_src=switch_mac_add),
-                            act_set(eth_dst=sender_mac_add),
-                            #act_out(self.mac_to_port[dp.id][sender_mac_add]) ]
-                            act_out(4) ]
-                        match = parser.OFPMatch(eth_type=0x0800,
-                                                ipv4_src=fake_ip,
-                                                ip_proto=6, #TCP,
-                                                ipv4_dst=real_ip)
-                        super(SimpleMonitor13, self).add_flow(dp, 25, match, actions)
+						# INCOMING  
+						actions = [
+							act_set(ipv4_src=real_ip),
+							act_set(ipv4_dst=recv_ip),
+							act_set(tcp_src=real_port),
+							act_set(eth_src=switch_mac_add),
+							act_set(eth_dst=sender_mac_add),
+							#act_out(self.mac_to_port[dp.id][sender_mac_add]) ]
+							act_out(4) ]
+						match = parser.OFPMatch(eth_type=0x0800,
+												ipv4_src=fake_ip,
+												ip_proto=6, #TCP,
+												ipv4_dst=real_ip,
+                              tcp_src=fake_port)
+						super(SimpleMonitor13, self).add_flow(dp, 25, match, actions)
             hub.sleep(5)
 
     def live_connection(self,hostname):
@@ -128,16 +141,15 @@ class SimpleMonitor13(learning_switch.SimpleSwitch13):
                 return True
             elif string == "False":
                 return False
+
         url = hostname
         url = "64.90.52.128"
         #url = "127.0.0.1:8000"
         command = "python ./connection_tester.py "+url
-        print(command+"\n\n\n")
         proc = subprocess.Popen(command, stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT,shell=True)
         stringer = proc.communicate()[0][:-1]
         exit_code = proc.wait()
-        print("\n\n\nENDING POLLER "+ str(stringer)+ "\n\n\n")
         return bool_parse(stringer)
 
     @set_ev_cls(ofp_event.EventOFPStateChange,
