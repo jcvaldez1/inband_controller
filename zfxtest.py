@@ -61,65 +61,64 @@ class SDN_Rerouter(learning_switch.SimpleSwitch13):
     def _aliaser_boi(self):
         #hub.sleep(20)
         # datapath_id : (real, alias)
-        recv_ip = "192.168.85.250"
+        alias_ip = "10.147.4.69"
+        alias_test = { 1:( (80,42069),   ("52.74.73.81", alias_ip) ),
+                       2:( (80,5000),    ("13.55.147.2", alias_ip) ),
+                       3:( (42915,42917),("52.74.73.81", alias_ip) ),
+                       4:( (42915,42915),("13.55.147.2", alias_ip) ) }
+        alias_test = { 1: ("8.8.8.8", "10.147.4.69") }
+        recv_ip = "10.147.4.68"
         while True:
-            alias_test = self.aliases
             print("\n\n\n"+str(self.mac_to_port)+"\n"+str(self.ip_to_mac)+"\n\n\n\n")
             connection_health = self.live_connection("asdf")
             if (not connection_health):
                 for val in alias_test.values():
-                    port_val = val[0]
-                    ip_val = val[1]
-                    real_ip = ip_val[0]
-                    fake_ip = ip_val[1]
-                    real_port = port_val[0]
-                    fake_port = port_val[1]
+                    real_ip = val[0]
+                    fake_ip = val[1]
+                    #real_port = port_val[0]
+                    #fake_port = port_val[1]
                     for dp in self.datapaths.values():
-						ofproto = dp.ofproto
-						parser = dp.ofproto_parser
-						act_set = parser.OFPActionSetField
-						act_out = parser.OFPActionOutput
-						# DHserver mac
-						switch_mac_add = "9c:dc:71:f0:c7:c0"
-						switch_mac_add = "6c:3b:6b:9d:c7:c7"
-						#switch_mac_add = "a8:60:b6:10:c6:4d"
+                        ofproto = dp.ofproto
+                        parser = dp.ofproto_parser
+                        act_set = parser.OFPActionSetField
+                        act_out = parser.OFPActionOutput
+                        # DHserver mac
+                        #switch_mac_add = "6c:3b:6b:9d:c7:c7"
+                        switch_mac_add = "9c:dc:71:f0:c7:c0"
                         #switch_mac_add = "a8:60:b6:10:c6:4d"
-						# Wifi gateway mac
-						sender_mac_add = "a8:40:41:1b:21:52"
-						#sender_mac_add = "50:3e:aa:04:e6:39"
-						# self mac
-						receiver_mac_add = (':'.join(re.findall('..', '%012x' % uuid.getnode())))
-						#receiver_mac_add = "50:3e:aa:59:60:e7"
-						#receiver_mac_add = "a8:60:b6:10:be:a1"
+                        #switch_mac_add = "a8:60:b6:10:c6:4d"
+                        # Wifi gateway mac
+                        #sender_mac_add = "a8:40:41:1b:21:52"
+                        sender_mac_add = "98:ee:cb:45:b9:08"
+                        #sender_mac_add = "50:3e:aa:04:e6:39"
+                        # self mac
+                        #receiver_mac_add = (':'.join(re.findall('..', '%012x' % uuid.getnode())))
+                        #receiver_mac_add = "50:3e:aa:59:60:e7"
+                        receiver_mac_add = "98:ee:cb:45:b8:9e"
+                        #receiver_mac_add = "a8:60:b6:10:be:a1"
 
-						# OUTGOING 
-						actions = [ act_set(ipv4_dst=fake_ip),
-								#	act_set(ipv4_src=real_ip),
-									act_set(tcp_dst=fake_port),
-									act_set(eth_dst=receiver_mac_add),
-								    act_out(1) ]
-						match = parser.OFPMatch(eth_type=0x0800,
-												ipv4_dst=real_ip,
-												ip_proto=6, #TCP,
-												ipv4_src=recv_ip,
-                              tcp_dst=real_port)
-						super(SDN_Rerouter, self).add_flow(dp, 15, match, actions)
+                        # OUTGOING 
+                        actions = [ act_set(ipv4_dst=fake_ip),
+                                    act_set(eth_dst=receiver_mac_add),
+                                    act_out(2) ]
+                        match = parser.OFPMatch(eth_type=0x0800,
+                                                ipv4_dst=real_ip,
+                                                #ip_proto=6, #TCP,
+                                                ipv4_src=recv_ip,
+                                               )
+                        super(SDN_Rerouter, self).add_flow(dp, 15, match, actions)
 
-						# INCOMING  
-						actions = [
-							act_set(ipv4_src=real_ip),
-							#act_set(ipv4_dst=recv_ip),
-							act_set(tcp_src=real_port),
-							act_set(eth_src=switch_mac_add),
-							#act_set(eth_dst=sender_mac_add),
-							act_out(4) ]
-						match = parser.OFPMatch(eth_type=0x0800,
-												ipv4_src=fake_ip,
-												ip_proto=6, #TCP,
-												#ipv4_dst=real_ip,
-												ipv4_dst=recv_ip,
-                              tcp_src=fake_port)
-						super(SDN_Rerouter, self).add_flow(dp, 25, match, actions)
+                        # INCOMING  
+                        actions = [
+                            act_set(ipv4_src=real_ip),
+                            act_set(eth_src=switch_mac_add),
+                            act_out(1) ]
+                        match = parser.OFPMatch(eth_type=0x0800,
+                                                ipv4_src=fake_ip,
+                                                #ip_proto=6, #TCP,
+                                                ipv4_dst=recv_ip,
+                             )
+                        super(SDN_Rerouter, self).add_flow(dp, 15, match, actions)
             hub.sleep(5)
 
     def live_connection(self,hostname):
@@ -132,11 +131,12 @@ class SDN_Rerouter(learning_switch.SimpleSwitch13):
 
         url = hostname
         url = "64.90.52.128"
-        #url = "127.0.0.1:8000"
+        url = "127.0.0.1:8000"
         command = "python ./connection_tester.py "+url
         proc = subprocess.Popen(command, stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT,shell=True)
         stringer = proc.communicate()[0][:-1]
+        print("\n\n%s\n\n", stringer)
         exit_code = proc.wait()
         return bool_parse(stringer)
 

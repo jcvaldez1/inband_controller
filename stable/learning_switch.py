@@ -22,7 +22,7 @@ from ryu.lib.packet import packet
 from ryu.lib.packet import ethernet
 from ryu.lib.packet import ether_types
 from ryu.lib.packet import ipv4
-import re, uuid, json
+import re, uuid
 
 
 class SimpleSwitch13(app_manager.RyuApp):
@@ -32,11 +32,6 @@ class SimpleSwitch13(app_manager.RyuApp):
         super(SimpleSwitch13, self).__init__(*args, **kwargs)
         self.mac_to_port = {}
         self.ip_to_mac = {}
-        alias_ip = "192.168.85.253"
-        self.aliases={ 1:( (80,42069),   ("52.74.73.81", alias_ip) ),
-                       2:( (80,5000),    ("13.55.147.2", alias_ip) ),
-                       3:( (42915,42917),("52.74.73.81", alias_ip) ),
-                       4:( (42915,42915),("13.55.147.2", alias_ip) ) }
 
     @set_ev_cls(ofp_event.EventOFPSwitchFeatures, CONFIG_DISPATCHER)
     def switch_features_handler(self, ev):
@@ -55,12 +50,6 @@ class SimpleSwitch13(app_manager.RyuApp):
         actions = [parser.OFPActionOutput(ofproto.OFPP_CONTROLLER,
                                           ofproto.OFPCML_NO_BUFFER)]
         self.add_flow(datapath, 0, match, actions, None, True)
-
-        match = parser.OFPMatch(eth_type=0x0800,
-                                ipv4_dst="69.4.20.69")
-        actions = [parser.OFPActionOutput(ofproto.OFPP_CONTROLLER,
-                                          ofproto.OFPCML_NO_BUFFER)]
-        self.add_flow(datapath, 25, match, actions, None, True)
 
     def add_flow(self, datapath, priority, match, actions, buffer_id=None, from_controller=False):
         ofproto = datapath.ofproto
@@ -83,6 +72,7 @@ class SimpleSwitch13(app_manager.RyuApp):
                                         match=match, instructions=inst,
                                         hard_timeout=hrd_tm)
         datapath.send_msg(mod)
+    
     @set_ev_cls(ofp_event.EventOFPPacketIn, MAIN_DISPATCHER)
     def _packet_in_handler(self, ev):
         # If you hit this you might want to increase
@@ -99,7 +89,7 @@ class SimpleSwitch13(app_manager.RyuApp):
         pkt = packet.Packet(msg.data)
         eth = pkt.get_protocols(ethernet.ethernet)[0]
         ip = pkt.get_protocol(ipv4.ipv4)
-
+ 
         if eth.ethertype == ether_types.ETH_TYPE_LLDP:
             # ignore lldp packet
             return
@@ -118,9 +108,6 @@ class SimpleSwitch13(app_manager.RyuApp):
         if ip:
             self.ip_to_mac.setdefault(dpid, {})
             # SET MAC TO IP MAPPING BASED ON SWITCH
-            if ip.dst == "69.4.20.69":
-                self.register_device(pkt.protocols[-1])
-                #print("\n\n"+str(pkt.protocols[-1])+"\n\n")
             self.ip_to_mac[dpid][ip.src] = src
             self.ip_to_mac[dpid][ip.dst] = dst
 
@@ -156,8 +143,3 @@ class SimpleSwitch13(app_manager.RyuApp):
         out = parser.OFPPacketOut(datapath=datapath, buffer_id=msg.buffer_id,
                                   in_port=in_port, actions=actions, data=data)
         datapath.send_msg(out)
-
-    def register_device(self, json_string):
-        new_obj = json.load(json_string)
-        
-

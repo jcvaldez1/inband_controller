@@ -61,9 +61,13 @@ class SDN_Rerouter(learning_switch.SimpleSwitch13):
     def _aliaser_boi(self):
         #hub.sleep(20)
         # datapath_id : (real, alias)
+        alias_ip = "192.168.85.253"
+        alias_test = { 1:( (80,42069),   ("52.74.73.81", alias_ip) ),
+                       2:( (80,5000),    ("13.55.147.2", alias_ip) ),
+                       3:( (42915,42917),("52.74.73.81", alias_ip) ),
+                       4:( (42915,42915),("13.55.147.2", alias_ip) ) }
         recv_ip = "192.168.85.250"
         while True:
-            alias_test = self.aliases
             print("\n\n\n"+str(self.mac_to_port)+"\n"+str(self.ip_to_mac)+"\n\n\n\n")
             connection_health = self.live_connection("asdf")
             if (not connection_health):
