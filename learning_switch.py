@@ -22,8 +22,10 @@ from ryu.lib.packet import packet
 from ryu.lib.packet import ethernet
 from ryu.lib.packet import ether_types
 from ryu.lib.packet import ipv4
-import re, uuid, json
+import re, uuid, json, sys
 import docker
+import requests
+import constants
 
 
 class SimpleSwitch13(app_manager.RyuApp):
@@ -31,22 +33,23 @@ class SimpleSwitch13(app_manager.RyuApp):
 
     def __init__(self, *args, **kwargs):
         super(SimpleSwitch13, self).__init__(*args, **kwargs)
+        #print(sys.version)
         self.mac_to_port = {}
         self.ip_to_mac = {}
-        alias_ip = "192.168.85.253"
+        alias_ip = "192.168.85.252"
         self.aliases={ 1:( (80,42069),   ("52.74.73.81", alias_ip) ),
                        2:( (80,5000),    ("13.55.147.2", alias_ip) ),
                        3:( (42915,42917),("52.74.73.81", alias_ip) ),
                        4:( (42915,42915),("13.55.147.2", alias_ip) ) }
-        self.docker_daemon = docker.from_env()
-        self.main_network = self.register_network("dockerstuff_default")
+        #self.docker_daemon = docker.from_env()
+        #self.main_network = self.register_network("dockerstuff_default")
 
-    def register_network(self, network_name):
-        networks = self.docker_daemon.networks
-        for network in networks.list():
-            if network.name == network_name:
-                return network
-        return
+    #def register_network(self, network_name):
+    #    networks = self.docker_daemon.networks
+    #    for network in networks.list():
+    #        if network.name == network_name:
+    #            return network
+    #    return
 
 
     @set_ev_cls(ofp_event.EventOFPSwitchFeatures, CONFIG_DISPATCHER)
@@ -169,7 +172,13 @@ class SimpleSwitch13(app_manager.RyuApp):
         datapath.send_msg(out)
 
     def register_device(self, json_string):
-        new_obj = json.load(json_string)
-        new_container = self.docker_daemon.containers.run('bfirsh/reticulate-splines',detach=True)
-        self.main_network.connect(new_container)
+        print(json_string)
+        headers = {"Content-Type":"application/json"}
+        new_obj = json.loads(json_string)
+        url = constants.DOCKER_DAEMON_URL + "/register/"
+        print(url)
+        requests.post(url , data=json.dumps(new_obj), headers=headers)
+        print(requests.status_code)
+        #new_container = self.docker_daemon.containers.run('bfirsh/reticulate-splines',detach=True)
+        #self.main_network.connect(new_container)
 

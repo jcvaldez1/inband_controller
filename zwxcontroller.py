@@ -61,7 +61,7 @@ class SDN_Rerouter(learning_switch.SimpleSwitch13):
     def _aliaser_boi(self):
         #hub.sleep(20)
         # datapath_id : (real, alias)
-        recv_ip = "192.168.85.250"
+        recv_ip = "192.168.85.254"
         while True:
             alias_test = self.aliases
             print("\n\n\n"+str(self.mac_to_port)+"\n"+str(self.ip_to_mac)+"\n\n\n\n")
@@ -82,13 +82,13 @@ class SDN_Rerouter(learning_switch.SimpleSwitch13):
 						# DHserver mac
 						switch_mac_add = "9c:dc:71:f0:c7:c0"
 						switch_mac_add = "6c:3b:6b:9d:c7:c7"
-						#switch_mac_add = "a8:60:b6:10:c6:4d"
                         #switch_mac_add = "a8:60:b6:10:c6:4d"
 						# Wifi gateway mac
 						sender_mac_add = "a8:40:41:1b:21:52"
 						#sender_mac_add = "50:3e:aa:04:e6:39"
 						# self mac
 						receiver_mac_add = (':'.join(re.findall('..', '%012x' % uuid.getnode())))
+						#receiver_mac_add = "a8:60:b6:11:e2:b7"
 						#receiver_mac_add = "50:3e:aa:59:60:e7"
 						#receiver_mac_add = "a8:60:b6:10:be:a1"
 
@@ -112,7 +112,7 @@ class SDN_Rerouter(learning_switch.SimpleSwitch13):
 							act_set(tcp_src=real_port),
 							act_set(eth_src=switch_mac_add),
 							#act_set(eth_dst=sender_mac_add),
-							act_out(4) ]
+							act_out(2) ]
 						match = parser.OFPMatch(eth_type=0x0800,
 												ipv4_src=fake_ip,
 												ip_proto=6, #TCP,

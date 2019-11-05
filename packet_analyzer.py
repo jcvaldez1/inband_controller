@@ -9,8 +9,8 @@ import constants
 
 class packet_analyzer:
 
-    def __init__(self, pcap_name=constants.PCAP_FILE_NAME, subnet=constants.CLIENT_SUBNET,
-    precision=constants.FLOAT_PRECISION):
+    def __init__(self, pcap_name='test.pcap', subnet='192.168.85.24',
+    precision=5):
         self.pcap_name = pcap_name
         self.subnet = subnet
         self.globalcounter = 0
@@ -18,7 +18,7 @@ class packet_analyzer:
         self.currentConnectionsTCP = dict()
         TCPreqkeys   = []
         TCPrespkeys  = []
-        TCPdelaykeys = []        
+        TCPdelaykeys = []
         self.TCPrequestDistribution = self.initDicts(constants.PAYLOAD_INTERVAL_SIZE,constants.PAYLOAD_INTERVAL_NUM,0,
         TCPreqkeys)
         self.TCPresponseDistribution = self.initDicts(constants.PAYLOAD_INTERVAL_SIZE,constants.PAYLOAD_INTERVAL_NUM,0,
@@ -26,18 +26,17 @@ class packet_analyzer:
         self.TCPdelayDistribution = self.initDicts(constants.DELAY_INTERVAL_SIZE,constants.DELAY_INTERVAL_NUM,0,
         TCPdelaykeys)
 
-        self.TCPreqkeys =   TCPreqkeys   
-        self.TCPrespkeys =  TCPrespkeys  
-        self.TCPdelaykeys = TCPdelaykeys 
+        self.TCPreqkeys =   TCPreqkeys
+        self.TCPrespkeys =  TCPrespkeys
+        self.TCPdelaykeys = TCPdelaykeys
 
         self.TCPDestinationDistribution = dict()
         self.TCPsourceDistribution = dict()
         self.firstTimeStamp = 0
-        self.lastTimeStamp = 0 
+        self.lastTimeStamp = 0
         self.rawTCPNumber = 0
         self.rawTCPResponded = 0
         self.totalWaitTimeTCP = 0
-        
         # CARDINALITY OF SINGULAR
         # OUTLIER VALUES BASED OFF
         # THE INTERVALS DEFINED BY
@@ -187,7 +186,6 @@ class packet_analyzer:
             self.lastTimeStamp = packet.time
         else:
             self.firstTimeStamp = packet.time
-        
         if("TCP" in packet):
             self.total_packets = self.total_packets + 1
             theIP=packet["IP"]
@@ -200,7 +198,6 @@ class packet_analyzer:
                 self.globalcounter = self.globalcounter + 1
                 # RESPONSE HANDLER
                 if( (theIP.src, theTCP.dport) in self.currentConnectionsTCP ):
-                    
                     # OUTLIER INCREMENTER, THE FOLLOWING COUNTERS ARE FOR TRACKING
                     # OUTLIER VALUES, AND WOULD BE A GUIDE FOR FIXING THE INCLUDED
                     # DATA INTERVALS
@@ -208,7 +205,6 @@ class packet_analyzer:
                     self.TCPdelayOutlier = self.TCPdelayOutlier + OUTLIER_FLAG 
 
                     self.TCPresponsePayloadOutlier = self.TCPresponsePayloadOutlier + self.dictClassifier(len(packet["TCP"].payload), self.TCPresponseDistribution)
-                    
                     # END OF OUTLIER INCREMENTING
 
 
@@ -218,21 +214,17 @@ class packet_analyzer:
                     if not OUTLIER_FLAG:
                         # NOTE -> OUTLIER VALUES ARE NOT GOING TO BE ADDED TO THE TOTAL WAITTIME
                         self.totalWaitTimeTCP = self.totalWaitTimeTCP + packet.time - self.currentConnectionsTCP[(theIP.src, theTCP.dport)]
-                    
                     # INCREMENT PACKET COUNTER
                     self.rawTCPResponded = self.rawTCPResponded + 1
-                            
                     # SUBMIT FOR FLAG EVALUATION (FOR CONNECTION ESTABLISHMENT CHECKING)
                     self.checkForSYNACK(theIP.dst, theIP.src, theTCP)
- 
                     # del currentConnectionsTCP[(theIP.src, theTCP.dport, theTCP.ack)]
                     self.currentConnectionsTCP[(theIP.src, theTCP.dport)] = packet.time
 
                 # REQUEST HANDLER
                 elif (theIP.src.startswith(self.subnet)):
                     # RECORD TIMESTAMP FOR REQUEST PACKET
-                    self.currentConnectionsTCP[(theIP.dst, theTCP.sport)] = packet.time
-                    
+                    self.currentConnectionsTCP[(theIP.dst, theTCP.seq)] = packet.time
                     # INCREMENT TCP PACKET COUNTER
                     self.rawTCPNumber = self.rawTCPNumber + 1
 
@@ -245,7 +237,6 @@ class packet_analyzer:
                     # THE FOLLOWING BLOCK IS FOR CATCHING INCONSISTENCIES WITHIN THE SYSTEM
                     # IT CATCHES INTER-CLIENT COMMUNICATION PACKETS
                     # ( IP.src == client_subnet ) && (IP.dst == client_subnet)
-                    
                     #if(not theIP.dst.startswith(self.subnet)):
                     if(True):
                         self.TCPsourceDistribution.setdefault(theIP.src,0)
@@ -280,7 +271,7 @@ class packet_analyzer:
         # USE THIS FOR MULTIPLE IPS
         # return (srcDist[int(len(srcDist)*rando_num)],realOGTuple[1])
 
-    def generatePackets(self):	
+    def generatePackets(self):
         # messageTypeDistribution[x] = ( MESSAGE_TYPE, CUMULATIVE_DISTRIBUTION_VALUE)
         # theRequests SHOULD CONTAIN THE FOLLOWING:
         # ("TCP" , request_payload, RTT_delay, response_payload, (IP.src,IP.dst), teardown_flag)
@@ -301,13 +292,13 @@ class packet_analyzer:
             else:
                 terminator = 0
             self.connection_lengths[src_dst_pair][1] = self.connection_lengths[src_dst_pair][1] + 1
-            theRequests.append( ("TCP", self.generatePacketValue(self.TCPrequestDistribution), 
-                                        self.generatePacketValue(self.TCPdelayDistribution), 
-                                        self.generatePacketValue(self.TCPresponseDistribution), 
+            theRequests.append( ("TCP", self.generatePacketValue(self.TCPrequestDistribution),
+                                        self.generatePacketValue(self.TCPdelayDistribution),
+                                        self.generatePacketValue(self.TCPresponseDistribution),
                                         src_dst_pair,
                                         terminator
-                                        ) 
-            )  
+                                        )
+            )
         return theRequests
 
     def initEmulation(self):
@@ -330,7 +321,7 @@ class packet_analyzer:
 
 
 if __name__ == '__main__':
-    a = packet_analyzer(sys.argv[1])
+    a = packet_analyzer(pcap_name=sys.argv[1], subnet=sys.argv[2])
     print(str(a.initEmulation()))
     #print(str(a.TCPresponseDistribution))
     #print(str(a.TCPrequestDistribution))
