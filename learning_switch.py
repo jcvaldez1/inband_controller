@@ -41,6 +41,8 @@ class SimpleSwitch13(app_manager.RyuApp):
                        2:( (80,5000),    ("13.55.147.2", alias_ip) ),
                        3:( (42915,42917),("52.74.73.81", alias_ip) ),
                        4:( (42915,42915),("13.55.147.2", alias_ip) ) }
+        self.dummy80 = 9000
+        self.dummy42915 = 50000
         #self.docker_daemon = docker.from_env()
         #self.main_network = self.register_network("dockerstuff_default")
 
@@ -175,10 +177,13 @@ class SimpleSwitch13(app_manager.RyuApp):
         print(json_string)
         headers = {"Content-Type":"application/json"}
         new_obj = json.loads(json_string)
+        self.dummy80 += 1
+        self.dummy42915 -= 1
+        new_obj['ports'] = {'80/tcp': self.dummy80,'42915/tcp': self.dummy42915}
         url = constants.DOCKER_DAEMON_URL + "/register/"
         print(url)
         requests.post(url , data=json.dumps(new_obj), headers=headers)
-        print(requests.status_code)
+        #print(requests.status_code)
         #new_container = self.docker_daemon.containers.run('bfirsh/reticulate-splines',detach=True)
         #self.main_network.connect(new_container)
 
