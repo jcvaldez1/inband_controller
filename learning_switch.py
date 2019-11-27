@@ -26,7 +26,8 @@ import re, uuid, json, sys
 import docker
 import requests
 from constants import DOCKER_DAEMON_URL, DOCKER_HOST_ETH, \
-        REGISTRATION_IP, CONTROLLER_ETH
+        REGISTRATION_IP, CONTROLLER_ETH, FORWARDING_TABLE,\
+        DEFAULT_TABLE, REROUTING_TABLE
 from alias_object import Alias
 import traceback
 
@@ -90,38 +91,46 @@ class BaseSwitch(app_manager.RyuApp):
         match = parser.OFPMatch()
         actions = [parser.OFPActionOutput(ofproto.OFPP_CONTROLLER,
                                           ofproto.OFPCML_NO_BUFFER)]
-        self.add_flow(datapath, 0, match, actions, None, True)
+        self.add_flow(datapath, DEFAULT_TABLE, 0, match, actions, None, True)
 
+        # default table
+        actions = [parser.OFPInstructionGotoTable(REROUTING_TABLE)]
+        self.add_flow(datapath, DEFAULT_TABLE, 1, match, actions, None, True)
+
+        # reroute table
+        actions = [parser.OFPInstructionGotoTable(FORWARDING_TABLE)]
+        self.add_flow(datapath, REROUTING_TABLE, 1, match, actions, None, True)
+
+        # register flow
         match = parser.OFPMatch(eth_type=0x0800,
                                 ipv4_dst="69.4.20.69")
         actions = [parser.OFPActionOutput(ofproto.OFPP_CONTROLLER,
                                           ofproto.OFPCML_NO_BUFFER)]
-        self.add_flow(datapath, 25, match, actions, None, True)
+        self.add_flow(datapath, REROUTING_TABLE, 25, match, actions, None, True)
+
 
     '''
             changes were only hard timeouts added to every flow 
             except controller flows
     '''
-    def add_flow(self, datapath, priority, match, actions, buffer_id=None, from_controller=False):
+    def add_flow(self, datapath, table_id, priority, match, inst, buffer_id=None, from_controller=False):
         ofproto = datapath.ofproto
         parser = datapath.ofproto_parser
 
-        inst = [parser.OFPInstructionActions(ofproto.OFPIT_APPLY_ACTIONS,
-                                             actions)]
         hrd_tm = 10
-        if (from_controller) or (priority == 20):
+        if from_controller:
             mod = parser.OFPFlowMod(datapath=datapath, priority=priority,
-                                    match=match, instructions=inst)
+                                    match=match, instructions=inst, table_id=table_id)
         else:
             if buffer_id:
                 mod = parser.OFPFlowMod(datapath=datapath, buffer_id=buffer_id,
                                         priority=priority, match=match,
-                                        instructions=inst,
+                                        instructions=inst, table_id=table_id
                                         hard_timeout=hrd_tm)
             else:
                 mod = parser.OFPFlowMod(datapath=datapath, priority=priority,
                                         match=match, instructions=inst,
-                                        hard_timeout=hrd_tm)
+                                        table_id=table_id, hard_timeout=hrd_tm)
         datapath.send_msg(mod)
 
     '''
@@ -184,13 +193,14 @@ class BaseSwitch(app_manager.RyuApp):
 
         if out_port != ofproto.OFPP_FLOOD:
             match = parser.OFPMatch(in_port=in_port, eth_dst=dst, eth_src=src)
+            inst = [parser.OFPInstructionActions(ofproto.OFPIT_APPLY_ACTIONS, actions)]
             # verify if we have a valid buffer_id, if yes avoid to send both
             # flow_mod & packet_out
             if msg.buffer_id != ofproto.OFP_NO_BUFFER:
-                self.add_flow(datapath, prio, match, actions, msg.buffer_id)
+                self.add_flow(datapath, FORWARDING_TABLE, prio, match, inst, msg.buffer_id)
                 return
             else:
-                self.add_flow(datapath, prio, match, actions)
+                self.add_flow(datapath, FORWARDING_TABLE, prio, match, inst)
         data = None
         if msg.buffer_id == ofproto.OFP_NO_BUFFER:
             data = msg.data
