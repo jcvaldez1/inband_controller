@@ -15,8 +15,6 @@
 
 # BASE RYU PACKAGE REQS
 from operator import attrgetter 
-#from ryu.app import meter_poller
-#import meter_poller
 import os
 import sys
 import subprocess
@@ -24,24 +22,12 @@ from ryu.controller import ofp_event
 from ryu.controller.handler import MAIN_DISPATCHER, DEAD_DISPATCHER
 from ryu.controller.handler import set_ev_cls
 from ryu.lib import hub
-
-# IMPORT PARENT CLASS
 import learning_switch
-
-# RESTFUL PACKAGES
 import requests, json
-
-# PARSERS
 import ast, re
-
-# NETWORKING UTILS
 import socket, urllib2, uuid
-
-# TIMESTAMP UTILS
 from datetime import datetime
 import time
-
-# CUSTOM CONFIG
 from ryu.cfg import CONF
 
 

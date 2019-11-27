@@ -28,7 +28,7 @@ import requests
 from constants import DOCKER_DAEMON_URL, DOCKER_HOST_ETH, \
         REGISTRATION_IP, CONTROLLER_ETH
 from alias_object import Alias
-import traceback
+
 
 '''
         BaseSwitch is a directly modified version of the
@@ -56,8 +56,11 @@ class BaseSwitch(app_manager.RyuApp):
         super(BaseSwitch, self).__init__(*args, **kwargs)
         self.mac_to_port = {}
         self.ip_to_mac = {}
-        self.aliases=[]
         self.port_counter = DEFAULT_PORT_COUNTER
+        self.aliases={ 1:( (80,42069),   ("52.74.73.81", alias_ip) ),
+                       2:( (80,5000),    ("13.55.147.2", alias_ip) ),
+                       3:( (42915,42917),("52.74.73.81", alias_ip) ),
+                       4:( (42915,42915),("13.55.147.2", alias_ip) ) }
         #self.docker_daemon = docker.from_env()
         #self.main_network = self.register_network("dockerstuff_default")
 
@@ -217,23 +220,13 @@ class BaseSwitch(app_manager.RyuApp):
                                                      plans to use
     '''
     def register_device(self, json_string):
-        port_rollback = self.port_counter
-        try:
-            new_obj = json.loads(json_string)
-            new_alias = None
-            for port in new_obj['ports']:
-                new_alias = Alias(orig_port=port, fake_port=self.port_counter, cloud_ip=new_obj['cloud_ip'])
-                self.port_counter += 1
-            new_alias['cloud_ip'] = new_obj['cloud_ip']
-            self.aliases.append(new_alias)
-        except:
-            self.port_counter = port_rollback
-            traceback.print_exc()
-            try:
-                self.logger.debug("failed to register device %s", json_string)
-            except:
-                self.logger.info("json string is not in JSON string format")
-                traceback.print_exc()
+        new_obj = json.loads(json_string)
+        new_alias = None
+        for port in new_obj['ports']:
+            new_alias = Alias(orig_port=port, fake_port=self.port_counter, cloud_ip=new_obj['cloud_ip'])
+            self.port_counter += 1
+        new_alias['cloud_ip'] = new_obj['cloud_ip']
+        self.aliases.append(new_alias)
         #new_obj['ports'] = {'80/tcp': self.dummy80,'42915/tcp': self.dummy42915}
         #url = DOCKER_DAEMON_URL + "/register/"
         #requests.post(url , data=json.dumps(new_obj), headers=headers)
