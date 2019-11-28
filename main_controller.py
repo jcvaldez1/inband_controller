@@ -19,7 +19,8 @@ import os
 import sys
 import subprocess
 from ryu.controller import ofp_event
-from ryu.controller.handler import MAIN_DISPATCHER, DEAD_DISPATCHER
+from ryu.controller.handler import MAIN_DISPATCHER, DEAD_DISPATCHER, \
+        CONFIG_DISPATCHER
 from ryu.controller.handler import set_ev_cls
 from ryu.lib import hub
 from ryu.lib.packet.ether_types import ETH_TYPE_IP
@@ -27,7 +28,7 @@ from ryu.lib.packet.in_proto import IPPROTO_TCP
 import learning_switch
 import requests, json
 import ast, re
-import socket, urllib2, uuid
+import socket, uuid
 from datetime import datetime
 import time
 from ryu.cfg import CONF
@@ -53,7 +54,6 @@ class SDN_Rerouter(learning_switch.BaseSwitch):
 
         super(SDN_Rerouter, self).__init__(*args, **kwargs)
         self.datapaths = {}
-        #self._init_reroute_table()
         self.aliaser_thread = hub.spawn(self._aliaser)
 
 
@@ -70,6 +70,23 @@ class SDN_Rerouter(learning_switch.BaseSwitch):
         datapath.send_msg(mod)
         pass
     '''
+    @set_ev_cls(ofp_event.EventOFPSwitchFeatures, CONFIG_DISPATCHER)
+    def _init_reroute_table(self, ev):
+        datapath = ev.msg.datapath
+        ofproto = datapath.ofproto
+        parser = datapath.ofproto_parser
+        # reroute table
+        match = parser.OFPMatch()
+        actions = [parser.OFPInstructionGotoTable(FORWARDING_TABLE)]
+        self.add_flow(datapath, REROUTING_TABLE, 1, match, actions, None, True)
+
+        # register flow
+        match = parser.OFPMatch(eth_type=0x0800,
+                                ipv4_dst="69.4.20.69")
+        actions = [parser.OFPActionOutput(ofproto.OFPP_CONTROLLER,
+                                          ofproto.OFPCML_NO_BUFFER)]
+        actions = [parser.OFPInstructionActions(ofproto.OFPIT_APPLY_ACTIONS, actions)]
+        self.add_flow(datapath, REROUTING_TABLE, 25, match, actions, None, True)
 
     '''
             This function is responsible for the add_flow() function
