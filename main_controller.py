@@ -25,6 +25,11 @@ from ryu.controller.handler import set_ev_cls
 from ryu.lib import hub
 from ryu.lib.packet.ether_types import ETH_TYPE_IP
 from ryu.lib.packet.in_proto import IPPROTO_TCP
+from ryu.ofproto import ofproto_v1_3
+from ryu.lib.packet import packet
+from ryu.lib.packet import ethernet
+from ryu.lib.packet import ether_types
+from ryu.lib.packet import ipv4
 import learning_switch
 import requests, json
 import ast, re
@@ -34,7 +39,8 @@ import time
 from ryu.cfg import CONF
 from constants import DOCKER_HOST_IPV4, IOT_ACCESS_POINT_IPV4, GATEWAY_IPV4, \
         DOCKER_HOST_ETH, IOT_ACCESS_POINT_ETH, GATEWAY_ETH, \
-        FORWARDING_TABLE, REROUTING_TABLE, REGISTRATION_IP
+        FORWARDING_TABLE, REROUTING_TABLE, REGISTRATION_IP, \
+        DEFAULT_PORT_COUNTER
 from alias_object import Alias
 '''
         SDN_Rerouter is the main class that handles the rerouting flows
@@ -69,10 +75,6 @@ class SDN_Rerouter(learning_switch.BaseSwitch):
         datapath = ev.msg.datapath
         ofproto = datapath.ofproto
         parser = datapath.ofproto_parser
-        # reroute table
-        match = parser.OFPMatch()
-        actions = [parser.OFPInstructionGotoTable(FORWARDING_TABLE)]
-        self.add_flow(datapath, REROUTING_TABLE, 1, match, actions, None, True)
 
         # register flow
         match = parser.OFPMatch(eth_type=ETH_TYPE_IP,
@@ -90,9 +92,15 @@ class SDN_Rerouter(learning_switch.BaseSwitch):
     '''
     @set_ev_cls(ofp_event.EventOFPPacketIn, MAIN_DISPATCHER)
     def _packet_in_reroute(self, ev):
-        if ip:
-            if ip.dst == REGISTRATION_IP:
-                self.register_device(pkt.protocols[-1])
+        try:
+            msg = ev.msg
+            pkt = packet.Packet(msg.data)
+            ip = pkt.get_protocol(ipv4.ipv4)
+            if ip:
+                if ip.dst == REGISTRATION_IP:
+                    self.register_device(pkt.protocols[-1])
+        except:
+            pass
         return
 
     '''
@@ -192,6 +200,7 @@ class SDN_Rerouter(learning_switch.BaseSwitch):
         try:
             new_obj = json.loads(json_string)
             new_alias = None
+            print("\n"+new_obj['ports']+"\n")
             for port in new_obj['ports']:
                 new_alias = Alias(orig_port=port, fake_port=self.port_counter, cloud_ip=new_obj['cloud_ip'])
                 self.port_counter += 1

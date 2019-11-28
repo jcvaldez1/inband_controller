@@ -27,8 +27,7 @@ import docker
 import requests
 from constants import DOCKER_DAEMON_URL, DOCKER_HOST_ETH, \
         REGISTRATION_IP, CONTROLLER_ETH, FORWARDING_TABLE,\
-        DEFAULT_TABLE, REROUTING_TABLE, DEFAULT_PORT_COUNTER,\
-        CONTROLLER_TABLE
+        DEFAULT_TABLE, REROUTING_TABLE, DEFAULT_PORT_COUNTER
 from alias_object import Alias
 import traceback
 
@@ -90,12 +89,17 @@ class BaseSwitch(app_manager.RyuApp):
         match = parser.OFPMatch()
         actions = [parser.OFPActionOutput(ofproto.OFPP_CONTROLLER,
                                           ofproto.OFPCML_NO_BUFFER)]
-        actions = [parser.OFPInstructionActions(ofproto.OFPIT_APPLY_ACTIONS, actions)]
-        self.add_flow(datapath, CONTROLLER_TABLE, 0, match, actions, None, True)
+        inst = [parser.OFPInstructionActions(ofproto.OFPIT_APPLY_ACTIONS, actions)]
+        self.add_flow(datapath, FORWARDING_TABLE, 0, match, inst, None, True)
 
         # default table
-        actions = [parser.OFPInstructionGotoTable(REROUTING_TABLE)]
-        self.add_flow(datapath, DEFAULT_TABLE, 1, match, actions, None, True)
+        inst = [parser.OFPInstructionGotoTable(REROUTING_TABLE)]
+        mod = parser.OFPFlowMod(datapath=datapath, table_id=DEFAULT_TABLE, instructions=inst)
+        datapath.send_msg(mod)
+
+        # rerouting table
+        actions = [parser.OFPInstructionGotoTable(FORWARDING_TABLE)]
+        self.add_flow(datapath, REROUTING_TABLE, 1, match, actions, None, True)
 
     '''
             changes were only hard timeouts added to every flow 
