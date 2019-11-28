@@ -58,8 +58,6 @@ class BaseSwitch(app_manager.RyuApp):
         super(BaseSwitch, self).__init__(*args, **kwargs)
         self.mac_to_port = {}
         self.ip_to_mac = {}
-        self.aliases=[]
-        self.port_counter = DEFAULT_PORT_COUNTER
         #self.docker_daemon = docker.from_env()
         #self.main_network = self.register_network("dockerstuff_default")
 
@@ -98,19 +96,6 @@ class BaseSwitch(app_manager.RyuApp):
         # default table
         actions = [parser.OFPInstructionGotoTable(REROUTING_TABLE)]
         self.add_flow(datapath, DEFAULT_TABLE, 1, match, actions, None, True)
-
-        ## reroute table
-        #actions = [parser.OFPInstructionGotoTable(FORWARDING_TABLE)]
-        #self.add_flow(datapath, REROUTING_TABLE, 1, match, actions, None, True)
-
-        ## register flow
-        #match = parser.OFPMatch(eth_type=0x0800,
-        #                        ipv4_dst="69.4.20.69")
-        #actions = [parser.OFPActionOutput(ofproto.OFPP_CONTROLLER,
-        #                                  ofproto.OFPCML_NO_BUFFER)]
-        #actions = [parser.OFPInstructionActions(ofproto.OFPIT_APPLY_ACTIONS, actions)]
-        #self.add_flow(datapath, REROUTING_TABLE, 25, match, actions, None, True)
-
 
     '''
             changes were only hard timeouts added to every flow 
@@ -211,45 +196,4 @@ class BaseSwitch(app_manager.RyuApp):
         out = parser.OFPPacketOut(datapath=datapath, buffer_id=msg.buffer_id,
                                   in_port=in_port, actions=actions, data=data)
         datapath.send_msg(out)
-
-    # CHECK FOR A WAY TO SEPARATE THE FOLLOWING FUNCTIONS INTO A DIFFERENT FILE
-    # PLAUSIBLE SOLUTION: USE TWO DIFFERENT PACKET IN FUNCTIONS CHECK IF KANOU
-    '''
-            registers a new device by creating an Alias() object
-            and storing it in the self.aliases alias list for
-            tracking the registered cloud services
-
-            @PARAMS:
-                json_string     : payload data that came from the registration
-                                  packet sent by an IoT device. This should 
-                                  contain the following information:
-                                    - ['ports']    = port numbers that the IoT
-                                                     device plans to use
-                                    - ['cloud_ip'] = the IPv4 address of the
-                                                     cloud service the IoT device
-                                                     plans to use
-    '''
-    def register_device(self, json_string):
-        port_rollback = self.port_counter
-        try:
-            new_obj = json.loads(json_string)
-            new_alias = None
-            for port in new_obj['ports']:
-                new_alias = Alias(orig_port=port, fake_port=self.port_counter, cloud_ip=new_obj['cloud_ip'])
-                self.port_counter += 1
-            new_alias['cloud_ip'] = new_obj['cloud_ip']
-            self.aliases.append(new_alias)
-        except:
-            self.port_counter = port_rollback
-            traceback.print_exc()
-            try:
-                self.logger.debug("failed to register device %s", json_string)
-            except:
-                self.logger.info("json string is not in JSON string format")
-                traceback.print_exc()
-        #new_obj['ports'] = {'80/tcp': self.dummy80,'42915/tcp': self.dummy42915}
-        #url = DOCKER_DAEMON_URL + "/register/"
-        #requests.post(url , data=json.dumps(new_obj), headers=headers)
-        #new_container = self.docker_daemon.containers.run('bfirsh/reticulate-splines',detach=True)
-        #self.main_network.connect(new_container)
 

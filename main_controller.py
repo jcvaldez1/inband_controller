@@ -34,8 +34,8 @@ import time
 from ryu.cfg import CONF
 from constants import DOCKER_HOST_IPV4, IOT_ACCESS_POINT_IPV4, GATEWAY_IPV4, \
         DOCKER_HOST_ETH, IOT_ACCESS_POINT_ETH, GATEWAY_ETH, \
-        FORWARDING_TABLE, REROUTING_TABLE
-
+        FORWARDING_TABLE, REROUTING_TABLE, REGISTRATION_IP
+from alias_object import Alias
 '''
         SDN_Rerouter is the main class that handles the rerouting flows
         part of the initialization would be to initialize a rerouting
@@ -54,6 +54,8 @@ class SDN_Rerouter(learning_switch.BaseSwitch):
 
         super(SDN_Rerouter, self).__init__(*args, **kwargs)
         self.datapaths = {}
+        self.aliases=[]
+        self.port_counter = DEFAULT_PORT_COUNTER
         self.aliaser_thread = hub.spawn(self._aliaser)
 
 
@@ -61,14 +63,6 @@ class SDN_Rerouter(learning_switch.BaseSwitch):
             initializes a dedicated flow table for the rerouting
             flows, and passes it to the forwarding table in the
             pipeline
-    def _init_reroute_table(self, datapath):
-        ofproto = datapath.ofproto
-        parser = datapath.ofproto_parser
-        inst = [parser.OFPInstructionGotoTable(FORWARD_TABLE)]
-        mod = parser.OFPFlowMod(datapath=datapath, table_id=FILTER_TABLE,
-                                priority=1, instructions=inst)
-        datapath.send_msg(mod)
-        pass
     '''
     @set_ev_cls(ofp_event.EventOFPSwitchFeatures, CONFIG_DISPATCHER)
     def _init_reroute_table(self, ev):
@@ -81,12 +75,25 @@ class SDN_Rerouter(learning_switch.BaseSwitch):
         self.add_flow(datapath, REROUTING_TABLE, 1, match, actions, None, True)
 
         # register flow
-        match = parser.OFPMatch(eth_type=0x0800,
-                                ipv4_dst="69.4.20.69")
+        match = parser.OFPMatch(eth_type=ETH_TYPE_IP,
+                                ipv4_dst=REGISTRATION_IP)
         actions = [parser.OFPActionOutput(ofproto.OFPP_CONTROLLER,
                                           ofproto.OFPCML_NO_BUFFER)]
         actions = [parser.OFPInstructionActions(ofproto.OFPIT_APPLY_ACTIONS, actions)]
         self.add_flow(datapath, REROUTING_TABLE, 25, match, actions, None, True)
+
+    '''
+            This function triggers on PACKET_IN event
+            it currently contains the following functionalities
+            related to the rerouting section of the pipeline:
+                -   IoT device registration
+    '''
+    @set_ev_cls(ofp_event.EventOFPPacketIn, MAIN_DISPATCHER)
+    def _packet_in_reroute(self, ev):
+        if ip:
+            if ip.dst == REGISTRATION_IP:
+                self.register_device(pkt.protocols[-1])
+        return
 
     '''
             This function is responsible for the add_flow() function
@@ -164,6 +171,40 @@ class SDN_Rerouter(learning_switch.BaseSwitch):
         stringer = proc.communicate()[0][:-1]
         exit_code = proc.wait()
         return bool_parse(stringer)
+
+    '''
+            registers a new device by creating an Alias() object
+            and storing it in the self.aliases alias list for
+            tracking the registered cloud services
+
+            @PARAMS:
+                json_string     : payload data that came from the registration
+                                  packet sent by an IoT device. This should 
+                                  contain the following information:
+                                    - ['ports']    = port numbers that the IoT
+                                                     device plans to use
+                                    - ['cloud_ip'] = the IPv4 address of the
+                                                     cloud service the IoT device
+                                                     plans to use
+    '''
+    def register_device(self, json_string):
+        port_rollback = self.port_counter
+        try:
+            new_obj = json.loads(json_string)
+            new_alias = None
+            for port in new_obj['ports']:
+                new_alias = Alias(orig_port=port, fake_port=self.port_counter, cloud_ip=new_obj['cloud_ip'])
+                self.port_counter += 1
+            new_alias['cloud_ip'] = new_obj['cloud_ip']
+            self.aliases.append(new_alias)
+        except:
+            self.port_counter = port_rollback
+            traceback.print_exc()
+            try:
+                self.logger.debug("failed to register device %s", json_string)
+            except:
+                self.logger.info("json string is not in JSON string format")
+                traceback.print_exc()
 
     @set_ev_cls(ofp_event.EventOFPStateChange,
                 [MAIN_DISPATCHER, DEAD_DISPATCHER])
