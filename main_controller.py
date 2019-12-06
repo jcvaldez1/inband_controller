@@ -40,7 +40,7 @@ from ryu.cfg import CONF
 from constants import DOCKER_HOST_IPV4, IOT_ACCESS_POINT_IPV4, GATEWAY_IPV4, \
         DOCKER_HOST_ETH, IOT_ACCESS_POINT_ETH, GATEWAY_ETH, \
         FORWARDING_TABLE, REROUTING_TABLE, REGISTRATION_IP, \
-        DEFAULT_PORT_COUNTER
+        DEFAULT_PORT_COUNTER, REROUTE_FLOW_PRIORITY
 from alias_object import Alias
 '''
         SDN_Rerouter is the main class that handles the rerouting flows
@@ -63,6 +63,17 @@ class SDN_Rerouter(learning_switch.BaseSwitch):
         self.aliases=[]
         self.port_counter = DEFAULT_PORT_COUNTER
         self.aliaser_thread = hub.spawn(self._aliaser)
+        # TEST ENTRIES FIRST
+        #cloud_ip = "52.74.73.81"
+        #cloud_ip2 = "13.55.147.2"
+        #kwargs = {"real_port":80, "fake_port":42069, "cloud_ip":cloud_ip}
+        #self.aliases.append(Alias(**kwargs))
+        #kwargs = {"real_port":80, "fake_port":5000, "cloud_ip":cloud_ip2}
+        #self.aliases.append(Alias(**kwargs))
+        #kwargs = {"real_port":42915, "fake_port":42917, "cloud_ip":cloud_ip}
+        #self.aliases.append(Alias(**kwargs))
+        #kwargs = {"real_port":42915, "fake_port":42915, "cloud_ip":cloud_ip2}
+        #self.aliases.append(Alias(**kwargs))
 
 
     '''
@@ -114,11 +125,11 @@ class SDN_Rerouter(learning_switch.BaseSwitch):
             alias_test = self.aliases
             connection_health = self.live_connection("64.90.52.128")
             if (not connection_health):
-                for alias_object in alias_test:
-                    real_ip = alias_object['cloud_ip']
+                for alias_ob in alias_test:
+                    real_ip = alias_ob.cloud_ip
                     fake_ip = DOCKER_HOST_IPV4
-                    real_port = alias_object['real_port']
-                    fake_port = alias_object['fake_port']
+                    real_port = alias_ob.real_port
+                    fake_port = alias_ob.fake_port
                     for dp in self.datapaths.values():
                         ofproto = dp.ofproto
                         parser = dp.ofproto_parser
@@ -129,24 +140,26 @@ class SDN_Rerouter(learning_switch.BaseSwitch):
                         actions = [ act_set(ipv4_dst=fake_ip),
                                     act_set(tcp_dst=fake_port),
                                     act_set(eth_dst=DOCKER_HOST_ETH) ]
+                        #actions += [ act_out(5) ]
                         inst = [parser.OFPInstructionActions(ofproto.OFPIT_APPLY_ACTIONS, actions)]
                         inst += [ act_table(FORWARDING_TABLE) ]
                         match = parser.OFPMatch( eth_type=ETH_TYPE_IP,
                                                  ip_proto=IPPROTO_TCP, # 6
                                                  ipv4_dst=real_ip,
                                                  tcp_dst=real_port)
-                        super(SDN_Rerouter, self).add_flow(dp, REROUTE_FLOW_PRIORITY, match, inst)
+                        super(SDN_Rerouter, self).add_flow(dp, REROUTING_TABLE, REROUTE_FLOW_PRIORITY, match, inst)
                         # INCOMING  
                         actions = [ act_set(ipv4_src=real_ip),
                                     act_set(tcp_src=real_port),
                                     act_set(eth_src=GATEWAY_ETH) ]
+                        #actions += [ act_out(3) ]
                         inst = [parser.OFPInstructionActions(ofproto.OFPIT_APPLY_ACTIONS, actions)]
                         inst += [ act_table(FORWARDING_TABLE) ]
                         match = parser.OFPMatch( eth_type=ETH_TYPE_IP,
                                                  ip_proto=IPPROTO_TCP,
                                                  ipv4_src=fake_ip,
                                                  tcp_src=fake_port)
-                        super(SDN_Rerouter, self).add_flow(dp, REROUTE_FLOW_PRIORITY, match, inst)
+                        super(SDN_Rerouter, self).add_flow(dp, REROUTING_TABLE, REROUTE_FLOW_PRIORITY, match, inst)
             hub.sleep(5)
 
     '''
