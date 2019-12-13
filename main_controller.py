@@ -40,7 +40,7 @@ from ryu.cfg import CONF
 from constants import DOCKER_HOST_IPV4, IOT_ACCESS_POINT_IPV4, GATEWAY_IPV4, \
         DOCKER_HOST_ETH, IOT_ACCESS_POINT_ETH, GATEWAY_ETH, \
         FORWARDING_TABLE, REROUTING_TABLE, REGISTRATION_IP, \
-        DEFAULT_PORT_COUNTER, REROUTE_FLOW_PRIORITY
+        DEFAULT_PORT_COUNTER, REROUTE_FLOW_PRIORITY, REROUTE_FLOW_PRIORITY_DUAL_ROLE 
 from alias_object import Alias
 '''
         SDN_Rerouter is the main class that handles the rerouting flows
@@ -145,13 +145,15 @@ class SDN_Rerouter(learning_switch.BaseSwitch):
                         act_set = parser.OFPActionSetField
                         act_out = parser.OFPActionOutput
                         act_table = parser.OFPInstructionGotoTable
+
+                        # NORMAL REROUTE FLOW SET
                         # OUTGOING 
                         actions = [ act_set(ipv4_dst=fake_ip),
                                     act_set(tcp_dst=fake_port),
                                     act_set(eth_dst=DOCKER_HOST_ETH) ]
-                        actions += [ act_out(5) ]
+                        #actions += [ act_out(5) ]
                         inst = [parser.OFPInstructionActions(ofproto.OFPIT_APPLY_ACTIONS, actions)]
-                        #inst += [ act_table(FORWARDING_TABLE) ]
+                        inst += [ act_table(FORWARDING_TABLE) ]
                         match = parser.OFPMatch( eth_type=ETH_TYPE_IP,
                                                  ip_proto=IPPROTO_TCP, # 6
                                                  ipv4_dst=real_ip,
@@ -169,6 +171,42 @@ class SDN_Rerouter(learning_switch.BaseSwitch):
                                                  ipv4_src=fake_ip,
                                                  tcp_src=fake_port)
                         super(SDN_Rerouter, self).add_flow(dp, REROUTING_TABLE, REROUTE_FLOW_PRIORITY, match, inst)
+
+
+                        # FOR CASES WHERE CLIENT == ALIAS
+                        # OUTGOING 
+                        actions = [ act_set(ipv4_dst=fake_ip),
+                                    act_set(tcp_dst=fake_port),
+                                    act_set(eth_dst=DOCKER_HOST_ETH),
+                                    act_set(ipv4_src=real_ip),
+                                    act_set(eth_src=GATEWAY_ETH),
+                                    ]
+                        #actions += [ act_out(5) ]
+                        inst = [parser.OFPInstructionActions(ofproto.OFPIT_APPLY_ACTIONS, actions)]
+                        inst += [ act_table(FORWARDING_TABLE) ]
+                        match = parser.OFPMatch( eth_type=ETH_TYPE_IP,
+                                                 ip_proto=IPPROTO_TCP, # 6
+                                                 ipv4_src=fake_ip,
+                                                 ipv4_dst=real_ip,
+                                                 tcp_dst=real_port)
+                        super(SDN_Rerouter, self).add_flow(dp, REROUTING_TABLE, REROUTE_FLOW_PRIORITY_DUAL_ROLE, match, inst)
+                        # INCOMING  
+                        actions = [ act_set(ipv4_src=real_ip),
+                                    act_set(tcp_src=real_port),
+                                    act_set(eth_src=GATEWAY_ETH),
+                                    act_set(ipv4_dst=fake_ip),
+                                    act_set(eth_dst=DOCKER_HOST_ETH),
+                                    ]
+                        #actions += [ act_out(3) ]
+                        inst = [parser.OFPInstructionActions(ofproto.OFPIT_APPLY_ACTIONS, actions)]
+                        inst += [ act_table(FORWARDING_TABLE) ]
+                        match = parser.OFPMatch( eth_type=ETH_TYPE_IP,
+                                                 ip_proto=IPPROTO_TCP,
+                                                 ipv4_src=fake_ip,
+                                                 ipv4_dst=real_ip,
+                                                 tcp_src=fake_port)
+                        super(SDN_Rerouter, self).add_flow(dp, REROUTING_TABLE, REROUTE_FLOW_PRIORITY_DUAL_ROLE, match, inst)
+
             hub.sleep(5)
 
     '''
