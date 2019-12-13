@@ -60,20 +60,20 @@ class SDN_Rerouter(learning_switch.BaseSwitch):
 
         super(SDN_Rerouter, self).__init__(*args, **kwargs)
         self.datapaths = {}
-        self.aliases=[]
+        self.aliases   = []
         self.port_counter = DEFAULT_PORT_COUNTER
         self.aliaser_thread = hub.spawn(self._aliaser)
         # TEST ENTRIES FIRST
-        #cloud_ip = "52.74.73.81"
-        #cloud_ip2 = "13.55.147.2"
-        #kwargs = {"real_port":80, "fake_port":42069, "cloud_ip":cloud_ip}
-        #self.aliases.append(Alias(**kwargs))
-        #kwargs = {"real_port":80, "fake_port":5000, "cloud_ip":cloud_ip2}
-        #self.aliases.append(Alias(**kwargs))
-        #kwargs = {"real_port":42915, "fake_port":42917, "cloud_ip":cloud_ip}
-        #self.aliases.append(Alias(**kwargs))
-        #kwargs = {"real_port":42915, "fake_port":42915, "cloud_ip":cloud_ip2}
-        #self.aliases.append(Alias(**kwargs))
+        cloud_ip = "52.74.73.81"
+        cloud_ip2 = "13.55.147.2"
+        kwargs = {"real_port":80, "fake_port":42069, "cloud_ip":cloud_ip}
+        self.aliases.append(Alias(**kwargs))
+        kwargs = {"real_port":80, "fake_port":5000, "cloud_ip":cloud_ip2}
+        self.aliases.append(Alias(**kwargs))
+        kwargs = {"real_port":42915, "fake_port":42917, "cloud_ip":cloud_ip}
+        self.aliases.append(Alias(**kwargs))
+        kwargs = {"real_port":42915, "fake_port":42915, "cloud_ip":cloud_ip2}
+        self.aliases.append(Alias(**kwargs))
 
 
     '''
@@ -122,8 +122,17 @@ class SDN_Rerouter(learning_switch.BaseSwitch):
     def _aliaser(self):
         # datapath_id : (real, alias)
         while True:
-            alias_test = self.aliases
             connection_health = self.live_connection("64.90.52.128")
+            alias_test = self.aliases
+            #alias_test = []
+            #if (not connection_health):
+            #    alias_test = self.aliases
+            #else:
+            #    cloud_ip = "52.74.73.81"
+            #    kwargs = {"real_port":80, "fake_port":42069, "cloud_ip":cloud_ip}
+            #    alias_test.append(Alias(**kwargs))
+            #    kwargs = {"real_port":42915, "fake_port":42917, "cloud_ip":cloud_ip}
+            #    alias_test.append(Alias(**kwargs))
             if (not connection_health):
                 for alias_ob in alias_test:
                     real_ip = alias_ob.cloud_ip
@@ -140,9 +149,9 @@ class SDN_Rerouter(learning_switch.BaseSwitch):
                         actions = [ act_set(ipv4_dst=fake_ip),
                                     act_set(tcp_dst=fake_port),
                                     act_set(eth_dst=DOCKER_HOST_ETH) ]
-                        #actions += [ act_out(5) ]
+                        actions += [ act_out(5) ]
                         inst = [parser.OFPInstructionActions(ofproto.OFPIT_APPLY_ACTIONS, actions)]
-                        inst += [ act_table(FORWARDING_TABLE) ]
+                        #inst += [ act_table(FORWARDING_TABLE) ]
                         match = parser.OFPMatch( eth_type=ETH_TYPE_IP,
                                                  ip_proto=IPPROTO_TCP, # 6
                                                  ipv4_dst=real_ip,
@@ -186,7 +195,7 @@ class SDN_Rerouter(learning_switch.BaseSwitch):
 
         url = hostname
         url = "64.90.52.128"
-        command = "python ./connection_tester.py "+url
+        command = "python3 ./connection_tester.py "+url
         proc = subprocess.Popen(command, stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT,shell=True)
         stringer = proc.communicate()[0][:-1]
