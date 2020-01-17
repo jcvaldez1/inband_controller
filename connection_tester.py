@@ -1,4 +1,5 @@
-import urllib2
+import urllib.request
+import requests
 import multiprocessing as mp
 import time
 import sys
@@ -17,7 +18,9 @@ def timeout(t, cmd, *args, **kwds):
 
 def open(url):
     try:
-        response = urllib2.urlopen(url)
+        #response = urllib2.urlopen(url)
+        response = urllib.request.urlopen('http://python.org/')
+        #a = 5/0
         return "True"
     except:
         return "False"
