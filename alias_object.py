@@ -17,5 +17,6 @@ class Alias(object):
         self.real_port = kwargs['real_port']
         self.fake_port = kwargs['fake_port']
         self.cloud_ip = kwargs['cloud_ip']
+        self.name     = kwargs['name']
         #self.name
 

@@ -42,6 +42,7 @@ from constants import DOCKER_HOST_IPV4, IOT_ACCESS_POINT_IPV4, GATEWAY_IPV4, \
         FORWARDING_TABLE, REROUTING_TABLE, REGISTRATION_IP, \
         DEFAULT_PORT_COUNTER, REROUTE_FLOW_PRIORITY, REROUTE_FLOW_PRIORITY_DUAL_ROLE 
 from alias_object import Alias
+import traceback
 '''
         SDN_Rerouter is the main class that handles the rerouting flows
         part of the initialization would be to initialize a rerouting
@@ -64,14 +65,14 @@ class SDN_Rerouter(learning_switch.BaseSwitch):
         self.port_counter = DEFAULT_PORT_COUNTER
         self.aliaser_thread = hub.spawn(self._aliaser)
         # TEST ENTRIES FIRST
-        cloud_ip = "52.74.73.81"
-        cloud_ip2 = "13.55.147.2"
-        kwargs = {"real_port":80, "fake_port":42069, "cloud_ip":cloud_ip}
-        self.aliases.append(Alias(**kwargs))
+        #cloud_ip = "52.74.73.81"
+        #cloud_ip2 = "13.55.147.2"
+        #kwargs = {"real_port":80, "fake_port":42069, "cloud_ip":cloud_ip}
+        #self.aliases.append(Alias(**kwargs))
         #kwargs = {"real_port":80, "fake_port":5000, "cloud_ip":cloud_ip2}
         #self.aliases.append(Alias(**kwargs))
-        kwargs = {"real_port":42915, "fake_port":42917, "cloud_ip":cloud_ip}
-        self.aliases.append(Alias(**kwargs))
+        #kwargs = {"real_port":42915, "fake_port":42917, "cloud_ip":cloud_ip}
+        #self.aliases.append(Alias(**kwargs))
         #kwargs = {"real_port":42915, "fake_port":42915, "cloud_ip":cloud_ip2}
         #self.aliases.append(Alias(**kwargs))
 
@@ -111,7 +112,8 @@ class SDN_Rerouter(learning_switch.BaseSwitch):
                 if ip.dst == REGISTRATION_IP:
                     self.register_device(pkt.protocols[-1])
         except:
-            pass
+            self.logger.debug("failed to register device %s", json_string)
+            raise
         return
 
     '''
@@ -124,6 +126,7 @@ class SDN_Rerouter(learning_switch.BaseSwitch):
         while True:
             connection_health = self.live_connection("64.90.52.128")
             alias_test = self.aliases
+            print("\nalias_list : "+str(self.aliases)+"\n")
             #alias_test = []
             #if (not connection_health):
             #    alias_test = self.aliases
@@ -262,16 +265,18 @@ class SDN_Rerouter(learning_switch.BaseSwitch):
                                                      plans to use
     '''
     def register_device(self, json_string):
+        print("\n\n\nREGISTERING\n\n\n")
         port_rollback = self.port_counter
         try:
+            port_rollback = self.port_counter
             new_obj = json.loads(json_string)
             new_alias = None
-            print("\n"+new_obj['ports']+"\n")
+            print("\n"+str(new_obj)+"\n")
             for port in new_obj['ports']:
-                new_alias = Alias(orig_port=port, fake_port=self.port_counter, cloud_ip=new_obj['cloud_ip'])
+                new_alias = Alias(real_port=port, fake_port=self.port_counter, cloud_ip=new_obj['cloud_ip'], name=new_obj['name'])
                 self.port_counter += 1
-            new_alias['cloud_ip'] = new_obj['cloud_ip']
-            self.aliases.append(new_alias)
+            #new_alias['cloud_ip'] = new_obj['cloud_ip']
+                self.aliases.append(new_alias)
         except:
             self.port_counter = port_rollback
             traceback.print_exc()
@@ -279,7 +284,8 @@ class SDN_Rerouter(learning_switch.BaseSwitch):
                 self.logger.debug("failed to register device %s", json_string)
             except:
                 self.logger.info("json string is not in JSON string format")
-                traceback.print_exc()
+            raise
+                #traceback.print_exc()
 
     @set_ev_cls(ofp_event.EventOFPStateChange,
                 [MAIN_DISPATCHER, DEAD_DISPATCHER])
