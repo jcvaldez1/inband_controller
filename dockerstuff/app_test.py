@@ -67,6 +67,7 @@ def process_request(req):
                         msgQueue.put((str(val['sayThis']+" "+str(req['sequence_num'])).encode('utf-8'),val['deviceID']))
                     else:
                         msgQueue.put((str(val['sayThis']).encode('utf-8'),val['deviceID']))
+                        print((str(val['sayThis']).encode('utf-8'),val['deviceID']))
                     return "sent to device"
     return "nothing found"
 

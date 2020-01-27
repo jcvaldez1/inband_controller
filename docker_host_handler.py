@@ -2,7 +2,7 @@ import docker
 import main_controller
 import requests
 import traceback
-from constants import DOCKER_DAEMON_URL, DOCKERFILE_PATH
+from constants import DOCKER_DAEMON_URL, DOCKERFILE_PATH, DOCKER_HOST_IPV4
 from ryu.controller import ofp_event
 from ryu.controller.handler import MAIN_DISPATCHER, DEAD_DISPATCHER, \
         CONFIG_DISPATCHER
@@ -59,7 +59,11 @@ class Docker_Handler(main_controller.SDN_Rerouter):
     def get_devices_in_group(self,cloud_address,group):
         response = requests.get('http://'+cloud_address+'/return_group',params={'group':group})
         return response.text
-    
+   
+    def deliver_config_to_container(self,container_config_port,config_to_deliver):
+        response = requests.post('http://'+DOCKER_HOST_IPV4+':'+container_config_port+'/config',json=config_to_deliver)
+        return response.text
+
     def spin_up_container(self, cloud_ip, ports, name):
         container = self.dockd.containers.run(image=self.docker_image[0],detach=True,network='docknet',hostname=cloud_ip, name=name, ports=ports)
         return container.id
