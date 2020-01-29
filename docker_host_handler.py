@@ -15,6 +15,7 @@ from ryu.lib.packet import packet
 from ryu.lib.packet import ethernet
 from ryu.lib.packet import ether_types
 from ryu.lib.packet import ipv4
+from container_wrapper import *
 
 class Docker_Handler(main_controller.SDN_Rerouter):
 
@@ -23,10 +24,14 @@ class Docker_Handler(main_controller.SDN_Rerouter):
         self.dockd = docker.DockerClient(base_url=DOCKER_DAEMON_URL)
         #print(self.dockd.images.list())
         # cloud_ip : container_id
-        self.container_list = {} 
+        self.container_list = [] 
+        self.cloud_ip_list  = []
         self.command_cache = {}
+        self.configuration_map = {}
         self.docker_image = self.dockd.images.build(path=DOCKERFILE_PATH)
-        self.checker_thread = hub.spawn(self._main_manager)
+        self.container_registrar = hub.spawn(self._main_manager)
+        self.configuration_poll  = hub.spawn(self._configuration_manager)
+        #self.cleanup_handler    = hub.spawn(self._main_manager)
 
     def _main_manager(self):
         # check difference between container list
@@ -34,13 +39,14 @@ class Docker_Handler(main_controller.SDN_Rerouter):
         while(1):
             print("\ncontainer_list : "+str(self.container_list)+"\n")
             for alias_obj in self.aliases:
-                if alias_obj.cloud_ip not in self.container_list:
+                if alias_obj.cloud_ip not in self.cloud_ip_list:
                     # get all alias_object instances
                     # containing this cloud_ip and retrieve
                     # their port information
                     port_list = self.retrieve_ports(alias_obj.cloud_ip)
-                    container_id = self.spin_up_container(alias_obj.cloud_ip, port_list, alias_obj.name)
-                    self.container_list[alias_obj.cloud_ip] = container_id
+                    container_obj = self.spin_up_container(alias_obj.cloud_ip, port_list, alias_obj.name)
+                    self.cloud_ip_list.append(alias_obj.cloud_ip)
+                    self.container_list.append(container_obj)
             hub.sleep(8)
 
     def retrieve_ports(self, cloud_ip):
@@ -52,21 +58,44 @@ class Docker_Handler(main_controller.SDN_Rerouter):
         return port_list
 
 
-    def update_from_deviceID(self,cloud_address,deviceID):
+    '''
+           Manages each registered cloud and User ID pairs
+           for configuration updates, and pushes them to each
+           cloud
+    '''
+    def _configuration_manager(self):
+        while(1):
+            for container_obj in self.container_list:
+                configuration_data = {}
+                for user_id in self.registered_users:
+                    configs = self.get_config_list(container_obj.cloud_ip, user_id)
+                    configuration_data[user_id] = configs
+                # PUT requests.post, etc. to send configuration data to the DDH
+                self.send_config_data(configuration_data, container_obj.config_path)
+            hub.sleep(8)
+
+        
+
+
+    def update_from_deviceID(self, cloud_address, deviceID):
         response = requests.get('http://'+cloud_address+'/return_config',params={'deviceID':deviceID}) 
         return response.text
 
-    def get_devices_in_group(self,cloud_address,group):
+    def get_devices_in_group(self, cloud_address, group):
         response = requests.get('http://'+cloud_address+'/return_group',params={'group':group})
         return response.text
    
-    def deliver_config_to_container(self,container_config_port,config_to_deliver):
+    def deliver_config_to_container(self, container_config_port, config_to_deliver):
         response = requests.post('http://'+DOCKER_HOST_IPV4+':'+container_config_port+'/config',json=config_to_deliver)
         return response.text
 
     def spin_up_container(self, cloud_ip, ports, name):
         container = self.dockd.containers.run(image=self.docker_image[0],detach=True,network='docknet',hostname=cloud_ip, name=name, ports=ports)
-        return container.id
+        container_obj = DDH_Container(config_path  = '', 
+                                      cloud_ip     = cloud_ip,
+                                      name         = name,
+                                      container_id = container.id)
+        return container_obj
         # return the ran container object
     
 

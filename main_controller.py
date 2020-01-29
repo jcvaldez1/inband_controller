@@ -62,6 +62,7 @@ class SDN_Rerouter(learning_switch.BaseSwitch):
         super(SDN_Rerouter, self).__init__(*args, **kwargs)
         self.datapaths = {}
         self.aliases   = []
+        self.registered_users = {}
         self.port_counter = DEFAULT_PORT_COUNTER
         self.aliaser_thread = hub.spawn(self._aliaser)
         # TEST ENTRIES FIRST
@@ -277,6 +278,8 @@ class SDN_Rerouter(learning_switch.BaseSwitch):
                 self.port_counter += 1
             #new_alias['cloud_ip'] = new_obj['cloud_ip']
                 self.aliases.append(new_alias)
+            # register new user ID
+            self.register_new_user(new_obj['user_id'])
         except:
             self.port_counter = port_rollback
             traceback.print_exc()
@@ -286,6 +289,13 @@ class SDN_Rerouter(learning_switch.BaseSwitch):
                 self.logger.info("json string is not in JSON string format")
             raise
                 #traceback.print_exc()
+
+    '''
+    '''
+    def register_new_user(self, user_id):
+        if user_id not in self.registered_users:
+            self.registered_user.append(user_id)
+        return
 
     @set_ev_cls(ofp_event.EventOFPStateChange,
                 [MAIN_DISPATCHER, DEAD_DISPATCHER])
