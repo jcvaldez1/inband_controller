@@ -259,27 +259,33 @@ class SDN_Rerouter(learning_switch.BaseSwitch):
                 json_string     : payload data that came from the registration
                                   packet sent by an IoT device. This should 
                                   contain the following information:
-                                    - ['ports']    = port numbers that the IoT
-                                                     device plans to use
-                                    - ['cloud_ip'] = the IPv4 address of the
-                                                     cloud service the IoT device
-                                                     plans to use
+                                    - ['ports']     = port numbers that the IoT
+                                                      device plans to use
+                                    - ['cloud_ip']  = the IPv4 address of the
+                                                      cloud service the IoT device
+                                                      plans to use
+                                    - ['users']     = list of users that this
+                                                      device is registered to
+                                    - ['device_id'] = can be sent by device or
+                                                      any be any randomly
+                                                      generated hash string
     '''
     def register_device(self, json_string):
-        print("\n\n\nREGISTERING\n\n\n")
         port_rollback = self.port_counter
         try:
-            port_rollback = self.port_counter
+            #port_rollback = self.port_counter
             new_obj = json.loads(json_string)
             new_alias = None
             print("\n"+str(new_obj)+"\n")
-            for port in new_obj['ports']:
-                new_alias = Alias(real_port=port, fake_port=self.port_counter, cloud_ip=new_obj['cloud_ip'], name=new_obj['name'])
-                self.port_counter += 1
-            #new_alias['cloud_ip'] = new_obj['cloud_ip']
-                self.aliases.append(new_alias)
-            # register new user ID
-            self.register_new_user(new_obj['user_id'])
+            if ( "ports" in new_obj ) and ( "cloud_ip" in new_obj ):
+                for port in new_obj['ports']:
+                    new_alias = Alias(real_port=port, fake_port=self.port_counter, cloud_ip=new_obj['cloud_ip'], name=new_obj['name'])
+                    self.port_counter += 1
+                #new_alias['cloud_ip'] = new_obj['cloud_ip']
+                    self.aliases.append(new_alias)
+                    self.register_device()
+            else:
+                self.register_new_user(new_obj['users'])
         except:
             self.port_counter = port_rollback
             traceback.print_exc()
@@ -291,10 +297,12 @@ class SDN_Rerouter(learning_switch.BaseSwitch):
                 #traceback.print_exc()
 
     '''
+            Registers user
     '''
-    def register_new_user(self, user_id):
-        if user_id not in self.registered_users:
-            self.registered_user.append(user_id)
+    def register_new_user(self, user_id_list):
+        for user_id in user_id_list:
+            if user_id not in self.registered_users:
+                self.registered_user.append(user_id)
         return
 
     @set_ev_cls(ofp_event.EventOFPStateChange,
