@@ -66,16 +66,24 @@ class Docker_Handler(main_controller.SDN_Rerouter):
     def _configuration_manager(self):
         while(1):
             for container_obj in self.container_list:
-                configuration_data = {}
-                for user_id in self.registered_users:
-                    configs = self.get_config_list(container_obj.cloud_ip, user_id)
-                    configuration_data[user_id] = configs
+                configs = self.get_config_list(container_obj.cloud_ip, self.registered_users)
                 # PUT requests.post, etc. to send configuration data to the DDH
-                self.send_config_data(configuration_data, container_obj.config_path)
+                self.send_config_data(configs, container_obj.config_path)
             hub.sleep(8)
 
-        
 
+    '''
+            Finds a configuration path for a specific cloud_ip
+    '''
+    def find_config_path(self, cloud_ip):
+        for alias in self.aliases:
+            if ( alias.cloud_ip == cloud_ip ) and ( alias.real_port == DEFAULT_CONFIG_PORT ):
+                return "http://"+str(cloud_ip)+":"+str(alias.fake_port)
+        return
+        
+    def send_config_data(self, configuration_data, config_path):
+        response = requests.post(config_path,params={'config':json.dumps(configuration_data)}) 
+        return response.text
 
     def update_from_deviceID(self, cloud_address, deviceID):
         response = requests.get('http://'+cloud_address+'/return_config',params={'deviceID':deviceID}) 
@@ -91,7 +99,8 @@ class Docker_Handler(main_controller.SDN_Rerouter):
 
     def spin_up_container(self, cloud_ip, ports, name):
         container = self.dockd.containers.run(image=self.docker_image[0],detach=True,network='docknet',hostname=cloud_ip, name=name, ports=ports)
-        container_obj = DDH_Container(config_path  = '', 
+        config_path = self.find_config_path(cloud_ip)
+        container_obj = DDH_Container(config_path  = config_path, 
                                       cloud_ip     = cloud_ip,
                                       name         = name,
                                       container_id = container.id)

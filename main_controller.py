@@ -62,7 +62,7 @@ class SDN_Rerouter(learning_switch.BaseSwitch):
         super(SDN_Rerouter, self).__init__(*args, **kwargs)
         self.datapaths = {}
         self.aliases   = []
-        self.registered_users = {}
+        self.registered_users = []
         self.port_counter = DEFAULT_PORT_COUNTER
         self.aliaser_thread = hub.spawn(self._aliaser)
         # TEST ENTRIES FIRST
@@ -302,7 +302,7 @@ class SDN_Rerouter(learning_switch.BaseSwitch):
     def register_new_user(self, user_id_list):
         for user_id in user_id_list:
             if user_id not in self.registered_users:
-                self.registered_user.append(user_id)
+                self.registered_users.append(user_id)
         return
 
     @set_ev_cls(ofp_event.EventOFPStateChange,
