@@ -2,7 +2,8 @@ import docker
 import main_controller
 import requests
 import traceback
-from constants import DOCKER_DAEMON_URL, DOCKERFILE_PATH, DOCKER_HOST_IPV4
+from constants import DOCKER_DAEMON_URL, DOCKERFILE_PATH, DOCKER_HOST_IPV4,\
+        DEFAULT_CONFIG_PORT
 from ryu.controller import ofp_event
 from ryu.controller.handler import MAIN_DISPATCHER, DEAD_DISPATCHER, \
         CONFIG_DISPATCHER
@@ -16,6 +17,7 @@ from ryu.lib.packet import ethernet
 from ryu.lib.packet import ether_types
 from ryu.lib.packet import ipv4
 from container_wrapper import *
+import json
 
 class Docker_Handler(main_controller.SDN_Rerouter):
 
@@ -66,9 +68,16 @@ class Docker_Handler(main_controller.SDN_Rerouter):
     def _configuration_manager(self):
         while(1):
             for container_obj in self.container_list:
-                configs = self.get_config_list(container_obj.cloud_ip, self.registered_users)
-                # PUT requests.post, etc. to send configuration data to the DDH
-                self.send_config_data(configs, container_obj.config_path)
+                try:
+                    print("registered users : "+str(self.registered_users))
+                    print("cloud_ip : "+str(container_obj.cloud_ip))
+                    configs = self.get_config_multi(container_obj.cloud_ip, self.registered_users)
+                    print("configurations : "+str(configs))
+                    # PUT requests.post, etc. to send configuration data to the DDH
+                    self.send_config_data(configs, container_obj.config_path)
+                except:
+                    traceback.print_exc()
+                    pass
             hub.sleep(8)
 
 
@@ -76,23 +85,33 @@ class Docker_Handler(main_controller.SDN_Rerouter):
             Finds a configuration path for a specific cloud_ip
     '''
     def find_config_path(self, cloud_ip):
-        for alias in self.aliases:
-            if ( alias.cloud_ip == cloud_ip ) and ( alias.real_port == DEFAULT_CONFIG_PORT ):
-                return "http://"+str(cloud_ip)+":"+str(alias.fake_port)
-        return
+        #for alias in self.aliases:
+        #    if ( alias.cloud_ip == cloud_ip ) and ( alias.real_port == DEFAULT_CONFIG_PORT ):
+        #        return "http://"+str(cloud_ip)+":"+str(alias.fake_port)
+        return "http://"+str(cloud_ip)+":"+str(DEFAULT_CONFIG_PORT)
         
     def send_config_data(self, configuration_data, config_path):
-        response = requests.post(config_path,params={'config':json.dumps(configuration_data)}) 
+        response = requests.post(config_path, json={'config':json.dumps(configuration_data)}) 
         return response.text
 
     def update_from_deviceID(self, cloud_address, deviceID):
         response = requests.get('http://'+cloud_address+'/return_config',params={'deviceID':deviceID}) 
         return response.text
 
+    def get_config_multi(self, cloud_address, group):
+        response = requests.get('http://'+cloud_address+'/return_group_config_multi',json={'group':group})
+        print(str(response))
+        print(str(response.text))
+        return response.text
+   
     def get_devices_in_group(self, cloud_address, group):
         response = requests.get('http://'+cloud_address+'/return_group',params={'group':group})
         return response.text
    
+    def get_group_config(self, cloud_address, group):
+        response = requests.get('http://'+cloud_address+'/return_group_config',params={'group':group})
+        return response.text
+
     def deliver_config_to_container(self, container_config_port, config_to_deliver):
         response = requests.post('http://'+DOCKER_HOST_IPV4+':'+container_config_port+'/config',json=config_to_deliver)
         return response.text

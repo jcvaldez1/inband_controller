@@ -40,7 +40,8 @@ from ryu.cfg import CONF
 from constants import DOCKER_HOST_IPV4, IOT_ACCESS_POINT_IPV4, GATEWAY_IPV4, \
         DOCKER_HOST_ETH, IOT_ACCESS_POINT_ETH, GATEWAY_ETH, CONTROLLER_ETH,\
         FORWARDING_TABLE, REROUTING_TABLE, REGISTRATION_IP, \
-        DEFAULT_PORT_COUNTER, REROUTE_FLOW_PRIORITY, REROUTE_FLOW_PRIORITY_DUAL_ROLE 
+        DEFAULT_PORT_COUNTER, REROUTE_FLOW_PRIORITY, REROUTE_FLOW_PRIORITY_DUAL_ROLE,\
+        DEFAULT_CONFIG_PORT
 from alias_object import Alias
 import traceback
 '''
@@ -137,6 +138,7 @@ class SDN_Rerouter(learning_switch.BaseSwitch):
             #    alias_test.append(Alias(**kwargs))
             #    kwargs = {"real_port":42915, "fake_port":42917, "cloud_ip":cloud_ip}
             #    alias_test.append(Alias(**kwargs))
+            #connection_health = False
             if (not connection_health):
                 for alias_ob in alias_test:
                     real_ip = alias_ob.cloud_ip
@@ -283,7 +285,7 @@ class SDN_Rerouter(learning_switch.BaseSwitch):
                     self.port_counter += 1
                 #new_alias['cloud_ip'] = new_obj['cloud_ip']
                     self.aliases.append(new_alias)
-                    self.register_device()
+                self.register_new_user([new_obj['user_id']])
             else:
                 self.register_new_user(new_obj['users'])
         except:

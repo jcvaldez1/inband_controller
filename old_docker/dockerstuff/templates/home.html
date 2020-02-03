@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <title>Lifx Settings</title>
+        <link rel="stylesheet" href = "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script type="text/javascript" src="{{ url_for('static', filename='main.js') }}"></script>
+        <style>
+          .boldtext {
+              font-weight: bold;
+          }
+          .button {
+            background-color: gray; /* Green */
+            border: none;
+            color: white;
+            padding: 16px 32px;
+            text-align: center;
+            display: inline-block;
+            font-size: 22px;
+          }
+        </style>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+          <a class="navbar-brand" href="/">Lifx Settings</a>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+
+          <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+              </li>
+            </ul>
+          </div>
+          </nav>
+
+        <div class = "container">
+            <h1>Settings</h1>
+
+            <div class="form-group">
+                <label for="sel1">Event:</label>
+                <select class="form-control" id="sel1">
+                  <option value="on">On</option>
+                  <option value="off" selected="selected">Off</option>
+                </select>
+              <!--
+              <label for="sel1"><h2>Event:</h2></label><br>
+              <input type="radio" name="sel1" value="on" checked><span class="boldtext"> On</span><br>
+              <input type="radio" name="sel1" value="on"><span class="boldtext"> Off</span><br>
+              -->
+              <label for="sel2"><h2>Action:</h2></label><br>
+              <select class="form-control" id="sel2">
+                  <option value="on">On</option>
+                  <option value="off" selected="selected">Off</option>
+                  <option value="red">Color: Red</option>
+                  <option value="blue">Color: Blue</option>
+                  <option value="green">Color: Green</option>
+                  <option value="cyan">Color: Cyan</option>
+                  <option value="yellow">Color: Yellow</option>
+                  <option value="pink">Color: Pink</option>
+                </select>
+              <!--
+              <input type="radio" name="sel2" value="on"><span class="boldtext"> On</span><br>
+              <input type="radio" name="sel2" value="off"><span class="boldtext"> Off</span><br>
+              <input type="radio" name="sel2" value="red"><span class="boldtext"> Color:</span><span style="color:red"> Red</span><br>
+              <input type="radio" name="sel2" value="green"><span class="boldtext"> Color:</span><span style="color:green"> Green</span><br>
+              <input type="radio" name="sel2" value="blue"><span class="boldtext"> Color:</span><span style="color:blue"> Blue</span><br>
+              <input type="radio" name="sel2" value="cyan"><span class="boldtext"> Color:</span><span style="color:rgb(0, 197, 197)"> Cyan</span><br>
+              <input type="radio" name="sel2" value="yellow"><span class="boldtext"> Color:</span><span style="color:rgb(190, 190, 0)"> Yellow</span><br>
+              <input type="radio" name="sel2" value="pink"><span class="boldtext"> Color:</span><span style="color:rgb(230, 100, 122)"> Pink</span><br>
+              -->
+              <br>
+
+              <label for="sel2"><h2>Communication Type:</h2></label>
+                <br>
+                <form name = "ctype">
+                  <input type="radio" name="comm_type" value="forward"> Forward<br>
+                  <input type="radio" name="comm_type" value="device"> Device<br>
+                </form>
+              <br>
+			  <h3>Command Number</h3>
+			  <textarea id = "command_num" rows=1></textarea>
+        <h3>Forward IP</h3>
+        <textarea id = "forward_ip" rows=1></textarea>
+			  
+			  <br>
+            <button class="btn btn-default" onclick="add_setting()"><span class="boldtext">Submit</span></button>
+          </div>
+        </div>
+
+        <div class = "container">
+          <h3>Current Settings</h3>
+          <table id="tbl" width="320" border="1"><td>No Settings Set</td></table>
+        </div>
+
+        <script src = "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    </body>
+    </html>

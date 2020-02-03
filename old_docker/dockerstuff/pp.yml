@@ -1,0 +1,12 @@
+version: '2'
+services:
+  sg:
+    build: .
+    ports:
+      - "42069:80"
+      - "42917:42915"    
+  aus:
+    build: .
+    ports:
+      - "5000:80"
+      - "42915:42915"

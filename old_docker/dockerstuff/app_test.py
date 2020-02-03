@@ -67,6 +67,7 @@ def process_request(req):
                         msgQueue.put((str(val['sayThis']+" "+str(req['sequence_num'])).encode('utf-8'),val['deviceID']))
                     else:
                         msgQueue.put((str(val['sayThis']).encode('utf-8'),val['deviceID']))
+                        print((str(val['sayThis']).encode('utf-8'),val['deviceID']))
                     return "sent to device"
     return "nothing found"
 
@@ -114,31 +115,6 @@ def contact_cloud():
 def gib_groop():
     if 'group' in request.args:
         return jsonify(grouping[request.args['group']])
-    return jsonify(commands)
-
-@application.route("/return_group_config", methods=["GET"])
-def gib_groop_conf():
-    if 'group' in request.args:
-        config_out = []
-        for k,v in commands.items():
-            if v['group'] == request.args['group']:
-                config = {'commandID':k,'commandDetails':v}
-                config_out.append(config)
-        return jsonify(config_out)
-    return jsonify(commands)
-
-@application.route("/return_group_config_multi", methods=["GET"])
-def gib_groop_conf_multi():
-    if 'group' in request.json:
-        config_out = {}
-        for group in request.json['group']:
-            buffer = []
-            for k,v in commands.items():
-                if v['group'] == group:
-                    config = {'commandID':k,'commandDetails':v}
-                    buffer.append(config)
-            config_out[group] = buffer
-        return jsonify(config_out)
     return jsonify(commands)
 
 @application.route("/return_config", methods=["GET"])
