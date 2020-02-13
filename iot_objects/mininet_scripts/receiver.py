@@ -14,10 +14,12 @@ import json
 import requests
 from constants import *
 
+receiver_log_file = None
+
 def on_message(ws, message):
     message = message.decode("utf-8")
     print(message)
-    msg_log = open(RECEIVER_LOG_FILE, "a+")
+    msg_log = open(receiver_log_file, "a+")
     msg_log.write(str(datetime.datetime.now()) + " " + message + "\n")
     msg_log.close()
 
@@ -35,6 +37,12 @@ def on_open(ws):
         
 if __name__ == "__main__":
     ##SNIFF BULBS FIRST##
+    if len(sys.argv) < 2:
+        print("Usage: python3 receiver.py <host_number>")
+        sys.exit(1)
+    host_name = sys.argv[1]
+    receiver_log_file = "./results/"+str(host_name)+"_receiver_log.log"
+
     
     while True:
         websocket.enableTrace(True)

@@ -5,13 +5,14 @@ import datetime
 import sys
 from constants import *
 
-if len(sys.argv) < 3:
-    print("Usage: python3 actuator.py <iterations> <sleep_interval>")
+if len(sys.argv) < 4:
+    print("Usage: python3 actuator.py <iterations> <sleep_interval> <host_number>")
     sys.exit(1)
 
 curr_seq_num = 0
 num_iterations = sys.argv[1]
 sleep_interval = sys.argv[2]
+host_name      = sys.argv[3]
 
 
 
@@ -36,7 +37,7 @@ if __name__ == "__main__":
                      'signal':state,
                      'sequence_num': curr_seq_num,
                      'group': '1'  }
-            log_result("actuator_log.log", state)
+            log_result("./results/"+str(host_name) + "_actuator_log.log", state)
             res = requests.post(url = 'http://'+SAMSUNG_CLOUD+'/report', json = data, timeout = 5)
             curr_seq_num += 1
             print(state + str(res))
