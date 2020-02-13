@@ -1,7 +1,8 @@
 import socket
 import random
 import json
-from time import sleep import time
+from time import sleep 
+import time
 
 def send_dummy(brand_name, ip_addr, data=None):
     UDP_IP_ADDRESS = "69.4.20.69"
@@ -18,10 +19,10 @@ def send_dummy(brand_name, ip_addr, data=None):
 def samsong_dummy_registration():
     ip_addr = "13.55.147.2"
     data = {
-        'device_id':random.getrandbits(16)
+        'device_id':random.getrandbits(16),
         'ports':[80,42915],
         'name': "Lifx",
-        'cloud_ip': ip_addr
+        'cloud_ip': ip_addr,
         'user_id': 1
     }
     send_dummy(None, None, data)
