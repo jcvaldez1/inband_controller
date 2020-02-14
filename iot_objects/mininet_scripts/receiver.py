@@ -41,7 +41,7 @@ if __name__ == "__main__":
         print("Usage: python3 receiver.py <host_number>")
         sys.exit(1)
     host_name = sys.argv[1]
-    receiver_log_file = "./results/"+str(host_name)+"_receiver_log.log"
+    receiver_log_file = "./results/receiver/"+str(host_name)+"_receiver_log.log"
 
     
     while True:

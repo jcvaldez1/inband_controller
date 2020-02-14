@@ -37,7 +37,7 @@ if __name__ == "__main__":
                      'signal':state,
                      'sequence_num': curr_seq_num,
                      'group': '1'  }
-            log_result("./results/"+str(host_name) + "_actuator_log.log", state)
+            log_result("./results/actuator/"+str(host_name) + "_actuator_log.log", state)
             res = requests.post(url = 'http://'+SAMSUNG_CLOUD+'/report', json = data, timeout = 5)
             curr_seq_num += 1
             print(state + str(res))
