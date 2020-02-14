@@ -8,7 +8,7 @@ from mininet.log import setLogLevel, info
 
 def myNetwork():
     hosts = [];
-    host_num = 100
+    host_num = 10
     net = Mininet( topo=None,
                    build=False, controller = OVSController)
 
@@ -32,14 +32,14 @@ def myNetwork():
         h.cmdPrint('dhclient '+h.defaultIntf().name)
 
     # register
-    CLI(net)
+    #CLI(net)
 
     for x in range(0, host_num):
         if x % 2 == 0:
             cmdstring = "python3 actuator.py 1000 0.5 "+ str(x)
         else:
-            cmdstring = "python3 receiver.py "+str(x)
-        hosts[x].cmdPrint(cmdstring)
+            cmdstring = "python receiver.py "+str(x)
+        hosts[x].cmdPrint(cmdstring+" &")
 
     CLI(net)
 
