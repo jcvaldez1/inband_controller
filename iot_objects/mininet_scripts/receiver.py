@@ -32,7 +32,7 @@ def on_close(ws):
     print("closed")
 
 def on_open(ws):
-    ws.send(str(host_number))        
+    ws.send(str(host_name))        
     print("open")
 
         

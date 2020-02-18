@@ -36,7 +36,7 @@ def myNetwork():
 
     for x in range(0, host_num):
         if x % 2 == 0:
-            cmdstring = "python3 actuator.py 1000 0.5 "+ str(x)
+            cmdstring = "python3 actuator.py 100 0.5 "+ str(x)
         else:
             cmdstring = "python receiver.py "+str(x)
         hosts[x].cmdPrint(cmdstring+" &")

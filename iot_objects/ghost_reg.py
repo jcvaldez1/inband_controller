@@ -29,7 +29,7 @@ def samsong_dummy_registration():
     ip_addr = "52.74.73.81"
     data["name"] = "samsong"
     data["cloud_ip"] = ip_addr
-    data["user_id"] = 2
+    data["user_id"] = 1
     sleep(5)
     send_dummy(None, None, data)
     
