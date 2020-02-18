@@ -10,6 +10,7 @@ import websockets
 
 
 application = Flask(__name__)
+global commands
 commands = {}
 threads = []
 goods = []
@@ -30,6 +31,7 @@ async def hello(websocket, path):
                 await websocket.close()
             ctr = 0 
         if not msgQueue.empty():
+            print('msgQ has stuff')
             to_send = msgQueue.get()
             if to_send[1] == name:
                 await websocket.send(to_send[0])
@@ -64,9 +66,9 @@ def process_request(req):
                     return r.text
                 elif val['commType'] == "device":
                     if "sequence_num" in req:
-                        msgQueue.put((str(val['sayThis']+" "+str(req['sequence_num'])).encode('utf-8'),val['deviceID']))
+                        msgQueue.put((str(val['sayThis']+" "+str(req['sequence_num'])).encode('utf-8'),val['target']))
                     else:
-                        msgQueue.put((str(val['sayThis']).encode('utf-8'),val['deviceID']))
+                        msgQueue.put((str(val['sayThis']).encode('utf-8'),val['target']))
                     return "sent to device"
     return "nothing found"
 
@@ -82,6 +84,7 @@ def enroll():
     return "cool", 200
 @application.route("/reset", methods=["POST"])
 def reset():
+    global commands
     commands = {}
     return "cool", 200
 
@@ -91,6 +94,15 @@ def config():
     commands[buffer["commandID"]] = buffer["commandDetails"]
     print(commands)
     return "cool", 200
+
+@application.route("/config_multi", methods=["POST"])
+def config_multi():
+    buffer = request.get_json()
+    for k in buffer:
+        commands[k["commandID"]] = k["commandDetails"]
+    print(commands)
+    return "cool", 200
+
 
 @application.route("/report", methods=["POST"])
 def report():
