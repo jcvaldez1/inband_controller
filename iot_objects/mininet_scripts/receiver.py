@@ -15,6 +15,7 @@ import requests
 from constants import *
 
 receiver_log_file = None
+host_name = None
 
 def on_message(ws, message):
     message = message.decode("utf-8")
@@ -31,7 +32,7 @@ def on_close(ws):
     print("closed")
 
 def on_open(ws):
-    ws.send("RPI")        
+    ws.send(str(host_number))        
     print("open")
 
         

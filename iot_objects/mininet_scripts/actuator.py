@@ -33,7 +33,7 @@ if __name__ == "__main__":
     for i in range(0, int(num_iterations)):
         try:
             state = "ON" if (i % 2 == 0) else "OFF"
-            data = { 'deviceID':'RPI',
+            data = { 'deviceID':str(host_name),
                      'signal':state,
                      'sequence_num': curr_seq_num,
                      'group': '1'  }
