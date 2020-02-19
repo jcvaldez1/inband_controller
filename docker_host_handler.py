@@ -32,7 +32,7 @@ class Docker_Handler(main_controller.SDN_Rerouter):
         self.configuration_map = {}
         self.docker_image = self.dockd.images.build(path=DOCKERFILE_PATH)
         self.container_registrar = hub.spawn(self._main_manager)
-        self.configuration_poll  = hub.spawn(self._configuration_manager)
+        #self.configuration_poll  = hub.spawn(self._configuration_manager)
         #self.cleanup_handler    = hub.spawn(self._main_manager)
 
     def _main_manager(self):
@@ -41,6 +41,7 @@ class Docker_Handler(main_controller.SDN_Rerouter):
         while(1):
             print("\ncontainer_list : "+str(self.container_list)+"\n")
             for alias_obj in self.aliases:
+                print("MAPPY : " + str(alias_obj.real_port) + " " + str(alias_obj.cloud_ip) +" " + str(alias_obj.fake_port))
                 if alias_obj.cloud_ip not in self.cloud_ip_list:
                     # get all alias_object instances
                     # containing this cloud_ip and retrieve
@@ -68,16 +69,20 @@ class Docker_Handler(main_controller.SDN_Rerouter):
     def _configuration_manager(self):
         while(1):
             for container_obj in self.container_list:
+                print("registered users : "+str(self.registered_users))
+                print("cloud_ip : "+str(container_obj.cloud_ip))
+                ### TENTATIVE ROUTE POSTING
+                for alias in self.aliases:
+                    print("MAPPY : " + str(alias.real_port) + " " + str(alias.cloud_ip) +" " + str(alias.fake_port))
+                ### TENTATIVE ROUTE POSTING
                 try:
-                    print("registered users : "+str(self.registered_users))
-                    print("cloud_ip : "+str(container_obj.cloud_ip))
                     configs = self.get_config_multi(container_obj.cloud_ip, self.registered_users)
                     print("configurations : "+str(configs))
                     # PUT requests.post, etc. to send configuration data to the DDH
                     self.send_config_data(configs, container_obj.config_path)
                 except:
-                    traceback.print_exc()
                     pass
+                    #traceback.print_exc()
             hub.sleep(8)
 
 
@@ -85,10 +90,11 @@ class Docker_Handler(main_controller.SDN_Rerouter):
             Finds a configuration path for a specific cloud_ip
     '''
     def find_config_path(self, cloud_ip):
-        #for alias in self.aliases:
-        #    if ( alias.cloud_ip == cloud_ip ) and ( alias.real_port == DEFAULT_CONFIG_PORT ):
-        #        return "http://"+str(cloud_ip)+":"+str(alias.fake_port)
-        return "http://"+str(cloud_ip)+":"+str(DEFAULT_CONFIG_PORT)
+        for alias in self.aliases:
+            if ( alias.cloud_ip == cloud_ip ) and ( alias.real_port == DEFAULT_CONFIG_PORT ):
+                return "http://"+str(DOCKER_HOST_IPV4)+":"+str(alias.fake_port)+"/config"
+        return
+        #return "http://"+str(cloud_ip)+":"+str(DEFAULT_CONFIG_PORT)
         
     def send_config_data(self, configuration_data, config_path):
         response = requests.post(config_path, json={'config':json.dumps(configuration_data)}) 
@@ -119,6 +125,7 @@ class Docker_Handler(main_controller.SDN_Rerouter):
     def spin_up_container(self, cloud_ip, ports, name):
         container = self.dockd.containers.run(image=self.docker_image[0],detach=True,network='docknet',hostname=cloud_ip, name=name, ports=ports)
         config_path = self.find_config_path(cloud_ip)
+        print("CONFIG PATH FOR " +str(cloud_ip) + " : " + str(config_path))
         container_obj = DDH_Container(config_path  = config_path, 
                                       cloud_ip     = cloud_ip,
                                       name         = name,

@@ -64,6 +64,7 @@ class SDN_Rerouter(learning_switch.BaseSwitch):
         self.datapaths = {}
         self.aliases   = []
         self.registered_users = []
+        self.registered_clouds = []
         self.port_counter = DEFAULT_PORT_COUNTER
         self.aliaser_thread = hub.spawn(self._aliaser)
         # TEST ENTRIES FIRST
@@ -126,7 +127,7 @@ class SDN_Rerouter(learning_switch.BaseSwitch):
     def _aliaser(self):
         # datapath_id : (real, alias)
         while True:
-            connection_health = self.live_connection("64.90.52.128")
+            #connection_health = self.live_connection("64.90.52.128")
             alias_test = self.aliases
             print("\nalias_list : "+str(self.aliases)+"\n")
             #alias_test = []
@@ -138,8 +139,9 @@ class SDN_Rerouter(learning_switch.BaseSwitch):
             #    alias_test.append(Alias(**kwargs))
             #    kwargs = {"real_port":42915, "fake_port":42917, "cloud_ip":cloud_ip}
             #    alias_test.append(Alias(**kwargs))
-            #connection_health = False
+            connection_health = False
             if (not connection_health):
+                print("\n\nADDING FLOWS\n\n")
                 for alias_ob in alias_test:
                     real_ip = alias_ob.cloud_ip
                     fake_ip = DOCKER_HOST_IPV4
@@ -162,6 +164,7 @@ class SDN_Rerouter(learning_switch.BaseSwitch):
                         inst += [ act_table(FORWARDING_TABLE) ]
                         match = parser.OFPMatch( eth_type=ETH_TYPE_IP,
                                                  ip_proto=IPPROTO_TCP, # 6
+                                                 ipv4_src=IOT_ACCESS_POINT_IPV4,
                                                  ipv4_dst=real_ip,
                                                  tcp_dst=real_port)
                         super(SDN_Rerouter, self).add_flow(dp, REROUTING_TABLE, REROUTE_FLOW_PRIORITY, match, inst)
@@ -174,6 +177,7 @@ class SDN_Rerouter(learning_switch.BaseSwitch):
                         inst += [ act_table(FORWARDING_TABLE) ]
                         match = parser.OFPMatch( eth_type=ETH_TYPE_IP,
                                                  ip_proto=IPPROTO_TCP,
+                                                 ipv4_dst=IOT_ACCESS_POINT_IPV4,
                                                  ipv4_src=fake_ip,
                                                  tcp_src=fake_port)
                         super(SDN_Rerouter, self).add_flow(dp, REROUTING_TABLE, REROUTE_FLOW_PRIORITY, match, inst)
@@ -279,7 +283,8 @@ class SDN_Rerouter(learning_switch.BaseSwitch):
             new_obj = json.loads(json_string)
             new_alias = None
             print("\n"+str(new_obj)+"\n")
-            if ( "ports" in new_obj ) and ( "cloud_ip" in new_obj ):
+            if ( "ports" in new_obj ) and ( "cloud_ip" in new_obj ) and (new_obj["cloud_ip"] not in self.registered_clouds):
+                self.registered_clouds.append(new_obj['cloud_ip'])
                 for port in new_obj['ports']:
                     new_alias = Alias(real_port=port, fake_port=self.port_counter, cloud_ip=new_obj['cloud_ip'], name=new_obj['name'])
                     self.port_counter += 1
@@ -287,7 +292,10 @@ class SDN_Rerouter(learning_switch.BaseSwitch):
                     self.aliases.append(new_alias)
                 self.register_new_user([new_obj['user_id']])
             else:
-                self.register_new_user(new_obj['users'])
+                try:
+                    self.register_new_user(new_obj['users'])
+                except:
+                    traceback.print_exc()
         except:
             self.port_counter = port_rollback
             traceback.print_exc()
