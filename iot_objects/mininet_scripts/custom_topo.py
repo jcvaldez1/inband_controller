@@ -8,7 +8,7 @@ from mininet.log import setLogLevel, info
 
 def myNetwork():
     hosts = [];
-    host_num = 10
+    host_num = 30
     net = Mininet( topo=None,
                    build=False, controller = OVSController)
 
