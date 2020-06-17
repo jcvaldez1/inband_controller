@@ -20,36 +20,39 @@ losses = []
 
 for host_n in range(0,host_ct):
     if host_n % 2 == 0:
-        host_pair_buffer = []
-        host_pair_buffer.append('---actuator '+str(host_n)+' and '+'receiver '+str(host_n+1)+'---\n')
-        #actuator_file = open(str(host_ct)+'_host_strong/results/actuator/'+str(host_n)+'_actuator_log.log','r')
-        #receiver_file = open(str(host_ct)+'_host_strong/results/receiver/'+str(host_n+1)+'_receiver_log.log','r')
-        actuator_file = open(str(host_ct)+'_host_strong/results/actuator/'+str(host_n)+'_actuator_log.log','r')
-        receiver_file = open(str(host_ct)+'_host_strong/results/receiver/'+str(host_n+1)+'_receiver_log.log','r')
-        ac_lines = actuator_file.readlines()
-        rc_lines = receiver_file.readlines()
-        ac_lines_parsed = {}
-        rc_lines_parsed = {}
-        for line in ac_lines:
-            ac_lines_parsed = {**ac_lines_parsed, **parse_log_line(line)}
-        for line in rc_lines:
-            rc_lines_parsed = {**rc_lines_parsed, **parse_log_line(line)}
+        try:
+             host_pair_buffer = []
+             host_pair_buffer.append('---actuator '+str(host_n)+' and '+'receiver '+str(host_n+1)+'---\n')
+             actuator_file = open('results/actuator/'+str(host_n)+'_actuator_log.log','r')
+             receiver_file = open('results/receiver/'+str(host_n+1)+'_receiver_log.log','r')
+             #actuator_file = open(str(host_ct)+'_host_strong/results/actuator/'+str(host_n)+'_actuator_log.log','r')
+             #receiver_file = open(str(host_ct)+'_host_strong/results/receiver/'+str(host_n+1)+'_receiver_log.log','r')
+             ac_lines = actuator_file.readlines()
+             rc_lines = receiver_file.readlines()
+             ac_lines_parsed = {}
+             rc_lines_parsed = {}
+             for line in ac_lines:
+                 ac_lines_parsed = {**ac_lines_parsed, **parse_log_line(line)}
+             for line in rc_lines:
+                 rc_lines_parsed = {**rc_lines_parsed, **parse_log_line(line)}
 
-        for seq in rc_lines_parsed:
-            ac_time = datetime.datetime.strptime(ac_lines_parsed[seq],'%H:%M:%S.%f')
-            rc_time = datetime.datetime.strptime(rc_lines_parsed[seq],'%H:%M:%S.%f')
-            ms_delay = (rc_time-ac_time).microseconds/1000
-            delay_list.append(ms_delay)
-            if ms_delay < min_delay:
-                min_delay = ms_delay
-            elif ms_delay > max_delay:
-                max_delay = ms_delay
-            #print(ms_delay)
-            #host_pair_buffer.append(str(ms_delay)+'\n')
-        total_seqs += len(rc_lines_parsed)
-        losses.append(100 - int(len(rc_lines_parsed)))
-        print(str(host_n)+","+str(host_n+1)+" pair : "+str(len(rc_lines_parsed)))
-        #output_file.writelines(host_pair_buffer)
+             for seq in rc_lines_parsed:
+                 ac_time = datetime.datetime.strptime(ac_lines_parsed[seq],'%H:%M:%S.%f')
+                 rc_time = datetime.datetime.strptime(rc_lines_parsed[seq],'%H:%M:%S.%f')
+                 ms_delay = (rc_time-ac_time).microseconds/1000
+                 delay_list.append(ms_delay)
+                 if ms_delay < min_delay:
+                     min_delay = ms_delay
+                 elif ms_delay > max_delay:
+                     max_delay = ms_delay
+                 #print(ms_delay)
+                 #host_pair_buffer.append(str(ms_delay)+'\n')
+             total_seqs += len(rc_lines_parsed)
+             losses.append(100 - int(len(rc_lines_parsed)))
+             print(str(host_n)+","+str(host_n+1)+" pair : "+str(len(rc_lines_parsed)))
+             #output_file.writelines(host_pair_buffer)
+        except:
+             pass 
 
 try:
     print("mean losses : " + str(statistics.mean(losses)))

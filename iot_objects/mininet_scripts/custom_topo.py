@@ -5,6 +5,8 @@ from mininet.node import Controller,OVSController
 from mininet.cli import CLI
 from mininet.link import Intf
 from mininet.log import setLogLevel, info
+import subprocess
+import datetime
 
 def myNetwork():
     hosts = [];
@@ -32,14 +34,23 @@ def myNetwork():
         h.cmdPrint('dhclient '+h.defaultIntf().name)
 
     # register
-    #CLI(net)
+    CLI(net)
+    confirm = str(raw_input("run test? y or n "))
 
-    for x in range(0, host_num):
-        if x % 2 == 0:
-            cmdstring = "python3 actuator.py 100 0.5 "+ str(x)
-        else:
-            cmdstring = "python receiver.py "+str(x)
-        hosts[x].cmdPrint(cmdstring+" &")
+    while confirm != "n":
+        for x in range(2, host_num):
+            if x % 2 == 0:
+                cmdstring = "python3 actuator.py 1000 0.5 "+ str(x)
+            else:
+                cmdstring = "python receiver.py "+str(x)
+            hosts[x].cmdPrint(cmdstring+" &")
+        raw_input("parse results? ")
+        # parse results
+        cmd_list = "./results_mover.sh "+str(host_num) +" "+str(datetime.datetime.now().strftime("%H:%M:%S"))
+        subprocess.call(cmd_list, shell=True)
+        # UNDER TESTING
+        confirm = str(raw_input("run test again ? "))
+        
 
     CLI(net)
 
