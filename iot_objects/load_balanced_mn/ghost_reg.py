@@ -5,7 +5,7 @@ from time import sleep
 import time
 import sys
 
-def send_dummy(brand_name, ip_addr, data=None):
+def send_dummy(data=None):
     UDP_IP_ADDRESS = "69.4.20.69"
     UDP_PORT_NO = 420
     print(data)

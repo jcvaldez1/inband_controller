@@ -7,11 +7,13 @@ from mininet.link import Intf
 from mininet.log import setLogLevel, info
 import subprocess
 import datetime
+import sys
 
-def myNetwork():
+def myNetwork(containers, host_count, split):
     hosts = [];
-    host_num = 4
-    container_split = 2
+    container_number = int(containers)
+    host_num = int(host_count)
+    container_split = 100/int(split)
     max_id = host_num/container_split
     net = Mininet( topo=None,
                    build=False, controller = OVSController)
@@ -38,20 +40,32 @@ def myNetwork():
     # register
     CLI(net)
     confirm = str(raw_input("run test? y or n "))
-
+    container_counter = 0
     while confirm != "n":
         for x in range(0, host_num):
+            if x/max_id > container_counter:
+                container_counter += 1
             if x % 2 == 0:
-                cmdstring = "python3 actuator.py 1000 0.5 "+ str(x%max_id)+ " 52.74.73."+str((x%max_id)+1)
+                cmdstring = "python3 actuator.py 1000 0.5 "+ str(x%max_id)+ " 52.74.73."+str((container_counter*2)+2)
             else:
-                cmdstring = "python receiver.py "+str(x%max_id)+ " 13.55.147."+str((x%max_id)+1)
+                cmdstring = "python receiver.py "+str((x%max_id))+ " 13.55.147."+str((container_counter*2)+1)
             hosts[x].cmdPrint(cmdstring+" &")
         raw_input("parse results? ")
-        # parse results
-        cmd_list = "./results_mover.sh "+str(host_num) +" "+str(datetime.datetime.now().strftime("%H:%M:%S"))
+        ps_string = subprocess.check_output(["ps","-ef"]).split("\n")
+        pid_string = [x for x in ps_string if ("python" in x)]
+        print(pid_string)
+        for x in pid_string:
+           if not ("custom_topo" in x):
+              stringy = filter(None, x.split(" "))[1]
+              hosts[0].cmdPrint("kill "+str(stringy))
+
+        curr_time = str(datetime.datetime.now().strftime("%H:%M:%S"))
+        cmd_list = "./results_mover.sh "+str(max_id)+" "+ curr_time+" "+str(container_number)
         subprocess.call(cmd_list, shell=True)
-        # UNDER TESTING
         confirm = str(raw_input("run test again ? "))
+        if confirm != "n":
+           # reregister
+           pass
         
 
     CLI(net)
@@ -60,5 +74,5 @@ def myNetwork():
 
 if __name__ == '__main__':
     setLogLevel( 'info' )
-    myNetwork()
+    myNetwork(sys.argv[1],sys.argv[2],sys.argv[3])
 

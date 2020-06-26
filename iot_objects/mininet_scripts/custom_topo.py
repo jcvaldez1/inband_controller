@@ -10,7 +10,7 @@ import datetime
 
 def myNetwork():
     hosts = [];
-    host_num = 100
+    host_num = 10
     net = Mininet( topo=None,
                    build=False, controller = OVSController)
 

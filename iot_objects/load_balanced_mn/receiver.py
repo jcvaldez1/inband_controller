@@ -12,16 +12,15 @@ import datetime
 import socket
 import json
 import requests
+import makedir
 
 receiver_log_file = None
-host_name = None
-lifx_ip = sys.argv[1]
 
 
 def on_message(ws, message):
     message = message.decode("utf-8")
     print(message)
-    msg_log = open(receiver_log_file, "a+")
+    msg_log = makedir.safe_open_w(receiver_log_file)
     msg_log.write(str(datetime.datetime.now()) + " " + message + "\n")
     msg_log.close()
 
@@ -43,7 +42,8 @@ if __name__ == "__main__":
         print("Usage: python3 receiver.py <host_number> <receiver_cloud_ip>")
         sys.exit(1)
     host_name = sys.argv[1]
-    receiver_log_file = "./results/receiver/"+str(host_name)+"_"+str(lifx_ip)+"_receiver_log.log"
+    lifx_ip = sys.argv[2]
+    receiver_log_file = "./results/receiver/"+str(lifx_ip)+"/"+str(host_name)+"_receiver.log"
 
     
     while True:

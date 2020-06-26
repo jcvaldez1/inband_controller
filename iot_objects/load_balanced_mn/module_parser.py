@@ -16,9 +16,10 @@ def list_plusser(timedelta_list):
         sum_ret += x
     return sum_ret
 
-def parse_results(host_count, filename):
+def parse_results(host_count, filename, container_count):
     host_ct = int(host_count)
     fname = str(filename)
+    conts = int(container_count)
     
     min_delay = datetime.timedelta.max
     max_delay = datetime.timedelta.min
@@ -28,43 +29,48 @@ def parse_results(host_count, filename):
     delay_list = []
     losses = []
     output_file = open('experiments/'+fname+'/results','w+')
-    
-    for host_n in range(2,host_ct):
-        if host_n % 2 == 0:
-           try:
-                 actuator_file = open('experiments/'+fname+'/actuator/'+str(host_n)+'_actuator_log.log','r')
-                 receiver_file = open('experiments/'+fname+'/receiver/'+str(host_n+1)+'_receiver_log.log','r')
-                 ac_lines = actuator_file.readlines()
-                 rc_lines = receiver_file.readlines()
-                 ac_lines_parsed = {}
-                 rc_lines_parsed = {}
-                 actuator_file.close()
-                 receiver_file.close()
-                 overtime_count = 0
-                 for line in ac_lines:
-                     ac_lines_parsed = {**ac_lines_parsed, **parse_log_line(line)}
-                 for line in rc_lines:
-                     rc_lines_parsed = {**rc_lines_parsed, **parse_log_line(line)}
-    
-                 for seq in rc_lines_parsed:
-                     ac_time = datetime.datetime.strptime(ac_lines_parsed[seq],'%H:%M:%S.%f')
-                     rc_time = datetime.datetime.strptime(rc_lines_parsed[seq],'%H:%M:%S.%f')
-                     ms_delay = rc_time-ac_time
-                     if ms_delay <= delay_cutoff:
-                        delay_list.append(ms_delay)
-                        if ms_delay < min_delay:
-                            min_delay = ms_delay
-                        if ms_delay > max_delay:
-                            max_delay = ms_delay
-                     else:
-                        overtime_count += 1
+    # go through container pairs
+    for x in range(0,int(conts/2)):
+        act_cont = str((x*2)+2)
+        sen_cont = str((x*2)+1)
+        for host_n in range(0,host_ct):
+            if host_n % 2 == 0:
+               try:
+                     actuator_dir = 'experiments/'+fname+'/actuator/'+'52.74.73.'+act_cont+'/'
+                     receiver_dir = 'experiments/'+fname+'/receiver/'+'13.55.147.'+sen_cont+'/'
+                     actuator_file = open(actuator_dir+str(host_n)+'_actuator.log','r')
+                     receiver_file = open(receiver_dir+str(host_n+1)+'_receiver.log','r')
+                     ac_lines = actuator_file.readlines()
+                     rc_lines = receiver_file.readlines()
+                     ac_lines_parsed = {}
+                     rc_lines_parsed = {}
+                     actuator_file.close()
+                     receiver_file.close()
+                     overtime_count = 0
+                     for line in ac_lines:
+                         ac_lines_parsed = {**ac_lines_parsed, **parse_log_line(line)}
+                     for line in rc_lines:
+                         rc_lines_parsed = {**rc_lines_parsed, **parse_log_line(line)}
+        
+                     for seq in rc_lines_parsed:
+                         ac_time = datetime.datetime.strptime(ac_lines_parsed[seq],'%H:%M:%S.%f')
+                         rc_time = datetime.datetime.strptime(rc_lines_parsed[seq],'%H:%M:%S.%f')
+                         ms_delay = rc_time-ac_time
+                         if ms_delay <= delay_cutoff:
+                            delay_list.append(ms_delay)
+                            if ms_delay < min_delay:
+                                min_delay = ms_delay
+                            if ms_delay > max_delay:
+                                max_delay = ms_delay
+                         else:
+                            overtime_count += 1
 
-                 actual_responses = len(rc_lines_parsed) - overtime_count
-                 total_seqs += actual_responses
-                 losses.append(int(len(ac_lines_parsed)) - int(len(rc_lines_parsed)) + overtime_count)
-                 output_file.write(str(host_n)+","+str(host_n+1)+" pair : "+str(actual_responses)+"\n")
-           except:
-                 pass
+                     actual_responses = len(rc_lines_parsed) - overtime_count
+                     total_seqs += actual_responses
+                     losses.append(int(len(ac_lines_parsed)) - int(len(rc_lines_parsed)) + overtime_count)
+                     output_file.write(str(host_n)+","+str(host_n+1)+" pair : "+str(actual_responses)+"\n")
+               except:
+                     pass
     try:
         output_file.write("mean losses : " + str(statistics.mean(losses))+"\n")
         output_file.write("median losses : " + str(statistics.median(losses))+"\n")
@@ -77,19 +83,4 @@ def parse_results(host_count, filename):
     output_file.close()
 
 if __name__ == "__main__":
-    parse_results(sys.argv[1], sys.argv[2])
-    
-    #output_file.close()
-    #
-    #input_file = open('output.txt','r')
-    #output_file = open('results.tsv','w')
-    #
-    #write = ""
-    #for line in input_file:
-    #    l = line.split()
-    #    if(l[0] == '---actuator'):
-    #        output_file.writelines(write + "\n")
-    #        write = "sw" + l[1] + " act" + l[4]
-    #    else:
-    #        write = write + "\t" + l[0]
-    #output_file.writelines(write)
+    parse_results(sys.argv[1], sys.argv[2], sys.argv[3])

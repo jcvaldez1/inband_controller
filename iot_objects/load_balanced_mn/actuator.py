@@ -3,6 +3,7 @@ import requests
 import json
 import datetime
 import sys
+import makedir
 
 if len(sys.argv) < 5:
     print("Usage: python3 actuator.py <iterations> <sleep_interval> <host_number> <actuator_cloud_ip>")
@@ -22,7 +23,7 @@ samsung_ip     = sys.argv[4]
 def log_result(filename, state, curr_seq):
     curr_time = datetime.datetime.now()
     ts = str(curr_time) + " " + state + " " + str(curr_seq)
-    with open(filename, "a+") as time_log:
+    with makedir.safe_open_w(filename) as time_log:
         time_log.write(ts + '\n')
         time_log.close()
 
@@ -35,7 +36,7 @@ if __name__ == "__main__":
                      'signal':state,
                      'sequence_num': i,
                      'group': '1'  }
-            log_result("./results/actuator/"+str(host_name) + "_" + str(samsung_ip) + "_actuator_log.log", state, i)
+            log_result("./results/actuator/"+str(samsung_ip)+"/"+str(host_name)+ "_actuator.log", state, i)
             res = requests.post(url = 'http://'+samsung_ip+'/report', json = data, timeout = 5)
             print(state + str(res))
         except Exception as e:
