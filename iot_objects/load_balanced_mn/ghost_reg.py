@@ -51,7 +51,7 @@ def dummy_registration(host_num):
         else:
             #print(samsong_data(x))
             send_dummy(samsong_data(x))
-        sleep(5)
+        sleep(1)
     
 
 if __name__ == "__main__":

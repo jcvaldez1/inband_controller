@@ -40,13 +40,13 @@ def myNetwork(containers, host_count, split):
     # register
     CLI(net)
     confirm = str(raw_input("run test? y or n "))
-    container_counter = 0
     while confirm != "n":
+        container_counter = 0
         for x in range(0, host_num):
             if x/max_id > container_counter:
                 container_counter += 1
             if x % 2 == 0:
-                cmdstring = "python3 actuator.py 1000 0.5 "+ str(x%max_id)+ " 52.74.73."+str((container_counter*2)+2)
+                cmdstring = "python3 actuator.py 100 0.1 "+ str(x%max_id)+ " 52.74.73."+str((container_counter*2)+2)
             else:
                 cmdstring = "python receiver.py "+str((x%max_id))+ " 13.55.147."+str((container_counter*2)+1)
             hosts[x].cmdPrint(cmdstring+" &")
@@ -64,9 +64,13 @@ def myNetwork(containers, host_count, split):
         subprocess.call(cmd_list, shell=True)
         confirm = str(raw_input("run test again ? "))
         if confirm != "n":
-           # reregister
-           pass
-        
+           if str(raw_input("same values ? ")) == "n":
+              container_number = int(raw_input("container number ? "))
+              hosts[0].cmdPrint("sudo python3 ./ghost_reg.py "+str(container_number))
+              container_split = 100/int(raw_input("container split %? "))
+              max_id = host_num/container_split
+              raw_input("configs done ? ")
+              
 
     CLI(net)
 
