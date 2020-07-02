@@ -1,28 +1,28 @@
-SG_CONF = {"SGconf": {
-        "group":1,
-        "deviceID": "RPI",
-        "targetIP": "http://13.55.147.2/report",
-
-        "signal": "any",
-        "commType": "forward"
-    }
-}
-
+SG_CONF = { 
+                     "actuatorFWD_0"
+                    : { 
+                                          "group"    : "1"
+                                         ,"deviceID" : "0"
+                                         ,"targetIP" : "http://13.55.147.2/report"
+                                         ,"signal"   : "any"
+                                         ,"commType" : "forward" 
+                                        }
+                   }
 AUS_CONF= {
-        "AUSoff" : {
-        "group":1,
-        "deviceID":"RPI",
-        "signal":"OFF",
-        "commType":"device",
-        "sayThis":"OFF"
-        
-    },
-    "AUSon" : {
-        "group":1,
-        "deviceID":"RPI",
-        "signal":"ON",
-        "commType":"device",
-        "sayThis":"ON"
-
-    }
+"deviceOFF_1":{ 
+              "group"    : "1"
+             ,"deviceID" : "0"
+             ,"target"   : "1"
+             ,"signal"   : "OFF" 
+             ,"commType" : "device"
+             ,"sayThis"  : "OFF"
+            },
+"deviceON_1":{ 
+              "group"    : "1"
+             ,"deviceID" : "0"
+             ,"target"   : "1"
+             ,"signal"   : "ON"
+             ,"commType" : "device"
+             ,"sayThis"  : "ON"
+             }
 }

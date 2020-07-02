@@ -1,5 +1,6 @@
 import docker
 import main_controller
+import cold_mode_main
 import requests
 import traceback
 from constants import DOCKER_DAEMON_URL, DOCKERFILE_PATH, DOCKER_HOST_IPV4,\
@@ -19,7 +20,7 @@ from ryu.lib.packet import ipv4
 from container_wrapper import *
 import json
 
-class Docker_Handler(main_controller.SDN_Rerouter):
+class Docker_Handler(cold_mode_main.SDN_Rerouter):
 
     def __init__(self, *args, **kwargs):
         super(Docker_Handler, self).__init__(*args, **kwargs)
@@ -39,7 +40,10 @@ class Docker_Handler(main_controller.SDN_Rerouter):
 
     def _container_downer(self):
         while 1:
-            self.samsung_container.stop()
+            try:
+                self.samsung_container.stop()
+            except:
+                pass
             hub.sleep(30)
 
     @set_ev_cls(ofp_event.EventOFPPacketIn, MAIN_DISPATCHER)
@@ -49,7 +53,8 @@ class Docker_Handler(main_controller.SDN_Rerouter):
             pkt = packet.Packet(msg.data)
             ip = pkt.get_protocol(ipv4.ipv4)
             if ip:
-                if (ip.src == IOT_ACCESS_POINT_IPV4) and (ip.dst="52.74.73.81"):
+                if (ip.src == IOT_ACCESS_POINT_IPV4) and (ip.dst=="52.74.73.81"):
+                    print("\n\n"+str(self.samsung_container.status)+"\n\n")
                     if self.samsung_container.status == "exited":
                         self.samsung_container.start()
         except:

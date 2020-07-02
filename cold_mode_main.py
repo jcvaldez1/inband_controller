@@ -115,9 +115,6 @@ class SDN_Rerouter(learning_switch.BaseSwitch):
             if ip:
                 if ip.dst == REGISTRATION_IP:
                     self.register_device(pkt.protocols[-1])
-                if (ip.src == IOT_ACCESS_POINT_IPV4) and (ip.dst="52.74.73.81"):
-                    if self.container_down:
-                        # up container
         except:
             self.logger.debug("failed to register device %s", json_string)
             raise
@@ -164,12 +161,12 @@ class SDN_Rerouter(learning_switch.BaseSwitch):
                                     act_set(tcp_dst=fake_port),
                                     act_set(eth_dst=DOCKER_HOST_ETH) ]
                         #actions += [ act_out(5) ]
-                        inst = [parser.OFPInstructionActions(ofproto.OFPIT_APPLY_ACTIONS, actions)]
-                        inst += [ act_table(FORWARDING_TABLE) ]
-                        packet_in_action = [parser.OFPActionOutput(ofproto.OFPP_CONTROLLER, 
+                        actions += [parser.OFPActionOutput(ofproto.OFPP_CONTROLLER, 
                                                                    ofproto.OFPCML_NO_BUFFER
                                                                   )]
-                        inst += [parser.OFPInstructionActions(ofproto.OFPIT_APPLY_ACTIONS, packet_in_action)]
+                        inst = [parser.OFPInstructionActions(ofproto.OFPIT_APPLY_ACTIONS, actions)]
+                        inst += [ act_table(FORWARDING_TABLE) ]
+                        #inst += [parser.OFPInstructionActions(ofproto.OFPIT_APPLY_ACTIONS, packet_in_action)]
                         match = parser.OFPMatch( eth_type=ETH_TYPE_IP,
                                                  ip_proto=IPPROTO_TCP, # 6
                                                  ipv4_src=IOT_ACCESS_POINT_IPV4,

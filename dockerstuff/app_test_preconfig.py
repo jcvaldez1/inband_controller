@@ -7,11 +7,12 @@ import time
 import asyncio
 import select
 import websockets
-
+import dummy_config
 
 application = Flask(__name__)
-#global commands
-commands = {}
+global commands
+commands = dummy_config.SG_CONF
+commands.update(dummy_config.AUS_CONF)
 threads = []
 goods = []
 msgQueue = queue.Queue()

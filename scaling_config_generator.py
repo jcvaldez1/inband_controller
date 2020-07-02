@@ -6,6 +6,8 @@ import sys
 
 
 def generate_config(devices, offset):
+    sensor_configs = []
+    actuator_configs = []
     for c_id in range(0, devices):
 
         # FOR SENSOR DEVICES 52.
@@ -57,12 +59,12 @@ def send_configs(config_list, ip_port):
 if __name__ == "__main__":
     devices = int(sys.argv[1])
     # split of devices into containers 5 for 1/5, 4 for 1/4
-    contianer_split = int(sys.argv[2])
-    start_port = sys.argv[3]
-    ddh_ip = sys.argv[4]
+    container_split = int(sys.argv[2])
+    start_port = int(sys.argv[3])
+    ddh_ip = str(sys.argv[4])
     # send configs
     for x in range(0,container_split):
-        sensor_confs, actuator_confs = generate_config(devices/container_split,(x%255)+1)
+        sensor_configs, actuator_configs = generate_config(int(devices/container_split),(x*2)+1)
         send_configs(actuator_configs, ddh_ip+":"+str(start_port))
         send_configs(sensor_configs, ddh_ip+":"+str(start_port+2))
         start_port += 4
