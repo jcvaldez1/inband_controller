@@ -59,7 +59,7 @@ def myNetwork(containers, host_count, split):
             if x/max_id > container_counter:
                 container_counter += 1
             # limit the container pairs involved
-            if counter_counter >= max_count:
+            if container_counter >= max_count:
                  break
 
             # spin up the IoT device scripts

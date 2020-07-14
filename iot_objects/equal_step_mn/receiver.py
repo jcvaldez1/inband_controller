@@ -11,7 +11,7 @@ from time import sleep
 import datetime
 import socket
 import json
-import requests
+#import requests
 import makedir
 
 receiver_log_file = None
