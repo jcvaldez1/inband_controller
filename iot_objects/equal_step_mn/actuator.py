@@ -13,6 +13,7 @@ num_iterations = sys.argv[1]
 sleep_interval = sys.argv[2]
 host_name      = sys.argv[3]
 samsung_ip     = sys.argv[4]
+starting_num   = sys.argv[5]
 
 
 """
@@ -29,7 +30,7 @@ def log_result(filename, state, curr_seq):
 
 if __name__ == "__main__":
 
-    for i in range(0, int(num_iterations)):
+    for i in range(int(starting_num), int(starting_num)+int(num_iterations)):
         try:
             state = "ON" if (i % 2 == 0) else "OFF"
             data = { 'deviceID':str(host_name),

@@ -23,11 +23,14 @@ def parse_results(host_count, filename, container_count):
     
     min_delay = datetime.timedelta.max
     max_delay = datetime.timedelta.min
-    delay_cutoff = datetime.timedelta(minutes=10)
+    delay_cutoff = datetime.timedelta(minutes=1)
+    delay_cutoff_min = datetime.timedelta()
     total_seqs = 0
     ave_delay = 0
     delay_list = []
     losses = []
+    temp_delay_list = []
+    temp_total_seqs = 0
     output_file = open('experiments/'+fname+'/results','w+')
     # go through container pairs
     for x in range(0,int(conts/2)):
@@ -56,8 +59,9 @@ def parse_results(host_count, filename, container_count):
                          ac_time = datetime.datetime.strptime(ac_lines_parsed[seq],'%H:%M:%S.%f')
                          rc_time = datetime.datetime.strptime(rc_lines_parsed[seq],'%H:%M:%S.%f')
                          ms_delay = rc_time-ac_time
-                         if ms_delay <= delay_cutoff:
+                         if (ms_delay <= delay_cutoff) and (ms_delay >= delay_cutoff_min):
                             delay_list.append(ms_delay)
+                            temp_delay_list.append(ms_delay)
                             if ms_delay < min_delay:
                                 min_delay = ms_delay
                             if ms_delay > max_delay:
@@ -67,10 +71,14 @@ def parse_results(host_count, filename, container_count):
 
                      actual_responses = len(rc_lines_parsed) - overtime_count
                      total_seqs += actual_responses
+                     temp_total_seqs += actual_responses
                      losses.append(int(len(ac_lines_parsed)) - int(len(rc_lines_parsed)) + overtime_count)
                      output_file.write(str(host_n)+","+str(host_n+1)+" pair : "+str(actual_responses)+"\n")
                except:
                      pass
+        output_file.write("ave delay : "+str(list_plusser(temp_delay_list)/temp_total_seqs)+"\n")
+        temp_delay_list = []
+        temp_total_seqs = 0
     try:
         output_file.write("mean losses : " + str(statistics.mean(losses))+"\n")
         output_file.write("median losses : " + str(statistics.median(losses))+"\n")

@@ -51,7 +51,9 @@ def myNetwork(containers, host_count, split):
     CLI(net)
     confirm = str(raw_input("run test? y or n "))
     max_count = int(raw_input("perform on how many container pairs? "))
+    request_num = int(raw_input("numbers of request? "))
     while confirm != "n":
+        current_request = 0
         container_counter = 0
         for x in range(0, host_num):
             
@@ -64,7 +66,8 @@ def myNetwork(containers, host_count, split):
 
             # spin up the IoT device scripts
             if x % 2 == 0:
-                cmdstring = "python3 actuator.py 100 0.1 "+ str(x%max_id)+ " 52.74.73."+str((container_counter*2)+2)
+                cmdstring = "python3 actuator.py "+str(request_num)+" 0.5 "+ str(x%max_id)+ " 52.74.73."+str((container_counter*2)+2) + " "+ str(current_request)
+                current_request = current_request + request_num + 1
             else:
                 cmdstring = "python receiver.py "+str((x%max_id))+ " 13.55.147."+str((container_counter*2)+1)
             hosts[x].cmdPrint(cmdstring+" &")
@@ -88,6 +91,7 @@ def myNetwork(containers, host_count, split):
               container_split = 100/int(raw_input("container split %? "))
               max_id = host_num/container_split
               max_count = int(raw_input("perform on how many container pairs? "))
+              request_num = int(raw_input("numbers of request? "))
               raw_input("configs done ? ")
               
 
