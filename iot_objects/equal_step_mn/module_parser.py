@@ -10,11 +10,19 @@ def parse_log_line(logline):
 
 def list_plusser(timedelta_list):
     # because sum() doesnt work for
-    # non ints for some reason
+    # non ints 
     sum_ret = datetime.timedelta()
     for x in timedelta_list:
         sum_ret += x
     return sum_ret
+
+def stdev_finder(timedelta_list):
+    # because stdev() doesnt work for
+    # non ints 
+    del_list = []
+    for x in timedelta_list:
+        del_list.append(x.total_seconds()) 
+    return statistics.stdev(del_list)
 
 def parse_results(host_count, filename, container_count):
     host_ct = int(host_count)
@@ -77,6 +85,7 @@ def parse_results(host_count, filename, container_count):
                except:
                      pass
         output_file.write("ave delay : "+str(list_plusser(temp_delay_list)/temp_total_seqs)+"\n")
+        output_file.write("delay stdev : "+str(stdev_finder(temp_delay_list))+"\n")
         temp_delay_list = []
         temp_total_seqs = 0
     try:
@@ -88,6 +97,7 @@ def parse_results(host_count, filename, container_count):
     output_file.write("min delay : "+str(min_delay)+"\n")
     output_file.write("max delay : "+str(max_delay)+"\n")
     output_file.write("ave delay : "+str(list_plusser(delay_list)/total_seqs)+"\n")
+    output_file.write("delay stdev : "+str(stdev_finder(delay_list))+"\n")
     output_file.close()
 
 if __name__ == "__main__":
