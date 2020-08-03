@@ -34,7 +34,7 @@ def myNetwork(containers, host_count, split):
 
     info( '*** Add switches\n')
     s1 = net.addSwitch('s1')
-    Intf( 'eno2', node=s1 )
+    Intf( 'enp2s0', node=s1 )
 
     for x in range(0, host_num):
         host_name = 'h'+str(x)
@@ -51,9 +51,10 @@ def myNetwork(containers, host_count, split):
     # register
     CLI(net)
     confirm = str(raw_input("run test? y or n "))
-    max_count = int(raw_input("perform on how many container pairs? "))
     request_num = int(raw_input("numbers of request? "))
-    inc_mode = str(raw_input("automatic increasing mode? y or n "))
+    max_count = int(raw_input("perform on how many container pairs? "))
+    host_num = int(raw_input("Use how many hosts? "))
+    max_id = host_num/max_count
     current_request = 0
     while confirm != "n":
         container_counter = 0
@@ -74,37 +75,27 @@ def myNetwork(containers, host_count, split):
                 cmdstring = "python receiver.py "+str((x%max_id))+ " 13.55.147."+str((container_counter*2)+1)
             hosts[x].cmdPrint(cmdstring+" &")
 
-        if inc_mode ==  "n":
-           raw_input("parse results? ")
-        else:
-           time.sleep(200)
+        raw_input("parse results? ")
            
-        
         # kill all python processes
         kill_all_py(hosts)
 
         # save results
         curr_time = str(datetime.datetime.now().strftime("%H:%M:%S"))
-        if inc_mode != "n":
-           curr_time = str(max_id/2)"_dev_pair_inc"
         cmd_list = "./results_mover.sh "+str(max_id)+" "+ curr_time+" "+str(container_number)
         subprocess.call(cmd_list, shell=True)
         
         # reset variables
-        if inc_mode == "n":
-           confirm = str(raw_input("run test again ? "))
-           if confirm != "n":
-              if str(raw_input("same values ? ")) == "n":
-                 container_number = int(raw_input("container number ? "))
-                 hosts[0].cmdPrint("sudo python3 ./ghost_reg.py "+str(container_number))
-                 container_split = 100/int(raw_input("container split %? "))
-                 max_id = host_num/container_split
-                 max_count = int(raw_input("perform on how many container pairs? "))
-                 request_num = int(raw_input("numbers of request? "))
-                 raw_input("configs done ? ")
-        else:
-           max_id += 2
-              
+        confirm = str(raw_input("run test again ? "))
+        if confirm != "n":
+           if str(raw_input("same values ? ")) == "n":
+              container_number = int(raw_input("container number ? "))
+              hosts[0].cmdPrint("sudo python3 ./ghost_reg.py "+str(container_number))
+              max_count = int(raw_input("perform on how many container pairs? "))
+              host_num = int(raw_input("Use how many hosts? "))
+              max_id = (host_num/2)/max_count
+              request_num = int(raw_input("numbers of request? "))
+              raw_input("configs done ? ")
 
     CLI(net)
 

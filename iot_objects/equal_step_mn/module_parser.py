@@ -1,6 +1,7 @@
 import datetime
 import statistics
 import sys
+import traceback
 
 def parse_log_line(logline):
     buffer = logline.split()
@@ -64,18 +65,21 @@ def parse_results(host_count, filename, container_count):
                          rc_lines_parsed = {**rc_lines_parsed, **parse_log_line(line)}
         
                      for seq in rc_lines_parsed:
-                         ac_time = datetime.datetime.strptime(ac_lines_parsed[seq],'%H:%M:%S.%f')
-                         rc_time = datetime.datetime.strptime(rc_lines_parsed[seq],'%H:%M:%S.%f')
-                         ms_delay = rc_time-ac_time
-                         if (ms_delay <= delay_cutoff) and (ms_delay >= delay_cutoff_min):
-                            delay_list.append(ms_delay)
-                            temp_delay_list.append(ms_delay)
-                            if ms_delay < min_delay:
-                                min_delay = ms_delay
-                            if ms_delay > max_delay:
-                                max_delay = ms_delay
-                         else:
-                            overtime_count += 1
+                         try:
+                            ac_time = datetime.datetime.strptime(ac_lines_parsed[seq],'%H:%M:%S.%f')
+                            rc_time = datetime.datetime.strptime(rc_lines_parsed[seq],'%H:%M:%S.%f')
+                            ms_delay = rc_time-ac_time
+                            if (ms_delay <= delay_cutoff) and (ms_delay >= delay_cutoff_min):
+                               delay_list.append(ms_delay)
+                               temp_delay_list.append(ms_delay)
+                               if ms_delay < min_delay:
+                                   min_delay = ms_delay
+                               if ms_delay > max_delay:
+                                   max_delay = ms_delay
+                            else:
+                               overtime_count += 1
+                         except:
+                            pass
 
                      actual_responses = len(rc_lines_parsed) - overtime_count
                      total_seqs += actual_responses
@@ -83,11 +87,12 @@ def parse_results(host_count, filename, container_count):
                      losses.append(int(len(ac_lines_parsed)) - int(len(rc_lines_parsed)) + overtime_count)
                      output_file.write(str(host_n)+","+str(host_n+1)+" pair : "+str(actual_responses)+"\n")
                except:
+                     traceback.print_exc()
                      pass
-        output_file.write("ave delay : "+str(list_plusser(temp_delay_list)/temp_total_seqs)+"\n")
-        output_file.write("delay stdev : "+str(stdev_finder(temp_delay_list))+"\n")
-        temp_delay_list = []
-        temp_total_seqs = 0
+               output_file.write("ave delay : "+str(list_plusser(temp_delay_list)/temp_total_seqs)+"\n")
+               output_file.write("delay stdev : "+str(stdev_finder(temp_delay_list))+"\n")
+               temp_delay_list = []
+               temp_total_seqs = 0
     try:
         output_file.write("mean losses : " + str(statistics.mean(losses))+"\n")
         output_file.write("median losses : " + str(statistics.median(losses))+"\n")
