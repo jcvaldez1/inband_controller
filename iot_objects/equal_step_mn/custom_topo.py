@@ -34,7 +34,7 @@ def myNetwork(containers, host_count, split):
 
     info( '*** Add switches\n')
     s1 = net.addSwitch('s1')
-    Intf( 'enp2s0', node=s1 )
+    Intf( 'eno2', node=s1 )
 
     for x in range(0, host_num):
         host_name = 'h'+str(x)

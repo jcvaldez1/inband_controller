@@ -89,20 +89,23 @@ def parse_results(host_count, filename, container_count):
                except:
                      traceback.print_exc()
                      pass
-               output_file.write("ave delay : "+str(list_plusser(temp_delay_list)/temp_total_seqs)+"\n")
-               output_file.write("delay stdev : "+str(stdev_finder(temp_delay_list))+"\n")
+               try:
+                  output_file.write("ave delay : "+str(list_plusser(temp_delay_list)/temp_total_seqs)+"\n")
+                  output_file.write("delay stdev : "+str(stdev_finder(temp_delay_list))+"\n")
+               except:
+                  output_file.write("average/stdev error\n")
                temp_delay_list = []
                temp_total_seqs = 0
     try:
         output_file.write("mean losses : " + str(statistics.mean(losses))+"\n")
         output_file.write("median losses : " + str(statistics.median(losses))+"\n")
         output_file.write("mode losses : " + str(statistics.mode(losses))+"\n")
+        output_file.write("min delay : "+str(min_delay)+"\n")
+        output_file.write("max delay : "+str(max_delay)+"\n")
+        output_file.write("ave delay : "+str(list_plusser(delay_list)/total_seqs)+"\n")
+        output_file.write("delay stdev : "+str(stdev_finder(delay_list))+"\n")
     except:
         pass
-    output_file.write("min delay : "+str(min_delay)+"\n")
-    output_file.write("max delay : "+str(max_delay)+"\n")
-    output_file.write("ave delay : "+str(list_plusser(delay_list)/total_seqs)+"\n")
-    output_file.write("delay stdev : "+str(stdev_finder(delay_list))+"\n")
     output_file.close()
 
 if __name__ == "__main__":
