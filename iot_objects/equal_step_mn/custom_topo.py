@@ -93,7 +93,7 @@ def myNetwork(containers, host_count, split):
               hosts[0].cmdPrint("sudo python3 ./ghost_reg.py "+str(container_number))
               max_count = int(raw_input("perform on how many container pairs? "))
               host_num = int(raw_input("Use how many hosts? "))
-              max_id = (host_num/2)/max_count
+              max_id = host_num/max_count
               request_num = int(raw_input("numbers of request? "))
               raw_input("configs done ? ")
 
