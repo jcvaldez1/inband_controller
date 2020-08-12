@@ -1,0 +1,1087 @@
+Linux 5.0.0-37-generic (ndsg-NUC8i7HVK) 	Wednesday, 12 August, 2020 	_x86_64_	(8 CPU)
+
+02:49:09  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:49:10  PST     all      0.00      0.00      0.00      0.00      0.00    100.00
+
+02:49:09  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:49:10  PST  14339992  15242348   1998748     12.23    109588    983884   4613920     25.03    924780    620324        36
+
+02:49:10  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:49:11  PST     all      0.12      0.00      0.00      0.00      0.00     99.88
+
+02:49:10  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:49:11  PST  14339992  15242348   1998748     12.23    109588    983884   4613920     25.03    924780    620324        36
+
+02:49:11  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:49:12  PST     all      0.00      0.00      0.00      0.00      0.00    100.00
+
+02:49:11  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:49:12  PST  14339992  15242352   1998748     12.23    109588    983884   4613920     25.03    924728    620328        36
+
+02:49:12  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:49:13  PST     all      0.00      0.00      0.00      0.00      0.00    100.00
+
+02:49:12  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:49:13  PST  14339992  15242352   1998748     12.23    109588    983884   4613920     25.03    924728    620328        36
+
+02:49:13  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:49:14  PST     all      0.00      0.00      0.00      0.00      0.00    100.00
+
+02:49:13  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:49:14  PST  14339992  15242352   1998748     12.23    109588    983884   4613920     25.03    924728    620328        36
+
+02:49:14  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:49:15  PST     all      0.00      0.00      0.00      0.63      0.00     99.37
+
+02:49:14  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:49:15  PST  14339992  15242352   1998748     12.23    109596    983876   4613920     25.03    924728    620328        36
+
+02:49:15  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:49:16  PST     all      0.12      0.00      0.00      0.00      0.00     99.88
+
+02:49:15  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:49:16  PST  14339992  15242352   1998748     12.23    109596    983884   4613920     25.03    924728    620328        52
+
+02:49:16  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:49:17  PST     all      0.25      0.00      0.12      0.00      0.00     99.62
+
+02:49:16  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:49:17  PST  14340024  15242384   1998716     12.23    109596    983884   4613920     25.03    924836    620328        56
+
+02:49:17  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:49:18  PST     all      9.28      0.00      3.64      0.00      0.00     87.08
+
+02:49:17  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:49:18  PST  14338308  15240692   2000432     12.24    109596    983888   4612244     25.02    925676    620332        60
+
+02:49:18  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:49:19  PST     all     16.88      0.00      5.84      0.13      0.00     77.16
+
+02:49:18  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:49:19  PST  14336592  15239204   2002148     12.25    109600    984060   4611392     25.01    926380    620508       240
+
+02:49:19  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:49:20  PST     all     16.33      0.00      6.23      0.12      0.00     77.31
+
+02:49:19  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:49:20  PST  14334992  15237748   2003748     12.26    109604    984180   4619684     25.06    926632    620620       356
+
+02:49:20  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:49:21  PST     all     15.12      0.00      6.20      0.00      0.00     78.69
+
+02:49:20  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:49:21  PST  14334240  15237132   2004500     12.27    109604    984308   4628948     25.11    926868    620756       484
+
+02:49:21  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:49:22  PST     all     17.62      0.00      6.58      0.00      0.00     75.81
+
+02:49:21  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:49:22  PST  14333684  15236664   2005056     12.27    109604    984400   4604324     24.97    927076    620844       576
+
+02:49:22  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:49:23  PST     all     15.92      0.00      5.61      0.00      0.00     78.47
+
+02:49:22  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:49:23  PST  14332752  15235860   2005988     12.28    109604    984524   4604360     24.97    926944    620972       700
+
+02:49:23  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:49:24  PST     all     17.25      0.00      6.33      0.00      0.00     76.43
+
+02:49:23  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:49:24  PST  14332452  15235700   2006288     12.28    109608    984660   4612596     25.02    927148    621104       840
+
+02:49:24  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:49:25  PST     all     16.58      0.00      5.40      0.13      0.00     77.89
+
+02:49:24  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:49:25  PST  14331300  15234684   2007440     12.29    109612    984784   4612596     25.02    926988    621228       188
+
+02:49:25  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:49:26  PST     all     15.81      0.00      5.65      0.00      0.00     78.54
+
+02:49:25  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:49:26  PST  14330088  15233604   2008652     12.29    109612    984912   4620320     25.06    927092    621356       140
+
+02:49:26  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:49:27  PST     all     16.10      0.00      5.79      0.00      0.00     78.11
+
+02:49:26  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:49:27  PST  14330408  15234036   2008332     12.29    109612    985024   4620060     25.06    927148    621468       252
+
+02:49:27  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:49:28  PST     all     15.33      0.00      7.29      0.00      0.00     77.38
+
+02:49:27  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:49:28  PST  14329136  15232868   2009604     12.30    109612    985124   4611848     25.02    927316    621572       352
+
+02:49:28  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:49:29  PST     all     16.35      0.00      6.34      0.00      0.00     77.31
+
+02:49:28  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:49:29  PST  14328788  15232644   2009952     12.30    109616    985244   4619556     25.06    927356    621696       476
+
+02:49:29  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:49:30  PST     all     14.68      0.00      6.34      0.00      0.00     78.98
+
+02:49:29  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:49:30  PST  14327164  15231156   2011576     12.31    109620    985384   4611100     25.01    927284    621824       624
+
+02:49:30  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:49:31  PST     all     15.97      0.00      6.04      0.00      0.00     77.99
+
+02:49:30  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:49:31  PST  14327876  15231996   2010864     12.31    109620    985508   4619336     25.06    927432    621952       748
+
+02:49:31  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:49:32  PST     all     14.83      0.00      5.83      0.00      0.00     79.34
+
+02:49:31  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:49:32  PST  14326580  15230800   2012160     12.32    109620    985616   4619372     25.06    927432    622052       856
+
+02:49:32  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:49:33  PST     all     16.12      0.00      6.50      0.00      0.00     77.38
+
+02:49:32  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:49:33  PST  14325476  15229852   2013264     12.32    109620    985752   4611148     25.01    927344    622196       992
+
+02:49:33  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:49:34  PST     all     15.53      0.00      6.83      0.12      0.00     77.52
+
+02:49:33  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:49:34  PST  14324572  15229068   2014168     12.33    109624    985868   4619372     25.06    927588    622316      1112
+
+02:49:34  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:49:35  PST     all     15.91      0.00      5.89      0.00      0.00     78.20
+
+02:49:34  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:49:35  PST  14323984  15228596   2014756     12.33    109628    985976   4618628     25.05    927664    622424      1216
+
+02:49:35  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:49:36  PST     all     17.57      0.00      6.56      0.12      0.00     75.74
+
+02:49:35  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:49:36  PST  14323352  15228096   2015388     12.34    109628    986112   4618368     25.05    927576    622552       108
+
+02:49:36  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:49:37  PST     all     17.02      0.00      6.38      0.00      0.00     76.60
+
+02:49:36  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:49:37  PST  14323292  15228164   2015448     12.34    109628    986232   4618368     25.05    927568    622676       232
+
+02:49:37  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:49:38  PST     all     15.55      0.00      6.97      0.00      0.00     77.49
+
+02:49:37  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:49:38  PST  14322840  15227820   2015900     12.34    109628    986340   4626604     25.10    927484    622784       340
+
+02:49:38  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:49:39  PST     all     15.91      0.00      6.27      0.00      0.00     77.82
+
+02:49:38  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:49:39  PST  14321860  15226960   2016880     12.34    109632    986460   4601932     24.96    927720    622904       464
+
+02:49:39  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:49:40  PST     all     15.53      0.00      5.43      0.00      0.00     79.04
+
+02:49:39  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:49:40  PST  14321008  15226248   2017732     12.35    109636    986592   4618380     25.05    927640    623036       604
+
+02:49:40  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:49:41  PST     all     15.16      0.00      6.96      0.00      0.00     77.89
+
+02:49:40  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:49:41  PST  14320492  15225852   2018248     12.35    109636    986716   4618380     25.05    927744    623156       728
+
+02:49:41  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:49:42  PST     all     17.15      0.00      6.38      0.00      0.00     76.47
+
+02:49:41  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:49:42  PST  14320472  15225956   2018268     12.35    109636    986836   4610156     25.01    927796    623280       848
+
+02:49:42  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:49:43  PST     all     15.83      0.00      6.53      0.00      0.00     77.64
+
+02:49:42  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:49:43  PST  14320232  15225816   2018508     12.35    109636    986936   4618380     25.05    927868    623380       948
+
+02:49:43  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:49:44  PST     all     17.68      0.00      5.68      0.13      0.00     76.52
+
+02:49:43  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:49:44  PST  14320404  15226120   2018336     12.35    109640    987068   4610156     25.01    927764    623512      1084
+
+02:49:44  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:49:45  PST     all      8.77      0.00      3.38      0.13      0.00     87.72
+
+02:49:44  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:49:45  PST  14319052  15224860   2019688     12.36    109644    987160   4618380     25.05    927728    623596      1172
+
+02:49:45  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:49:46  PST     all      1.00      0.00      0.63      0.00      0.00     98.37
+
+02:49:45  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:49:46  PST  14319052  15224860   2019688     12.36    109644    987168   4618380     25.05    927728    623596      1180
+
+02:49:46  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:49:47  PST     all      1.50      0.00      0.13      0.00      0.00     98.37
+
+02:49:46  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:49:47  PST  14318800  15224612   2019940     12.36    109644    987228   4618380     25.05    927728    623596      1240
+
+02:49:47  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:49:48  PST     all      1.25      0.00      0.50      0.00      0.00     98.25
+
+02:49:47  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:49:48  PST  14318548  15224364   2020192     12.36    109644    987260   4618380     25.05    927728    623596      1272
+
+02:49:48  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:49:49  PST     all      0.50      0.00      0.38      0.00      0.00     99.12
+
+02:49:48  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:49:49  PST  14318296  15224144   2020444     12.37    109644    987288   4618380     25.05    927728    623628      1300
+
+02:49:49  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:49:50  PST     all      1.13      0.00      0.50      0.00      0.00     98.37
+
+02:49:49  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:49:50  PST  14318296  15224156   2020444     12.37    109652    987304   4618380     25.05    927736    623632      1324
+
+02:49:50  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:49:51  PST     all      1.12      0.00      0.75      0.12      0.00     98.00
+
+02:49:50  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:49:51  PST  14318044  15223928   2020696     12.37    109652    987344   4618380     25.05    927764    623652        68
+
+02:49:51  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:49:52  PST     all      0.88      0.00      0.75      0.00      0.00     98.38
+
+02:49:51  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:49:52  PST  14318044  15224056   2020696     12.37    109652    987388   4618380     25.05    927800    623780        52
+
+02:49:52  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:49:53  PST     all      0.63      0.00      0.38      0.00      0.00     98.99
+
+02:49:52  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:49:53  PST  14318044  15224056   2020696     12.37    109652    987420   4618380     25.05    927800    623780        84
+
+02:49:53  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:49:54  PST     all      1.00      0.00      0.38      0.00      0.00     98.62
+
+02:49:53  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:49:54  PST  14318044  15224084   2020696     12.37    109656    987452   4618380     25.05    927832    623808       116
+
+02:49:54  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:49:55  PST     all      1.00      0.00      0.25      0.00      0.00     98.75
+
+02:49:54  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:49:55  PST  14318044  15224084   2020696     12.37    109660    987468   4618380     25.05    927832    623808       148
+
+02:49:55  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:49:56  PST     all      1.13      0.00      0.50      0.00      0.00     98.37
+
+02:49:55  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:49:56  PST  14318044  15224144   2020696     12.37    109660    987524   4618380     25.05    927832    623868       204
+
+02:49:56  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:49:57  PST     all      1.00      0.00      0.25      0.00      0.00     98.75
+
+02:49:56  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:49:57  PST  14317792  15223892   2020948     12.37    109660    987552   4618380     25.05    927832    623868       232
+
+02:49:57  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:49:58  PST     all      1.13      0.00      0.25      0.00      0.00     98.62
+
+02:49:57  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:49:58  PST  14317792  15223892   2020948     12.37    109660    987564   4618380     25.05    927832    623868       244
+
+02:49:58  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:49:59  PST     all      0.88      0.00      0.25      0.00      0.00     98.87
+
+02:49:58  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:49:59  PST  14317792  15223952   2020948     12.37    109664    987616   4618380     25.05    927840    623920       296
+
+02:49:59  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:00  PST     all      0.75      0.00      0.63      0.13      0.00     98.50
+
+02:49:59  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:00  PST  14317792  15223952   2020948     12.37    109668    987656   4618380     25.05    927840    623920       336
+
+02:50:00  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:01  PST     all      1.13      0.00      0.38      0.00      0.00     98.49
+
+02:50:00  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:01  PST  14317792  15223960   2020948     12.37    109668    987664   4618380     25.05    927848    623928       344
+
+02:50:01  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:02  PST     all      0.76      0.00      0.25      0.00      0.00     98.99
+
+02:50:01  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:02  PST  14317540  15223768   2021200     12.37    109668    987716   4618380     25.05    927856    623980       396
+
+02:50:02  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:03  PST     all      0.75      0.00      0.38      0.00      0.00     98.87
+
+02:50:02  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:03  PST  14317540  15223828   2021200     12.37    109668    987740   4618380     25.05    927856    624040       420
+
+02:50:03  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:04  PST     all      0.75      0.00      0.75      0.00      0.00     98.50
+
+02:50:03  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:04  PST  14317540  15223828   2021200     12.37    109668    987768   4618380     25.05    927856    624040       448
+
+02:50:04  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:05  PST     all      1.00      0.00      0.25      0.13      0.00     98.62
+
+02:50:04  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:05  PST  14317792  15224140   2020948     12.37    109676    987816   4618380     25.05    927856    624100       496
+
+02:50:05  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:06  PST     all      1.00      0.00      0.25      0.00      0.00     98.75
+
+02:50:05  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:06  PST  14317540  15223948   2021200     12.37    109676    987844   4618380     25.05    927856    624160         4
+
+02:50:06  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:07  PST     all      0.75      0.00      0.50      0.00      0.00     98.75
+
+02:50:06  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:07  PST  14317792  15224272   2020948     12.37    109676    987872   4618380     25.05    927856    624232        36
+
+02:50:07  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:08  PST     all      0.63      0.00      0.38      0.00      0.00     98.99
+
+02:50:07  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:08  PST  14317792  15224284   2020948     12.37    109676    987916   4618380     25.05    927808    624244        80
+
+02:50:08  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:09  PST     all      0.88      0.00      0.50      0.00      0.00     98.62
+
+02:50:08  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:09  PST  14317792  15224284   2020948     12.37    109676    987924   4618380     25.05    927808    624244        88
+
+02:50:09  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:10  PST     all      0.63      0.00      0.50      0.00      0.00     98.87
+
+02:50:09  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:10  PST  14317792  15224344   2020948     12.37    109684    987984   4618380     25.05    927808    624304       160
+
+02:50:10  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:11  PST     all      1.13      0.00      0.13      0.00      0.00     98.75
+
+02:50:10  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:11  PST  14317792  15224344   2020948     12.37    109684    987992   4618380     25.05    927800    624304       168
+
+02:50:11  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:12  PST     all      1.01      0.00      0.13      0.00      0.00     98.87
+
+02:50:11  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:12  PST  14317540  15224092   2021200     12.37    109684    988052   4618380     25.05    927800    624304       228
+
+02:50:12  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:13  PST     all      0.88      0.00      0.50      0.00      0.00     98.62
+
+02:50:12  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:13  PST  14317540  15224092   2021200     12.37    109684    988056   4618380     25.05    927800    624304       232
+
+02:50:13  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:14  PST     all      1.00      0.00      0.50      0.00      0.00     98.50
+
+02:50:13  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:14  PST  14317540  15224156   2021200     12.37    109684    988108   4618380     25.05    927800    624364       284
+
+02:50:14  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:15  PST     all      0.88      0.00      0.38      0.13      0.00     98.62
+
+02:50:14  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:15  PST  14317540  15224216   2021200     12.37    109692    988136   4618380     25.05    927820    624404       316
+
+02:50:15  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:16  PST     all      0.75      0.00      0.25      0.00      0.00     98.99
+
+02:50:15  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:16  PST  14317540  15224276   2021200     12.37    109692    988160   4618380     25.05    927820    624464       340
+
+02:50:16  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:17  PST     all      0.88      0.00      0.75      0.00      0.00     98.37
+
+02:50:16  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:17  PST  14317540  15224316   2021200     12.37    109696    988200   4618380     25.05    927824    624500        20
+
+02:50:17  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:18  PST     all      1.37      0.00      1.00      0.00      0.00     97.63
+
+02:50:17  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:18  PST  14317540  15224328   2021200     12.37    109696    988236   4618380     25.05    927828    624508        60
+
+02:50:18  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:19  PST     all      1.13      0.00      0.38      0.00      0.00     98.49
+
+02:50:18  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:19  PST  14317540  15224388   2021200     12.37    109696    988260   4618380     25.05    927828    624568        84
+
+02:50:19  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:20  PST     all      1.49      0.00      0.62      0.12      0.00     97.76
+
+02:50:19  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:20  PST  14317792  15224640   2020948     12.37    109704    988304   4618380     25.05    927828    624568       152
+
+02:50:20  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:21  PST     all      0.88      0.00      0.25      0.00      0.00     98.87
+
+02:50:20  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:21  PST  14317792  15224772   2020948     12.37    109704    988344   4618380     25.05    927832    624700       192
+
+02:50:21  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:22  PST     all      1.13      0.00      0.38      0.00      0.00     98.50
+
+02:50:21  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:22  PST  14317760  15224764   2020980     12.37    109704    988380   4618380     25.05    927872    624720       228
+
+02:50:22  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:23  PST     all      1.00      0.00      0.50      0.00      0.00     98.50
+
+02:50:22  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:23  PST  14317792  15224796   2020948     12.37    109704    988392   4618380     25.05    927872    624720       240
+
+02:50:23  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:24  PST     all      1.12      0.00      0.75      0.00      0.00     98.13
+
+02:50:23  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:24  PST  14317740  15224804   2021000     12.37    109704    988444   4618380     25.05    927880    624772       292
+
+02:50:24  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:25  PST     all      1.13      0.00      0.38      0.00      0.00     98.49
+
+02:50:24  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:25  PST  14317748  15224812   2020992     12.37    109712    988464   4618380     25.05    927880    624772       312
+
+02:50:25  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:26  PST     all      1.12      0.00      0.38      0.00      0.00     98.50
+
+02:50:25  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:26  PST  14317748  15224828   2020992     12.37    109712    988492   4618380     25.05    927928    624784       340
+
+02:50:26  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:27  PST     all      0.63      0.00      0.63      0.00      0.00     98.74
+
+02:50:26  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:27  PST  14317988  15225068   2020752     12.37    109712    988524   4618380     25.05    927928    624784       372
+
+02:50:27  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:28  PST     all      1.00      0.00      0.25      0.00      0.00     98.75
+
+02:50:27  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:28  PST  14317988  15225164   2020752     12.37    109712    988576   4618380     25.05    927952    624880       424
+
+02:50:28  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:29  PST     all      0.75      0.00      0.50      0.00      0.00     98.75
+
+02:50:28  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:29  PST  14317988  15225164   2020752     12.37    109712    988600   4618380     25.05    927952    624880       448
+
+02:50:29  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:30  PST     all      1.13      0.00      0.38      0.13      0.00     98.37
+
+02:50:29  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:30  PST  14318236  15225472   2020504     12.37    109720    988628   4618380     25.05    927952    624940       476
+
+02:50:30  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:31  PST     all      1.25      0.00      0.50      0.00      0.00     98.25
+
+02:50:30  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:31  PST  14318244  15225540   2020496     12.37    109720    988664   4618380     25.05    927956    624996       512
+
+02:50:31  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:32  PST     all      0.75      0.00      0.25      0.00      0.00     98.99
+
+02:50:31  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:32  PST  14318244  15225540   2020496     12.37    109720    988700   4618380     25.05    927956    624996        32
+
+02:50:32  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:33  PST     all      1.01      0.00      0.25      0.00      0.00     98.74
+
+02:50:32  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:33  PST  14318484  15225824   2020256     12.36    109720    988720   4618380     25.05    927956    625040        40
+
+02:50:33  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:34  PST     all      0.88      0.00      0.25      0.00      0.00     98.87
+
+02:50:33  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:34  PST  14318484  15225824   2020256     12.36    109720    988752   4618380     25.05    927956    625040        72
+
+02:50:34  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:35  PST     all      0.88      0.00      0.50      0.00      0.00     98.62
+
+02:50:34  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:35  PST  14318492  15225944   2020248     12.36    109728    988804   4618380     25.05    927972    625144       144
+
+02:50:35  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:36  PST     all      0.75      0.00      0.50      0.00      0.00     98.75
+
+02:50:35  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:36  PST  14318492  15225944   2020248     12.36    109728    988824   4618380     25.05    927972    625144       164
+
+02:50:36  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:37  PST     all      0.75      0.00      0.38      0.00      0.00     98.87
+
+02:50:36  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:37  PST  14318732  15226184   2020008     12.36    109728    988860   4618380     25.05    927972    625144       200
+
+02:50:37  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:38  PST     all      1.00      0.00      0.63      0.00      0.00     98.37
+
+02:50:37  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:38  PST  14318732  15226244   2020008     12.36    109728    988888   4618380     25.05    927972    625204       228
+
+02:50:38  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:39  PST     all      1.25      0.00      0.25      0.00      0.00     98.50
+
+02:50:38  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:39  PST  14318708  15226220   2020032     12.36    109728    988940   4618380     25.05    927972    625204       280
+
+02:50:39  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:40  PST     all      0.75      0.00      0.25      0.13      0.00     98.87
+
+02:50:39  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:40  PST  14318740  15226312   2020000     12.36    109736    988956   4618380     25.05    927972    625264       296
+
+02:50:40  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:41  PST     all      0.88      0.00      0.25      0.00      0.00     98.87
+
+02:50:40  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:41  PST  14318980  15226616   2019760     12.36    109736    988992   4618380     25.05    927972    625324       332
+
+02:50:41  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:42  PST     all      0.88      0.00      0.63      0.00      0.00     98.50
+
+02:50:41  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:42  PST  14318980  15226676   2019760     12.36    109736    989028   4618380     25.05    927972    625384       368
+
+02:50:42  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:43  PST     all      0.75      0.00      0.13      0.00      0.00     99.12
+
+02:50:42  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:43  PST  14318988  15226684   2019752     12.36    109736    989032   4618380     25.05    927972    625384       372
+
+02:50:43  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:44  PST     all      0.63      0.00      0.63      0.00      0.00     98.75
+
+02:50:43  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:44  PST  14318988  15226684   2019752     12.36    109740    989072   4618380     25.05    927972    625384       416
+
+02:50:44  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:45  PST     all      0.75      0.00      0.50      0.13      0.00     98.62
+
+02:50:44  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:45  PST  14318988  15226744   2019752     12.36    109744    989132   4618380     25.05    927972    625444       472
+
+02:50:45  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:46  PST     all      0.75      0.00      0.38      0.00      0.00     98.87
+
+02:50:45  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:46  PST  14319236  15226992   2019504     12.36    109744    989140   4618380     25.05    927972    625444       480
+
+02:50:46  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:47  PST     all      1.13      0.00      0.38      0.00      0.00     98.50
+
+02:50:46  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:47  PST  14319236  15227112   2019504     12.36    109744    989200   4618380     25.05    927992    625544       540
+
+02:50:47  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:48  PST     all      0.75      0.00      0.75      0.00      0.00     98.50
+
+02:50:47  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:48  PST  14318984  15226860   2019756     12.36    109744    989220   4618380     25.05    927992    625544       560
+
+02:50:48  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:49  PST     all      0.75      0.00      0.25      0.00      0.00     99.00
+
+02:50:48  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:49  PST  14318984  15226860   2019756     12.36    109744    989260   4618380     25.05    927992    625544       600
+
+02:50:49  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:50  PST     all      0.88      0.00      0.25      0.00      0.00     98.87
+
+02:50:49  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:50  PST  14318480  15226420   2020260     12.36    109752    989300   4618380     25.05    927992    625604       640
+
+02:50:50  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:51  PST     all      0.88      0.00      0.25      0.00      0.00     98.87
+
+02:50:50  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:51  PST  14318480  15226472   2020260     12.36    109752    989316   4618380     25.05    928004    625644       656
+
+02:50:51  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:52  PST     all      0.63      0.00      0.25      0.00      0.00     99.12
+
+02:50:51  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:52  PST  14318480  15226632   2020260     12.36    109752    989364   4618380     25.05    928000    625804       704
+
+02:50:52  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:53  PST     all      0.75      0.00      0.50      0.00      0.00     98.75
+
+02:50:52  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:53  PST  14318228  15226380   2020512     12.37    109752    989384   4618380     25.05    928000    625804       724
+
+02:50:53  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:54  PST     all      0.88      0.00      0.25      0.00      0.00     98.87
+
+02:50:53  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:54  PST  14318228  15226380   2020512     12.37    109752    989416   4628628     25.11    928000    625804       756
+
+02:50:54  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:55  PST     all      1.00      0.00      0.38      0.13      0.00     98.50
+
+02:50:54  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:55  PST  14318228  15226432   2020512     12.37    109760    989452   4628628     25.11    928076    625856       792
+
+02:50:55  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:56  PST     all      0.88      0.00      0.25      0.00      0.00     98.87
+
+02:50:55  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:56  PST  14318228  15226432   2020512     12.37    109760    989488   4628628     25.11    928076    625856       828
+
+02:50:56  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:57  PST     all      0.88      0.00      0.25      0.00      0.00     98.87
+
+02:50:56  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:57  PST  14318228  15226432   2020512     12.37    109760    989512   4628628     25.11    928076    625856       852
+
+02:50:57  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:58  PST     all      0.88      0.00      0.38      0.00      0.00     98.74
+
+02:50:57  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:58  PST  14317976  15226180   2020764     12.37    109760    989540   4628628     25.11    928076    625856       880
+
+02:50:58  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:50:59  PST     all      0.88      0.00      0.88      0.00      0.00     98.25
+
+02:50:58  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:50:59  PST  14317724  15225952   2021016     12.37    109760    989580   4628628     25.11    928116    625880       920
+
+02:50:59  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:00  PST     all      1.13      0.00      0.38      0.00      0.00     98.50
+
+02:50:59  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:00  PST  14317724  15226052   2021016     12.37    109768    989628   4628628     25.11    928136    625964       968
+
+02:51:00  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:01  PST     all      0.63      0.00      0.38      0.00      0.00     98.99
+
+02:51:00  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:01  PST  14317724  15226156   2021016     12.37    109768    989652   4628628     25.11    928156    626064       992
+
+02:51:01  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:02  PST     all      0.88      0.00      0.50      0.00      0.00     98.62
+
+02:51:01  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:02  PST  14317724  15226156   2021016     12.37    109768    989664   4628628     25.11    928156    626064      1004
+
+02:51:02  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:03  PST     all      0.88      0.00      0.25      0.13      0.00     98.74
+
+02:51:02  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:03  PST  14317724  15226172   2021016     12.37    109768    989716   4628628     25.11    928164    626080        40
+
+02:51:03  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:04  PST     all      0.88      0.00      0.63      0.00      0.00     98.50
+
+02:51:03  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:04  PST  14317724  15226192   2021016     12.37    109768    989760   4628628     25.11    928164    626100        88
+
+02:51:04  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:05  PST     all      0.88      0.00      0.13      0.00      0.00     98.99
+
+02:51:04  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:05  PST  14317724  15226192   2021016     12.37    109776    989784   4628628     25.11    928164    626100       120
+
+02:51:05  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:06  PST     all      0.88      0.00      0.38      0.00      0.00     98.75
+
+02:51:05  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:06  PST  14317724  15226192   2021016     12.37    109776    989804   4628628     25.11    928164    626100       140
+
+02:51:06  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:07  PST     all      1.13      0.00      0.13      0.00      0.00     98.74
+
+02:51:06  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:07  PST  14317472  15226004   2021268     12.37    109776    989848   4628628     25.11    928164    626160       184
+
+02:51:07  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:08  PST     all      1.00      0.00      0.38      0.00      0.00     98.62
+
+02:51:07  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:08  PST  14317472  15226004   2021268     12.37    109776    989864   4628628     25.11    928164    626160       200
+
+02:51:08  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:09  PST     all      1.00      0.00      0.25      0.00      0.00     98.75
+
+02:51:08  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:09  PST  14317472  15226040   2021268     12.37    109776    989908   4628628     25.11    928164    626196       216
+
+02:51:09  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:10  PST     all      1.12      0.00      0.50      0.12      0.00     98.25
+
+02:51:09  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:10  PST  14317440  15226128   2021300     12.37    109784    989952   4628628     25.11    928164    626316       260
+
+02:51:10  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:11  PST     all      1.13      0.00      0.50      0.00      0.00     98.37
+
+02:51:10  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:11  PST  14317472  15226216   2021268     12.37    109784    989988   4628628     25.11    928172    626356       296
+
+02:51:11  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:12  PST     all      1.01      0.00      0.25      0.00      0.00     98.74
+
+02:51:11  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:12  PST  14317472  15226216   2021268     12.37    109784    990012   4628628     25.11    928172    626356       320
+
+02:51:12  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:13  PST     all      0.88      0.00      0.25      0.00      0.00     98.87
+
+02:51:12  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:13  PST  14317360  15226168   2021380     12.37    109784    990044   4628628     25.11    928172    626416       352
+
+02:51:13  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:14  PST     all      1.00      0.00      0.50      0.00      0.00     98.50
+
+02:51:13  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:14  PST  14317612  15226420   2021128     12.37    109784    990088   4628628     25.11    928172    626416       520
+
+02:51:14  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:15  PST     all      0.75      0.00      0.63      0.13      0.00     98.50
+
+02:51:14  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:15  PST  14317612  15226480   2021128     12.37    109792    990104   4628628     25.11    928172    626476       552
+
+02:51:15  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:16  PST     all      0.88      0.00      0.25      0.00      0.00     98.87
+
+02:51:15  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:16  PST  14317612  15226480   2021128     12.37    109792    990152   4628628     25.11    928172    626476       600
+
+02:51:16  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:17  PST     all      1.13      0.00      0.38      0.00      0.00     98.49
+
+02:51:16  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:17  PST  14317612  15226480   2021128     12.37    109792    990160   4628628     25.11    928172    626476       608
+
+02:51:17  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:18  PST     all      1.13      0.00      0.38      0.00      0.00     98.50
+
+02:51:17  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:18  PST  14317360  15226312   2021380     12.37    109792    990220   4628628     25.11    928184    626552       668
+
+02:51:18  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:19  PST     all      1.00      0.00      0.63      0.00      0.00     98.37
+
+02:51:18  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:19  PST  14317360  15226372   2021380     12.37    109792    990244   4628628     25.11    928184    626612       692
+
+02:51:19  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:20  PST     all      0.50      0.00      0.63      0.00      0.00     98.87
+
+02:51:19  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:20  PST  14317360  15226372   2021380     12.37    109800    990252   4628628     25.11    928184    626612       708
+
+02:51:20  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:21  PST     all      0.88      0.00      0.75      0.00      0.00     98.38
+
+02:51:20  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:21  PST  14317360  15226432   2021380     12.37    109800    990304   4628628     25.11    928184    626672       752
+
+02:51:21  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:22  PST     all      1.13      0.00      0.25      0.00      0.00     98.62
+
+02:51:21  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:22  PST  14317384  15226456   2021356     12.37    109800    990340   4628628     25.11    928184    626672       788
+
+02:51:22  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:23  PST     all      1.00      0.00      0.75      0.00      0.00     98.25
+
+02:51:22  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:23  PST  14317384  15226456   2021356     12.37    109800    990368   4628628     25.11    928184    626672       816
+
+02:51:23  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:24  PST     all      0.88      0.00      0.25      0.00      0.00     98.87
+
+02:51:23  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:24  PST  14317132  15226228   2021608     12.37    109800    990404   4628628     25.11    928184    626696       852
+
+02:51:24  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:25  PST     all      0.63      0.00      0.50      0.13      0.00     98.74
+
+02:51:24  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:25  PST  14317132  15226288   2021608     12.37    109808    990428   4628628     25.11    928184    626756       876
+
+02:51:25  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:26  PST     all      0.88      0.00      0.13      0.00      0.00     99.00
+
+02:51:25  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:26  PST  14316880  15226096   2021860     12.37    109808    990480   4628628     25.11    928184    626816       928
+
+02:51:26  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:27  PST     all      0.88      0.00      0.50      0.00      0.00     98.62
+
+02:51:26  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:27  PST  14316880  15226156   2021860     12.37    109808    990504   4628628     25.11    928200    626860       952
+
+02:51:27  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:28  PST     all      0.75      0.00      0.63      0.00      0.00     98.62
+
+02:51:27  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:28  PST  14316912  15226248   2021828     12.37    109808    990536   4628628     25.11    928200    626920       984
+
+02:51:28  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:29  PST     all      0.88      0.00      0.50      0.00      0.00     98.62
+
+02:51:28  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:29  PST  14316880  15226240   2021860     12.37    109808    990580   4628628     25.11    928200    626944      1028
+
+02:51:29  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:30  PST     all      1.13      0.00      0.25      0.00      0.00     98.62
+
+02:51:29  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:30  PST  14316880  15226240   2021860     12.37    109816    990604   4628628     25.11    928200    626944      1052
+
+02:51:30  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:31  PST     all      1.00      0.00      0.38      0.00      0.00     98.62
+
+02:51:30  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:31  PST  14316880  15226304   2021860     12.37    109816    990644   4628628     25.11    928200    627004      1092
+
+02:51:31  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:32  PST     all      0.75      0.00      0.50      0.00      0.00     98.75
+
+02:51:31  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:32  PST  14316880  15226304   2021860     12.37    109816    990664   4628628     25.11    928200    627004      1112
+
+02:51:32  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:33  PST     all      0.75      0.00      0.50      0.13      0.00     98.62
+
+02:51:32  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:33  PST  14316880  15226340   2021860     12.37    109816    990700   4628628     25.11    928200    627040       152
+
+02:51:33  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:34  PST     all      0.75      0.00      0.38      0.00      0.00     98.87
+
+02:51:33  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:34  PST  14316880  15226400   2021860     12.37    109816    990728   4628628     25.11    928208    627092       180
+
+02:51:34  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:35  PST     all      1.13      0.00      0.50      0.00      0.00     98.37
+
+02:51:34  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:35  PST  14316888  15226408   2021852     12.37    109824    990768   4628628     25.11    928208    627092       232
+
+02:51:35  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:36  PST     all      0.88      0.00      0.38      0.00      0.00     98.74
+
+02:51:35  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:36  PST  14317232  15226756   2021508     12.37    109824    990800   4628628     25.11    928208    627092       272
+
+02:51:36  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:37  PST     all      0.75      0.00      0.50      0.00      0.00     98.74
+
+02:51:36  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:37  PST  14317700  15227284   2021040     12.37    109824    990804   4628628     25.11    928208    627152       276
+
+02:51:37  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:38  PST     all      0.88      0.00      0.38      0.00      0.00     98.74
+
+02:51:37  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:38  PST  14319456  15229064   2019284     12.36    109824    990852   4628628     25.11    928208    627176       308
+
+02:51:38  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:39  PST     all      1.25      0.00      0.38      0.00      0.00     98.37
+
+02:51:38  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:39  PST  14320516  15230184   2018224     12.35    109824    990900   4628628     25.11    928208    627236       360
+
+02:51:39  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:40  PST     all      0.75      0.00      0.50      0.00      0.00     98.74
+
+02:51:39  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:40  PST  14320860  15230648   2017880     12.35    109832    990920   4628628     25.11    928216    627348       388
+
+02:51:40  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:41  PST     all      0.50      0.00      0.63      0.00      0.00     98.87
+
+02:51:40  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:41  PST  14322160  15231948   2016580     12.34    109832    990972   4628628     25.11    928216    627348       440
+
+02:51:41  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:42  PST     all      1.01      0.00      0.25      0.00      0.00     98.74
+
+02:51:41  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:42  PST  14322596  15232384   2016144     12.34    109832    991008   4628628     25.11    928216    627348       476
+
+02:51:42  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:43  PST     all      0.88      0.00      0.38      0.00      0.00     98.74
+
+02:51:42  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:43  PST  14323748  15233536   2014992     12.33    109832    991016   4628628     25.11    928216    627348       484
+
+02:51:43  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:44  PST     all      1.25      0.00      0.50      0.13      0.00     98.12
+
+02:51:43  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:44  PST  14324276  15234124   2014464     12.33    109836    991072   4628628     25.11    928216    627408       540
+
+02:51:44  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:45  PST     all      0.88      0.00      0.63      0.00      0.00     98.49
+
+02:51:44  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:45  PST  14324408  15234256   2014332     12.33    109840    991092   4628628     25.11    928216    627408       560
+
+02:51:45  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:46  PST     all      0.88      0.00      0.50      0.00      0.00     98.62
+
+02:51:45  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:46  PST  14324844  15234692   2013896     12.33    109840    991132   4628628     25.11    928216    627408       600
+
+02:51:46  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:47  PST     all      0.63      0.00      0.38      0.00      0.00     98.99
+
+02:51:46  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:47  PST  14324844  15234752   2013896     12.33    109840    991168   4628628     25.11    928216    627468       636
+
+02:51:47  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:48  PST     all      1.13      0.00      0.38      0.00      0.00     98.49
+
+02:51:47  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:48  PST  14324844  15234812   2013896     12.33    109840    991188   4628628     25.11    928216    627528       656
+
+02:51:48  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:49  PST     all      0.75      0.00      0.25      0.13      0.00     98.87
+
+02:51:48  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:49  PST  14324844  15234892   2013896     12.33    109848    991240   4628628     25.11    928216    627604       540
+
+02:51:49  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:50  PST     all      0.75      0.00      0.38      0.00      0.00     98.87
+
+02:51:49  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:50  PST  14324844  15234892   2013896     12.33    109848    991248   4628628     25.11    928216    627604       552
+
+02:51:50  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:51  PST     all      1.13      0.00      0.50      0.00      0.00     98.37
+
+02:51:50  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:51  PST  14324844  15234892   2013896     12.33    109848    991284   4628628     25.11    928216    627604       588
+
+02:51:51  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:52  PST     all      0.63      0.00      0.13      0.00      0.00     99.24
+
+02:51:51  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:52  PST  14324592  15234648   2014148     12.33    109848    991336   4628628     25.11    928216    627612       640
+
+02:51:52  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:53  PST     all      0.88      0.00      0.50      0.00      0.00     98.62
+
+02:51:52  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:53  PST  14324592  15234708   2014148     12.33    109848    991360   4628628     25.11    928236    627652       664
+
+02:51:53  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:54  PST     all      1.00      0.00      0.25      0.00      0.00     98.75
+
+02:51:53  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:54  PST  14324592  15234768   2014148     12.33    109852    991400   4628628     25.11    928236    627712       708
+
+02:51:54  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:55  PST     all      0.88      0.00      0.50      0.13      0.00     98.50
+
+02:51:54  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:55  PST  14324592  15234828   2014148     12.33    109856    991428   4628628     25.11    928236    627772       740
+
+02:51:55  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:56  PST     all      1.63      0.00      0.75      0.00      0.00     97.62
+
+02:51:55  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:56  PST  14321216  15231468   2017524     12.35    109864    991436   4648876     25.22    929988    627776      1268
+
+02:51:56  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:57  PST     all      0.63      0.00      0.50      0.00      0.00     98.87
+
+02:51:56  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:57  PST  14321804  15232292   2016936     12.34    109864    991504   4648876     25.22    929304    627952      1472
+
+02:51:57  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:58  PST     all      0.88      0.00      0.38      0.00      0.00     98.74
+
+02:51:57  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:58  PST  14321804  15232292   2016936     12.34    109864    991528   4648876     25.22    929304    627952      1496
+
+02:51:58  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:51:59  PST     all      0.63      0.00      0.25      0.00      0.00     99.12
+
+02:51:58  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:51:59  PST  14321804  15232292   2016936     12.34    109864    991576   4648876     25.22    929304    627952      1544
+
+02:51:59  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:52:00  PST     all      1.25      0.00      0.50      0.00      0.00     98.25
+
+02:51:59  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:52:00  PST  14321804  15232352   2016936     12.34    109864    991600   4648876     25.22    929312    628012      1568
+
+02:52:00  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:52:01  PST     all      1.00      0.00      0.75      0.12      0.00     98.13
+
+02:52:00  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:52:01  PST  14321804  15232356   2016936     12.34    109872    991632   4648876     25.22    929312    628016      1608
+
+02:52:01  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:52:02  PST     all      1.00      0.00      0.50      0.00      0.00     98.50
+
+02:52:01  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:52:02  PST  14321804  15232360   2016936     12.34    109872    991664   4648876     25.22    929312    628016      1636
+
+02:52:02  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:52:03  PST     all      1.01      0.00      0.25      0.00      0.00     98.74
+
+02:52:02  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:52:03  PST  14321804  15232360   2016936     12.34    109872    991692   4648876     25.22    929312    628016      1664
+
+02:52:03  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:52:04  PST     all      0.63      0.00      0.50      0.00      0.00     98.87
+
+02:52:03  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:52:04  PST  14321804  15232376   2016936     12.34    109872    991720   4648876     25.22    929312    628032       688
+
+02:52:04  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:52:05  PST     all      0.88      0.00      0.25      0.00      0.00     98.87
+
+02:52:04  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:52:05  PST  14321804  15232428   2016936     12.34    109872    991764   4648876     25.22    929312    628084       736
+
+02:52:05  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:52:06  PST     all      1.25      0.00      0.13      0.13      0.00     98.49
+
+02:52:05  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:52:06  PST  14321804  15232488   2016936     12.34    109880    991784   4648876     25.22    929312    628144       764
+
+02:52:06  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:52:07  PST     all      1.01      0.00      0.63      0.00      0.00     98.37
+
+02:52:06  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:52:07  PST  14322360  15233144   2016380     12.34    109880    991820   4639692     25.17    929196    628256       804
+
+02:52:07  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:52:08  PST     all      1.00      0.00      0.50      0.00      0.00     98.49
+
+02:52:07  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:52:08  PST  14322488  15233308   2016252     12.34    109880    991856   4639692     25.17    928292    628288       844
+
+02:52:08  PST     CPU     %user     %nice   %system   %iowait    %steal     %idle
+02:52:09  PST     all      0.88      0.00      0.50      0.00      0.00     98.62
+
+02:52:08  PST kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+02:52:09  PST  14322488  15233308   2016252     12.34    109880    991892   4639692     25.17    928292    628288       880
+
+Average:        CPU     %user     %nice   %system   %iowait    %steal     %idle
+Average:        all      3.18      0.00      1.28      0.02      0.00     95.52
+
+Average:    kbmemfree   kbavail kbmemused  %memused kbbuffers  kbcached  kbcommit   %commit  kbactive   kbinact   kbdirty
+Average:     14321196  15228529   2017544     12.35    109731    988665   4623494     25.08    927857    625020       530
