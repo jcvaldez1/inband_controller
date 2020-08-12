@@ -69,7 +69,7 @@ def myNetwork(containers, host_count, split):
 
             # spin up the IoT device scripts
             if x % 2 == 0:
-                cmdstring = "python3 actuator.py "+str(request_num)+" 0.5 "+ str(x%max_id)+ " 52.74.73."+str((container_counter*2)+2) + " "+ str(current_request)
+                cmdstring = "python3 actuator.py "+str(request_num)+" 0.1 "+ str(x%max_id)+ " 52.74.73."+str((container_counter*2)+2) + " "+ str(current_request)
                 current_request = current_request + request_num + 1
             else:
                 cmdstring = "python receiver.py "+str((x%max_id))+ " 13.55.147."+str((container_counter*2)+1)
