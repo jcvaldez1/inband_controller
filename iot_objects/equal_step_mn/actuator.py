@@ -4,6 +4,7 @@ import json
 import datetime
 import sys
 import makedir
+import threading
 
 if len(sys.argv) < 5:
     print("Usage: python3 actuator.py <iterations> <sleep_interval> <host_number> <actuator_cloud_ip>")
@@ -15,6 +16,13 @@ host_name      = sys.argv[3]
 samsung_ip     = sys.argv[4]
 starting_num   = sys.argv[5]
 
+import threading
+
+# Function for sending HTTP post request
+def post_sender(state, data):
+    res = requests.post(url = 'http://'+samsung_ip+'/report', json = data, timeout = 60)
+    print(state + str(res))
+    return
 
 """
     logs time to file
@@ -29,7 +37,7 @@ def log_result(filename, state, curr_seq):
         time_log.close()
 
 if __name__ == "__main__":
-
+    threads = []
     for i in range(int(starting_num), int(starting_num)+int(num_iterations)):
         try:
             state = "ON" if (i % 2 == 0) else "OFF"
@@ -38,9 +46,10 @@ if __name__ == "__main__":
                      'sequence_num': i,
                      'group': '1'  }
             log_result("./results/actuator/"+str(samsung_ip)+"/"+str(host_name)+ "_actuator.log", state, i)
-            res = requests.post(url = 'http://'+samsung_ip+'/report', json = data, timeout = 5)
-            print(state + str(res))
+            # apply thread
+            t = threading.Thread(target=post_sender(state, data))
+            threads.append(t)
+            t.start()
         except Exception as e:
             print(e)
-            pass
         sleep(float(sleep_interval))
