@@ -5,6 +5,7 @@ import datetime
 import sys
 import makedir
 import threading
+import subprocess
 
 if len(sys.argv) < 5:
     print("Usage: python3 actuator.py <iterations> <sleep_interval> <host_number> <actuator_cloud_ip>")
@@ -45,11 +46,14 @@ if __name__ == "__main__":
                      'signal':state,
                      'sequence_num': i,
                      'group': '1'  }
+            #log_result("./temp_act/actuator/"+str(samsung_ip)+"/"+str(host_name)+ "_actuator.log", state, i)
             log_result("./results/actuator/"+str(samsung_ip)+"/"+str(host_name)+ "_actuator.log", state, i)
-            # apply thread
-            t = threading.Thread(target=post_sender(state, data))
-            threads.append(t)
-            t.start()
+            #subprocess.Popen(["python3" ,"post_sender.py" ,samsung_ip ,json.dumps(data)])
+            ip_use = 'http://' + samsung_ip +'/report'
+            subprocess.Popen(["curl" ,"-X" ,"POST" 
+                                     ,"-H" ,"Content-Type: application/json" 
+                                     ,"-d" ,json.dumps(data) ,ip_use])
+            #log_result("./temp_act/actuator/"+str(samsung_ip)+"/"+str(host_name)+ "_actuator.log", "THREAD DONE", i)
         except Exception as e:
             print(e)
         sleep(float(sleep_interval))

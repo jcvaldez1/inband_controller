@@ -54,6 +54,11 @@ def myNetwork(containers, host_count, split):
     request_num = int(raw_input("numbers of request? "))
     max_count = int(raw_input("perform on how many container pairs? "))
     host_num = int(raw_input("Use how many hosts? "))
+    request_freq = 0.5
+    try:
+       request_freq = float(raw_input("request_freq? "))
+    except:
+       pass
     max_id = host_num/max_count
     current_request = 0
     while confirm != "n":
@@ -69,7 +74,7 @@ def myNetwork(containers, host_count, split):
 
             # spin up the IoT device scripts
             if x % 2 == 0:
-                cmdstring = "python3 actuator.py "+str(request_num)+" 0.1 "+ str(x%max_id)+ " 52.74.73."+str((container_counter*2)+2) + " "+ str(current_request)
+                cmdstring = "python3 actuator.py "+str(request_num)+" "+str(request_freq)+" "+ str(x%max_id)+ " 52.74.73."+str((container_counter*2)+2) + " "+ str(current_request)
                 current_request = current_request + request_num + 1
             else:
                 cmdstring = "python receiver.py "+str((x%max_id))+ " 13.55.147."+str((container_counter*2)+1)
