@@ -12,12 +12,12 @@ DEFAULT_PORT_COUNTER=10000
 
 # DOCKER HOST
 HUB_ETH="28:6d:97:77:ee:b8"
-#DOCKER_HOST_ETH="1c:69:7a:03:0f:25" # weak nuc
+DOCKER_HOST_ETH="1c:69:7a:03:0f:25" # weak nuc
 #DOCKER_HOST_ETH="54:b2:03:18:ae:49" # strong nuc
-DOCKER_HOST_ETH="54:b2:03:18:ae:4a" # strong nuc eth2
-#DOCKER_HOST_IPV4="192.168.85.198"  # weak nuc
+#DOCKER_HOST_ETH="54:b2:03:18:ae:4a" # strong nuc eth2
+DOCKER_HOST_IPV4="192.168.85.198"  # weak nuc
 #DOCKER_HOST_IPV4="192.168.85.250" # strong nuc 
-DOCKER_HOST_IPV4="192.168.85.200" # strong nuc 2
+#DOCKER_HOST_IPV4="192.168.85.200" # strong nuc eth 2
 DOCKER_DAEMON_URL="tcp://"+DOCKER_HOST_IPV4+":2376"
 
 #GATEWAY
