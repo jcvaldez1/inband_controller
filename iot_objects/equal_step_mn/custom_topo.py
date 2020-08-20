@@ -100,6 +100,11 @@ def myNetwork(containers, host_count, split):
               host_num = int(raw_input("Use how many hosts? "))
               max_id = host_num/max_count
               request_num = int(raw_input("numbers of request? "))
+              try:
+                 request_freq = float(raw_input("request_freq? "))
+              except:
+                 pass
+              print(str(request_num))
               raw_input("configs done ? ")
 
     CLI(net)

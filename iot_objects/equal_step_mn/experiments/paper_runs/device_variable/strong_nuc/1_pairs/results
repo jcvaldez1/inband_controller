@@ -1,13 +1,13 @@
 0,1 pair : 200
-ave delay : 0:00:00.050608
-delay stdev : 0.014677594222514087
+ave delay : 0:00:00.050932
+delay stdev : 0.016527127567902675
 
 
 
 mean losses : 0.0
 median losses : 0.0
 mode losses : 0.0
-min delay : 0:00:00.022843
-max delay : 0:00:00.083340
-ave delay : 0:00:00.050608
-delay stdev : 0.014677594222514087
+min delay : 0:00:00.022986
+max delay : 0:00:00.090567
+ave delay : 0:00:00.050932
+delay stdev : 0.016527127567902675
