@@ -59,8 +59,11 @@ def parse_results(host_count=0, filename="", container_count=0):
     x_axis = [ x for x in range(0,200)]
     included_groups = [1] + [ y for y in range(10,101,10) ]
     included_groups = [1,2,5,10,20,25,50,100]
+    included_groups = input("enter pair numbers in ascending order separated by comma (e.g. 1,5,15,30,...) : ").split(",")
+    included_groups = [int(x) for x in included_groups]
     fname_mode = "device"
     fname_mode = "container"
+    fname_mode = input("Read data files from device or container mode subdirectory? : ")
     submode = ["weak_nuc","strong_nuc"]
     cpu_data = init_list_dict(included_groups)
     mem_data = init_list_dict(included_groups)

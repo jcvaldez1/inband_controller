@@ -62,6 +62,9 @@ def parse_results(host_count=0, filename="", container_count=0):
     #fname_mode = "container"
     subs = ["strong_nuc"]
     subs = ["weak_nuc"]
+    included_groups = input("enter pair numbers in ascending order separated by comma (e.g. 1,5,15,30,...) : ").split(",")
+    fname_mode = input("Read data files from device or container mode subdirectory? : ")
+    subs = [input("Read data for strong or weak ? 'script can only process one at a time : ")+"_nuc"]
     cpu_data = init_list_dict(included_groups)
     mem_data = init_list_dict(included_groups)
     for submode in subs:
@@ -99,11 +102,14 @@ def parse_results(host_count=0, filename="", container_count=0):
                  x_axis = [ h for h in range(0,len(cpu_data[fname])) ]
                  y_axis = mem_data[fname]
                  y_axis = cpu_data[fname]
+                 print("for "+str(fname)+" pairs : "+str(y_axis))
+                 print("NOTE THAT READINGS ARE ORDERD 1 SECOND APART")
                  plt.plot(x_axis, y_axis, label = str(fname)+"_pairs") 
 
            except:
                  traceback.print_exc()
         # naming the x axis 
+       print()
        plt.xlabel('Seconds') 
        # naming the y axis 
        plt.ylabel('cpu usage %') 
