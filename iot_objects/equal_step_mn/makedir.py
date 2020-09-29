@@ -15,6 +15,3 @@ def safe_open_w(path):
     '''
     mkdir_p(os.path.dirname(path))
     return open(path, 'a+')
-
-#with safe_open_w('/Users/bill/output/output-text.txt') as f:
-#    f.write(...)

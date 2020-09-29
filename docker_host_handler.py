@@ -24,7 +24,6 @@ class Docker_Handler(main_controller.SDN_Rerouter):
     def __init__(self, *args, **kwargs):
         super(Docker_Handler, self).__init__(*args, **kwargs)
         self.dockd = docker.DockerClient(base_url=DOCKER_DAEMON_URL)
-        #print(self.dockd.images.list())
         # cloud_ip : container_id
         self.container_list = [] 
         self.cloud_ip_list  = []
@@ -133,7 +132,3 @@ class Docker_Handler(main_controller.SDN_Rerouter):
         return container_obj
         # return the ran container object
     
-
-
-#dhh = Docker_Handler()
-#print(dhh.update_from_deviceID('52.74.73.81','RPI'))

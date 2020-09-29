@@ -4,7 +4,7 @@ import json
 import datetime
 
 curr_seq_num = 0
-num_iterations = 20
+num_iterations = 1000
 sleep_interval = 0.1
 
 for i in range(0, num_iterations):
